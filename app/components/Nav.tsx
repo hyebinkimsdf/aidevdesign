@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 
 const links = [
   { label: "About", href: "#about" },
+  { label: "Impact", href: "#impact" },
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Contact", href: "#contact" },
+ 
 ];
 
 export default function Nav() {

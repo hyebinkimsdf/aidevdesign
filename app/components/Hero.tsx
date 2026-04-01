@@ -1,3 +1,5 @@
+const orbitText = " CREATIVE FRONTEND AI EXPERIENCE ";
+
 export default function Hero() {
   return (
     <section
@@ -16,6 +18,29 @@ export default function Hero() {
         }}
       />
 
+      {/* Decorative orbiting text (non-essential visual only) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-6 top-1/2 hidden -translate-y-1/2 lg:block"
+      >
+        <div className="orbit-ring">
+          <div className="orbit-ring-glow" />
+          <div className="orbit-letters" role="presentation">
+            {orbitText.split("").map((char, index) => (
+              <span
+                key={`${char}-${index}`}
+                style={{
+                  transform: `rotate(${(360 / orbitText.length) * index}deg) translateY(-88px)`,
+                }}
+              >
+                {char}
+              </span>
+            ))}
+          </div>
+          <div className="orbit-core" />
+        </div>
+      </div>
+
       <div className="mx-auto w-full max-w-4xl">
         <p className="mb-4 font-mono text-sm text-accent animate-fade-in">
           안녕하세요, 저는
@@ -26,8 +51,7 @@ export default function Hero() {
         </h1>
 
         <h2 className="mb-6 text-xl font-medium text-muted sm:text-2xl lg:text-3xl animate-fade-in-up delay-200">
-          AI 기반{" "}
-          <span className="text-foreground">프론트엔드 개발자</span>
+          AI 기반 <span className="text-foreground">프론트엔드 개발자</span>
         </h2>
 
         <p className="mb-10 max-w-lg text-base leading-7 text-muted animate-fade-in-up delay-300">
@@ -66,8 +90,8 @@ export default function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in delay-400">
-          <span className="text-xs text-muted/50 font-mono">scroll</span>
+        <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 animate-fade-in delay-400">
+          <span className="font-mono text-xs text-muted/50">scroll</span>
           <div className="h-8 w-px bg-gradient-to-b from-border to-transparent" />
         </div>
       </div>

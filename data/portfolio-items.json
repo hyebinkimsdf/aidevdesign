@@ -1,0 +1,43 @@
+[
+  {
+    "id": "p-003",
+    "route": "seo",
+    "title": "검색 최적화 운영",
+    "summary": "메타데이터/성능 개선과 Search Console 기반 점검 운영",
+    "stack": [
+      "Technical SEO",
+      "Lighthouse",
+      "GA4"
+    ],
+    "status": "draft",
+    "createdAt": "2026-04-01T10:20:00.000Z",
+    "updatedAt": "2026-04-01T10:20:00.000Z"
+  },
+  {
+    "id": "p-002",
+    "route": "design",
+    "title": "브랜드 SNS 배너 패키지",
+    "summary": "캠페인 규격별 배너 시스템 제작 및 브랜드 톤 통일",
+    "stack": [
+      "Figma",
+      "Illustrator"
+    ],
+    "status": "published",
+    "createdAt": "2026-04-01T10:10:00.000Z",
+    "updatedAt": "2026-04-01T10:10:00.000Z"
+  },
+  {
+    "id": "p-001",
+    "route": "frontend",
+    "title": "AI Chat Interface",
+    "summary": "Next.js 기반 스트리밍 챗 UI 구축 및 응답 체감 속도 개선",
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "OpenAI API"
+    ],
+    "status": "published",
+    "createdAt": "2026-04-01T10:00:00.000Z",
+    "updatedAt": "2026-04-01T10:00:00.000Z"
+  }
+]
