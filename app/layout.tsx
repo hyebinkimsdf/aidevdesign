@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   title: "Hyebin | Fullstack Developer",
   description:
     "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
-  icons: {
+  alternates: {
+    canonical: "/",
+  },
+    icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
     ],
-  },
-  alternates: {
-    canonical: "/",
   },
   keywords: [
     "Fullstack Developer",
@@ -50,9 +50,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Hyebin | Fullstack Developer",
+    title: "AI, 디자인, 개발, ALL IN ONE",
+    
     description:
-      "풀스택 개발자 Hyebin. React · Next.js · Supabase 기반으로 프론트엔드, 백엔드, DB 설계까지 직접 구현합니다.",
+      "AI, 디자인, 개발을 모두 갖춘 풀스택 개발자",
     type: "website",
     url: "https://aidevdesign.com",
     siteName: "Hyebin dev & design",
