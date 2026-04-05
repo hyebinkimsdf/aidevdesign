@@ -50,15 +50,14 @@ export default function Hero() {
           Hyebin
         </h1>
 
-        <h2 className="mb-6 text-xl font-medium text-muted sm:text-2xl lg:text-3xl animate-fade-in-up delay-200">
+        <h2 className="mb-6 text-xl font-medium text-foreground/75 sm:text-2xl lg:text-3xl animate-fade-in-up delay-200">
           화면·서버·데이터를 함께 설계하는{" "}
           <span className="text-foreground">풀스택 개발자</span>
         </h2>
 
-        <p className="mb-10 max-w-lg text-base leading-7 text-muted animate-fade-in-up delay-300">
-          기획 단계부터 서비스 전체 구조를 함께 잡습니다.
-          프론트엔드와 백엔드, DB 설계까지 직접 담당하며
-          클라이언트 요구사항을 구체적인 기능으로 옮깁니다.
+        <p className="mb-10 max-w-lg text-base leading-7 text-foreground/60 animate-fade-in-up delay-300">
+          프론트, 백엔드, DB 설계까지 직접 담당합니다.
+          기획 이해부터 배포까지 단독 진행 가능합니다.
         </p>
 
         <div className="flex flex-wrap gap-3 animate-fade-in-up delay-400">

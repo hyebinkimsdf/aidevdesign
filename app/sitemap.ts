@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://aidevdesign.com/client",
+      url: "https://aidevdesign.com/homepage-development",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

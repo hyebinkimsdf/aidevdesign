@@ -49,9 +49,8 @@ export default function Contact() {
         <h2 className="mb-3 text-2xl font-semibold text-foreground">
           함께 만들어요
         </h2>
-        <p className="mb-10 max-w-md text-sm leading-7 text-muted">
-          새로운 기회, 협업 제안, 혹은 단순한 인사도 환영합니다.
-          이메일로 편하게 연락해 주세요.
+        <p className="mb-10 max-w-md text-sm leading-7 text-foreground/65">
+          협업 제안이나 채용 문의는 편하게 연락 주세요.
         </p>
 
         <div className="flex flex-wrap gap-3">

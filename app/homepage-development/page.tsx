@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "React",
   ],
   alternates: {
-    canonical: "/client",
+    canonical: "/homepage-development",
   },
   icons: {
     icon: [
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     description:
       "기업 홈페이지·서비스 랜딩·브랜드 사이트 전문 제작. 빠른 납기 · 모바일 최적화 · SEO 기본 적용.",
     type: "website",
-    url: "https://aidevdesign.com/client",
+    url: "https://aidevdesign.com/homepage-development",
     siteName: "Hyebin dev & design",
     locale: "ko_KR",
   },

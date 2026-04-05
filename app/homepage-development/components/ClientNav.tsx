@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 
 const links = [
-  { label: "서비스", href: "/client#features" },
-  { label: "프로세스", href: "/client#process" },
-  { label: "포트폴리오", href: "/client#portfolio" },
-  { label: "디자인 전문", href: "/client/design" },
+  { label: "서비스", href: "/homepage-development#features" },
+  { label: "프로세스", href: "/homepage-development#process" },
+  { label: "포트폴리오", href: "/homepage-development#portfolio" },
+  { label: "디자인 전문", href: "/homepage-development/design" },
 ];
 
 export default function ClientNav() {
@@ -31,7 +31,7 @@ export default function ClientNav() {
     >
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         {/* Logo */}
-        <a href="/client" className="flex items-center gap-2">
+        <a href="/homepage-development" className="flex items-center gap-2">
           <span className="text-sm font-semibold" style={{ color: "#1d1d1f" }}>
             hyebin<span style={{ color: "#0071e3" }}>studio</span>
           </span>

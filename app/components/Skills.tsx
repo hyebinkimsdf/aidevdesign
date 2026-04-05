@@ -56,7 +56,7 @@ export default function Skills() {
         </p>
 
         <div className="grid gap-8 sm:grid-cols-3">
-          {skillGroups.map((group, index) => (
+          {skillGroups.map((group) => (
             <div key={group.category}>
               <div className="mb-5">
                 <h3 className="text-sm font-semibold text-foreground">
@@ -70,10 +70,10 @@ export default function Skills() {
                 {group.items.map((skill) => (
                   <li
                     key={skill}
-                    className="flex items-center gap-2.5 text-sm text-muted"
+                    className="flex items-center gap-2.5 text-sm text-foreground/75"
                   >
                     <span
-                      className="h-px w-3 shrink-0 bg-border"
+                      className="h-px w-3 shrink-0 bg-accent/40"
                       aria-hidden="true"
                     />
                     {skill}

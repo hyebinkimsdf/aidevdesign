@@ -1,43 +1,62 @@
 [
   {
-    "id": "p-003",
-    "route": "seo",
-    "title": "검색 최적화 운영",
-    "summary": "메타데이터/성능 개선과 Search Console 기반 점검 운영",
+    "id": "site-micimpact",
+    "route": "micimpact",
+    "title": "마이크임팩트",
+    "summary": "강연자·아티스트 탐색과 문의 유입을 위한 플랫폼형 웹사이트",
     "stack": [
-      "Technical SEO",
-      "Lighthouse",
-      "GA4"
-    ],
-    "status": "draft",
-    "createdAt": "2026-04-01T10:20:00.000Z",
-    "updatedAt": "2026-04-01T10:20:00.000Z"
-  },
-  {
-    "id": "p-002",
-    "route": "design",
-    "title": "브랜드 SNS 배너 패키지",
-    "summary": "캠페인 규격별 배너 시스템 제작 및 브랜드 톤 통일",
-    "stack": [
-      "Figma",
-      "Illustrator"
+      "Platform UI",
+      "Search Flow",
+      "Category UX",
+      "Inquiry Conversion"
     ],
     "status": "published",
-    "createdAt": "2026-04-01T10:10:00.000Z",
-    "updatedAt": "2026-04-01T10:10:00.000Z"
+    "createdAt": "2026-04-05T09:00:00.000Z",
+    "updatedAt": "2026-04-05T09:00:00.000Z"
   },
   {
-    "id": "p-001",
-    "route": "frontend",
-    "title": "AI Chat Interface",
-    "summary": "Next.js 기반 스트리밍 챗 UI 구축 및 응답 체감 속도 개선",
+    "id": "site-lgshop",
+    "route": "lg-best-shop-yongsan",
+    "title": "LG Best Shop 용산전자상가점",
+    "summary": "상담 예약 전환 중심으로 구성한 매장 프로모션 웹사이트",
     "stack": [
-      "Next.js",
-      "TypeScript",
-      "OpenAI API"
+      "Reservation Flow",
+      "Store Landing",
+      "Consulting Form",
+      "Map UX"
     ],
     "status": "published",
-    "createdAt": "2026-04-01T10:00:00.000Z",
-    "updatedAt": "2026-04-01T10:00:00.000Z"
+    "createdAt": "2026-04-05T08:00:00.000Z",
+    "updatedAt": "2026-04-05T08:00:00.000Z"
+  },
+  {
+    "id": "site-pwin",
+    "route": "pwin-industry",
+    "title": "평원산업",
+    "summary": "제품 소개와 시공 사례를 체계화한 기업 웹사이트",
+    "stack": [
+      "Corporate Site",
+      "Product Catalog",
+      "Construction Cases",
+      "Lead CTA"
+    ],
+    "status": "published",
+    "createdAt": "2026-04-05T07:00:00.000Z",
+    "updatedAt": "2026-04-05T07:00:00.000Z"
+  },
+  {
+    "id": "site-withbill",
+    "route": "withbill-dance-studio",
+    "title": "위드빌댄스스튜디오",
+    "summary": "수강 안내와 상담 전환에 초점을 둔 아카데미 웹사이트",
+    "stack": [
+      "Academy Site",
+      "Responsive Web",
+      "Inquiry Flow",
+      "Brand UI"
+    ],
+    "status": "published",
+    "createdAt": "2026-04-05T06:00:00.000Z",
+    "updatedAt": "2026-04-05T06:00:00.000Z"
   }
 ]

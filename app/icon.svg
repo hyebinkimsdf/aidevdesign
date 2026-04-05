@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="#0b0f0c"/>
+
+  <!-- Isometric cube — 3 faces = frontend / backend / data layer -->
+
+  <!-- Top face (frontend / 화면 레이어) -->
+  <path d="M16 3 L27 9.5 L16 16 L5 9.5 Z" fill="#4ade80"/>
+
+  <!-- Right face (backend / 서버 레이어) -->
+  <path d="M27 9.5 L27 22.5 L16 29 L16 16 Z" fill="#22c55e" opacity="0.72"/>
+
+  <!-- Left face (data / 데이터 레이어) -->
+  <path d="M5 9.5 L5 22.5 L16 29 L16 16 Z" fill="#15803d" opacity="0.65"/>
+</svg>
