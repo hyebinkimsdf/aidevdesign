@@ -73,6 +73,20 @@ export default function RootLayout({
         </noscript>
         {children}
         <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-HDW459JL4V"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="gtag"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-HDW459JL4V');`,
+          }}
+        />
+        <Script
           id="gtm"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
