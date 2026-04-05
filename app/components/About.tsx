@@ -1,10 +1,10 @@
 const techStack = [
-  "React / Next.js",
-  "TypeScript",
-  "Tailwind CSS",
+  "React / Next.js / TypeScript",
+  "Node.js / REST API 설계",
+  "Supabase / DB 설계",
   "Figma / UI Design",
-  "OpenAI API",
-  "Vercel",
+  "Vercel / AWS / Cloudflare",
+  "클라이언트 소통 / 요구사항 정리",
 ];
 
 export default function About() {
@@ -26,24 +26,28 @@ export default function About() {
           {/* Bio */}
           <div className="lg:col-span-3 space-y-4">
             <h2 className="text-2xl font-semibold text-foreground leading-snug">
-              개발로 문제를 해결하고,
+              서비스가 어떻게 동작해야 하는지,
               <br />
-              디자인으로 경험을 완성합니다.
+              처음부터 끝까지 직접 생각합니다.
             </h2>
             <p className="leading-7 text-muted">
-              사용자가 실제로 필요한 것을 파악하고, 그것을 직관적이고
-              빠른 인터페이스로 구현하는 것을 추구합니다. 프론트엔드
-              개발을 주력으로, UI/UX 디자인을 보조 역량으로 활용합니다.
+              단순히 UI를 구현하는 것에 그치지 않고, 데이터가 어디서 오고
+              어떻게 저장되는지, 어떤 API 구조가 유지보수에 유리한지까지
+              직접 설계합니다. 프론트엔드, 백엔드, DB 구조, 서버 관리,
+              관리자 기능까지 하나의 서비스를 처음부터 끝까지 완성한
+              경험이 있습니다.
             </p>
             <p className="leading-7 text-muted">
-              최근에는 LLM API와 AI 도구를 실제 프로덕트에 통합하는
-              작업에 집중하고 있습니다. 사용자가 AI와 자연스럽게
-              상호작용할 수 있는 인터페이스를 만드는 것이 목표입니다.
+              디자인 감각이 있어 화면과 UX 방향을 함께 제안할 수 있고,
+              클라이언트와 직접 소통하며 모호한 요구사항을 구체적인 기능
+              명세로 정리하는 것도 제가 잘하는 일입니다.
             </p>
             <p className="leading-7 text-muted">
-              <span className="text-foreground font-medium">Frontend</span> →{" "}
-              <span className="text-foreground/70">UI/UX Design</span> →{" "}
-              <span className="text-foreground/50">AI Integration</span>
+              <span className="text-foreground font-medium">기획 이해</span>{" "}
+              →{" "}
+              <span className="text-foreground/80">설계</span> →{" "}
+              <span className="text-foreground/60">구현</span> →{" "}
+              <span className="text-foreground/40">배포</span>
             </p>
           </div>
 

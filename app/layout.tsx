@@ -13,30 +13,40 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hyebin.dev"),
-  title: "Hyebin | Frontend Developer",
+  metadataBase: new URL("https://aidevdesign.com"),
+  title: "Hyebin | Fullstack Developer",
   description:
-    "AI 기반 프론트엔드 개발자. React, Next.js, TypeScript를 활용해 사용자 중심의 웹 경험을 만듭니다. UI/UX 디자인과 AI 통합에 관심이 있습니다.",
+    "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
   alternates: {
     canonical: "/",
   },
   keywords: [
-    "Frontend Developer",
-    "프론트엔드 개발자",
+    "Fullstack Developer",
+    "풀스택 개발자",
     "React",
     "Next.js",
     "TypeScript",
-    "AI",
-    "UI/UX",
-    "Web Development",
+    "Node.js",
+    "Supabase",
+    "REST API",
+    "서비스 설계",
+    "웹 개발",
+    "Vercel",
+    "AWS",
+    "SEO",
   ],
+  verification: {
+    other: {
+      "naver-site-verification": "c019519e9e2c3d283ed9f5af9ebed23488d1a013",
+    },
+  },
   openGraph: {
-    title: "Hyebin | Frontend Developer",
+    title: "Hyebin | Fullstack Developer",
     description:
-      "AI 기반 프론트엔드 개발자. React, Next.js, TypeScript 전문.",
+      "풀스택 개발자 Hyebin. React · Next.js · Supabase 기반으로 프론트엔드, 백엔드, DB 설계까지 직접 구현합니다.",
     type: "website",
-    url: "https://hyebin.dev",
-    siteName: "Hyebin Portfolio",
+    url: "https://aidevdesign.com",
+    siteName: "Hyebin dev & design",
     locale: "ko_KR",
   },
 };

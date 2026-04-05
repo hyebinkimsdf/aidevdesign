@@ -1,4 +1,4 @@
-const orbitText = " CREATIVE FRONTEND AI EXPERIENCE ";
+const orbitText = " FULLSTACK · DESIGN · API · DATABASE · SERVICE · ";
 
 export default function Hero() {
   return (
@@ -51,13 +51,14 @@ export default function Hero() {
         </h1>
 
         <h2 className="mb-6 text-xl font-medium text-muted sm:text-2xl lg:text-3xl animate-fade-in-up delay-200">
-          AI 기반 <span className="text-foreground">프론트엔드 개발자</span>
+          화면·서버·데이터를 함께 설계하는{" "}
+          <span className="text-foreground">풀스택 개발자</span>
         </h2>
 
         <p className="mb-10 max-w-lg text-base leading-7 text-muted animate-fade-in-up delay-300">
-          React와 Next.js로 사용자 경험을 설계하고, AI 기술을 접목한
-          인터랙티브 웹 서비스를 만듭니다. 복잡한 것을 단순하고 빠르게
-          구현하는 것을 좋아합니다.
+          기획 단계부터 서비스 전체 구조를 함께 잡습니다.
+          프론트엔드와 백엔드, DB 설계까지 직접 담당하며
+          클라이언트 요구사항을 구체적인 기능으로 옮깁니다.
         </p>
 
         <div className="flex flex-wrap gap-3 animate-fade-in-up delay-400">

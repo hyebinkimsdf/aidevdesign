@@ -6,39 +6,36 @@ interface SkillGroup {
 
 const skillGroups: SkillGroup[] = [
   {
-    category: "Frontend Development",
-    description: "주력 역량",
+    category: "Frontend",
+    description: "화면 레이어",
     items: [
-      "React",
-      "Next.js",
+      "React / Next.js",
       "TypeScript",
-      "JavaScript (ES2024)",
       "Tailwind CSS",
       "HTML / CSS",
       "Zustand / React Query",
     ],
   },
   {
-    category: "UI/UX Design",
-    description: "보조 역량",
+    category: "Backend & Data",
+    description: "서버 레이어",
     items: [
-      "Figma",
-      "Responsive Design",
-      "Design Systems",
-      "Accessibility (WCAG)",
-      "Prototyping",
+      "Node.js / REST API 설계",
+      "Supabase (DB / Auth)",
+      "관리자 기능 구현",
+      "Vercel / AWS / Cloudflare",
+      "OpenAI / Claude API",
     ],
   },
   {
-    category: "AI & Tooling",
-    description: "관심 영역",
+    category: "Design & Communication",
+    description: "차별점",
     items: [
-      "OpenAI / Claude API",
-      "LLM Integration",
-      "Prompt Engineering",
-      "Vercel",
-      "Git / GitHub",
-      "REST API",
+      "Figma / UI Design",
+      "Responsive Design",
+      "UX 방향 제안",
+      "요구사항 정리 / 기능 명세",
+      "클라이언트 커뮤니케이션",
     ],
   },
 ];
@@ -65,15 +62,7 @@ export default function Skills() {
                 <h3 className="text-sm font-semibold text-foreground">
                   {group.category}
                 </h3>
-                <span
-                  className={`text-xs font-mono ${
-                    index === 0
-                      ? "text-accent"
-                      : index === 1
-                        ? "text-foreground/40"
-                        : "text-muted/60"
-                  }`}
-                >
+                <span className="text-xs font-mono text-accent">
                   {group.description}
                 </span>
               </div>
