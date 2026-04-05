@@ -242,7 +242,7 @@ export default function ClientCTA() {
 
         <div className="mb-8 flex flex-wrap justify-center gap-3">
           <a
-            href="mailto:hello@hyebin.dev"
+            href="mailto:hyebinkimdesign@gmail.com"
             className="inline-flex items-center gap-2.5 rounded-full border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition-all duration-200 hover:border-blue-300 hover:text-blue-700"
           >
             이메일 바로 보내기

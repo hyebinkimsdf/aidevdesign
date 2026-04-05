@@ -17,17 +17,14 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aidevdesign.com"),
-  title: "Hyebin | Fullstack Developer",
+  title: "AI, 디자인, 개발, ALL IN ONE",
   description:
     "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
   alternates: {
     canonical: "/",
   },
-    icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "any" }],
   },
   keywords: [
     "Fullstack Developer",

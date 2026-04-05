@@ -55,14 +55,14 @@ export default function Contact() {
 
         <div className="flex flex-wrap gap-3">
           <a
-            href="mailto:hello@hyebin.dev"
+            href="mailto:hyebinkimdesign@gmail.com"
             className="inline-flex items-center gap-2.5 rounded border border-accent px-5 py-2.5 text-sm font-medium text-accent transition-all duration-200 hover:bg-accent hover:text-background"
           >
             <EmailIcon />
-            hello@hyebin.dev
+            hyebinkimdesign@gmail.com
           </a>
           <a
-            href="mailto:hello@hyebin.dev?subject=%5BPortfolio%5D%20%EC%9D%B4%EB%A0%A5%EC%84%9C%20%EB%B0%8F%20%EA%B2%BD%EB%A0%A5%EA%B8%B0%EC%88%A0%EC%84%9C%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94.%0D%0A%EA%B8%B0%EC%97%85%EB%AA%85%3A%20%0D%0A%EC%A7%81%EB%AC%B4%3A%20%0D%0A%EB%85%BC%EC%9D%98%20%ED%9D%AC%EB%A7%9D%20%EB%82%B4%EC%9A%A9%3A%20"
+            href="mailto:hyebinkimdesign@gmail.com?subject=%5BPortfolio%5D%20%EC%9D%B4%EB%A0%A5%EC%84%9C%20%EB%B0%8F%20%EA%B2%BD%EB%A0%A5%EA%B8%B0%EC%88%A0%EC%84%9C%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94.%0D%0A%EA%B8%B0%EC%97%85%EB%AA%85%3A%20%0D%0A%EC%A7%81%EB%AC%B4%3A%20%0D%0A%EB%85%BC%EC%9D%98%20%ED%9D%AC%EB%A7%9D%20%EB%82%B4%EC%9A%A9%3A%20"
             className="inline-flex items-center gap-2.5 rounded border border-border px-5 py-2.5 text-sm font-medium text-muted transition-all duration-200 hover:border-foreground/50 hover:text-foreground"
           >
             이력서/경력기술서 요청

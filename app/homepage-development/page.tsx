@@ -23,12 +23,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/homepage-development",
   },
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/icon.svg", type: "image/svg+xml" },
-    ],
-  },
   verification: {
     other: {
       "naver-site-verification": "c019519e9e2c3d283ed9f5af9ebed23488d1a013",

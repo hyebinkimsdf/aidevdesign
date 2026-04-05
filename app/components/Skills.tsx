@@ -21,6 +21,8 @@ const skillGroups: SkillGroup[] = [
     description: "서버 레이어",
     items: [
       "Node.js / REST API 설계",
+      "PHP",
+      "MySQL",
       "Supabase (DB / Auth)",
       "관리자 기능 구현",
       "Vercel / AWS / Cloudflare",
