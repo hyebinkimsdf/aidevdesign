@@ -20,6 +20,12 @@ export const metadata: Metadata = {
   title: "Hyebin | Fullstack Developer",
   description:
     "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+  },
   alternates: {
     canonical: "/",
   },
