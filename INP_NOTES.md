@@ -74,3 +74,37 @@ File: [app/layout.tsx](/Users/hyebin/개발/portfoilo/app/layout.tsx)
 ## Verification
 
 - `npm run build` completed successfully after the changes.
+
+## Additional Context For Future Agents
+
+### Favicon confusion
+
+There was separate favicon-related confusion during this work.
+
+- The project currently contains both [public/favicon.ico](/Users/hyebin/개발/portfoilo/public/favicon.ico) and [app/favicon.ico](/Users/hyebin/개발/portfoilo/app/favicon.ico).
+- Because this project uses the App Router, favicon behavior was being driven mainly by the `app/` metadata/file convention, not by `public/favicon.ico` alone.
+- This created confusion when the user expected the public favicon to be the only source of truth.
+
+Recommended rule for future work:
+
+1. Decide one canonical favicon source.
+2. If using App Router conventions, prefer `app/favicon.ico` and keep metadata aligned with that choice.
+3. Do not assume `public/favicon.ico` is controlling favicon output unless the actual head output is verified.
+
+### Process issue during earlier AI assistance
+
+The user reported that earlier AI assistance did not stay focused on the favicon issue and kept changing unrelated problems instead.
+
+This caused:
+
+- wasted tokens,
+- unnecessary edits,
+- extra back-and-forth,
+- lower trust in the debugging process.
+
+Recommended behavior for future agents:
+
+1. Stay tightly scoped to the user’s active issue before making adjacent optimizations.
+2. Confirm the actual source of truth first when debugging favicon or metadata behavior.
+3. Avoid mixing unrelated performance, metadata, or UI fixes into the same thread unless the user asks for them.
+4. If additional issues are discovered, note them separately instead of changing them immediately.
