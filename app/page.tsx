@@ -1,10 +1,26 @@
+import dynamic from "next/dynamic";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Impact from "./components/Impact";
-import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+
+// Projects는 대형 클라이언트 컴포넌트 — 별도 청크로 분리해 초기 JS 번들 감소
+const Projects = dynamic(() => import("./components/Projects"), {
+  loading: () => (
+    <section className="section-divider px-6 py-24">
+      <div className="mx-auto max-w-4xl">
+        <div className="h-8 w-24 animate-pulse rounded bg-surface" />
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="h-80 animate-pulse rounded-2xl bg-surface" />
+          ))}
+        </div>
+      </div>
+    </section>
+  ),
+});
 
 export default function Home() {
   return (
