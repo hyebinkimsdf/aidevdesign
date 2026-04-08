@@ -48,63 +48,41 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AI, 디자인, 개발, ALL IN ONE",
-    
     description:
-      "AI, 디자인, 개발을 모두 갖춘 풀스택 개발자",
-    type: "website",
+      "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
     url: "https://aidevdesign.com",
-    siteName: "Hyebin dev & design",
+    siteName: "AI Dev Design",
+    images: [
+      {
+        url: "https://aidevdesign.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AI Dev Design",
+      },
+    ],
     locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AI, 디자인, 개발, ALL IN ONE",
+    description:
+      "풀스택 개발, 디자인 감각과 클라이언트 소통 역량을 함께 갖추고 있습니다.",
+    images: ["https://aidevdesign.com/og-image.jpg"],
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html
-      lang="ko"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-    >
-      <body className="min-h-screen bg-background text-foreground">
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MC9FBZXV"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
+    <html lang="ko">
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
         <Analytics />
         <SpeedInsights />
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-HDW459JL4V"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="gtag"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-HDW459JL4V');`,
-          }}
-        />
-        <Script
-          id="gtm"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MC9FBZXV');`,
-          }}
-        />
       </body>
     </html>
   );

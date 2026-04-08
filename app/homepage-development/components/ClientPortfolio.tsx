@@ -68,31 +68,26 @@ function ClientThumbSlide({ thumb }: { thumb: SiteProjectThumb }) {
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-slate-100">
-      {Array.from({ length: SLIDE_COUNT }, (_, i) => (
-        <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-700"
-          style={{ opacity: current === i ? 1 : 0 }}
-        >
-          {!failed[i] && (
-            <Image
-              src={`/thumbs/${thumb}/${i + 1}.jpg`}
-              alt={`${thumb} screenshot ${i + 1}`}
-              fill
-              unoptimized
-              sizes="(max-width: 640px) 100vw, 25vw"
-              className="object-cover object-top"
-              onError={() =>
-                setFailed((prev) => {
-                  const next = [...prev];
-                  next[i] = true;
-                  return next;
-                })
-              }
-            />
-          )}
-        </div>
-      ))}
+      <div className="absolute inset-0 transition-opacity duration-500">
+        {!failed[current] && (
+          <Image
+            src={`/thumbs/${thumb}/${current + 1}.jpg`}
+            alt={`${thumb} screenshot ${current + 1}`}
+            fill
+            unoptimized
+            sizes="(max-width: 640px) 100vw, 25vw"
+            className="object-cover object-top"
+            onError={() => {
+              setFailed((prev) => {
+                const next = [...prev];
+                next[current] = true;
+                return next;
+              });
+              setCurrent((prev) => (prev + 1) % SLIDE_COUNT);
+            }}
+          />
+        )}
+      </div>
 
       <div className="absolute bottom-2 right-2 flex gap-1.5 z-10">
         {Array.from({ length: SLIDE_COUNT }, (_, i) => (

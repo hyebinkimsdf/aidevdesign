@@ -1,6 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, {
+  startTransition,
+  useDeferredValue,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import Image from "next/image";
 import { siteProjects, type SiteProject, type SiteProjectThumb } from "@/lib/site-projects";
 
@@ -334,31 +341,26 @@ function ProjectThumb({ thumb }: { thumb: SiteProjectThumb }) {
         <Fallback />
       ) : (
         <>
-          {Array.from({ length: SLIDE_COUNT }, (_, i) => (
-            <div
-              key={i}
-              className="absolute inset-0 transition-opacity duration-700"
-              style={{ opacity: current === i ? 1 : 0 }}
-            >
-              {!failed[i] && (
-                <Image
-                  src={`/thumbs/${thumb}/${i + 1}.jpg`}
-                  alt={`${thumb} screenshot ${i + 1}`}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover object-top"
-                  onError={() =>
-                    setFailed((prev) => {
-                      const next = [...prev];
-                      next[i] = true;
-                      return next;
-                    })
-                  }
-                />
-              )}
-            </div>
-          ))}
+          <div className="absolute inset-0 transition-opacity duration-500">
+            {!failed[current] && (
+              <Image
+                src={`/thumbs/${thumb}/${current + 1}.jpg`}
+                alt={`${thumb} screenshot ${current + 1}`}
+                fill
+                unoptimized
+                sizes="(max-width: 640px) 100vw, 50vw"
+                className="object-cover object-top"
+                onError={() => {
+                  setFailed((prev) => {
+                    const next = [...prev];
+                    next[current] = true;
+                    return next;
+                  });
+                  setCurrent((prev) => (prev + 1) % SLIDE_COUNT);
+                }}
+              />
+            )}
+          </div>
 
           <div className="absolute bottom-3 right-3 flex gap-1.5 z-10">
             {Array.from({ length: SLIDE_COUNT }, (_, i) => (
@@ -396,7 +398,7 @@ function ProjectCard({ project }: { project: SiteProject }) {
         aria-label={`${project.name} 사이트 열기`}
       />
 
-      <div className="project-thumb-wrap relative h-52">
+      <div className="project-thumb-wrap relative h-52 transition-[height] duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:h-64">
         <div className="project-thumb-inner h-full w-full transition-transform duration-300 group-hover:scale-[1.02]">
           <ProjectThumb thumb={project.thumb} />
         </div>
@@ -459,9 +461,20 @@ function ProjectCard({ project }: { project: SiteProject }) {
           <span className="rounded border border-border px-2 py-0.5 font-mono text-[10px] text-muted/70">
             {project.domain}
           </span>
-          <span className="rounded border border-accent/30 bg-accent/8 px-2 py-0.5 font-mono text-[10px] text-accent/80">
+          <span className="rounded border border-foreground/20 bg-foreground/8 px-2 py-0.5 font-mono text-[10px] text-foreground/60">
             {project.contribution}
           </span>
+        </div>
+
+        <div className="mb-4 max-h-24 overflow-hidden flex flex-wrap gap-1.5 transition-all duration-[450ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-h-0 group-hover:mb-0 group-hover:opacity-0">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded border border-accent/25 bg-accent/10 px-2 py-0.5 font-mono text-[10px] text-accent/80"
+            >
+              {tag}
+            </span>
+          ))}
         </div>
 
         <p className="mb-4 text-xs leading-6 text-muted">{project.description}</p>
@@ -492,11 +505,13 @@ export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
+  const deferredQuery = useDeferredValue(query);
+  const deferredCategory = useDeferredValue(activeCategory);
 
   const filtered = siteProjects.filter((p) => {
     const matchCategory =
-      activeCategory === "all" || p.category === activeCategory;
-    const q = query.trim().toLowerCase();
+      deferredCategory === "all" || p.category === deferredCategory;
+    const q = deferredQuery.trim().toLowerCase();
     const matchQuery =
       !q ||
       p.name.toLowerCase().includes(q) ||
@@ -550,7 +565,8 @@ export default function Projects() {
         </h2>
         <p className="mb-10 max-w-2xl text-sm leading-6 text-muted/75">
           화면 디자인뿐 아니라 상담 전환, 정보 구조, 운영 반영까지 함께 맡았던 프로젝트들입니다.
-          모두 실제 서비스 도메인 기준으로 정리했고, 공개 가능한 경우 라이브 링크와 저장소를 연결했습니다.
+          <br />
+          <strong className="font-bold text-foreground">모두 실제 서비스</strong> 도메인 기준으로 정리했고, 공개 가능한 경우 라이브 링크와 저장소를 연결했습니다.
         </p>
 
         {/* 검색 + 카테고리 필터 */}
@@ -574,7 +590,12 @@ export default function Projects() {
             <input
               type="search"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                const nextQuery = e.target.value;
+                startTransition(() => {
+                  setQuery(nextQuery);
+                });
+              }}
               placeholder="프로젝트 검색"
               className="w-full rounded border border-border bg-surface py-2 pl-8 pr-3 font-mono text-xs text-foreground placeholder:text-muted/40 focus:border-accent focus:outline-none"
             />
@@ -584,7 +605,11 @@ export default function Projects() {
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
               <button
                 key={key}
-                onClick={() => setActiveCategory(key)}
+                onClick={() => {
+                  startTransition(() => {
+                    setActiveCategory(key);
+                  });
+                }}
                 className="rounded border px-3 py-1.5 font-mono text-[11px] transition-colors duration-150"
                 style={{
                   borderColor: activeCategory === key ? "var(--accent)" : "var(--border)",

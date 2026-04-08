@@ -68,7 +68,7 @@ export default function Contact() {
             이력서/경력기술서 요청
           </a>
           <a
-            href="https://github.com/hyebin"
+            href="https://github.com/hyebinkimsdf"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2.5 rounded border border-border px-5 py-2.5 text-sm font-medium text-muted transition-all duration-200 hover:border-foreground/50 hover:text-foreground"

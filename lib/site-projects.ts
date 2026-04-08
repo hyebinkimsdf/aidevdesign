@@ -40,7 +40,7 @@ export const siteProjects: SiteProject[] = [
       "댄스 아카데미의 클래스 소개, 브랜드 무드, 상담 유입을 한 흐름으로 연결한 실서비스 웹사이트입니다. 학원 소개형 페이지에 머무르지 않도록 정보 구조와 문의 동선을 함께 설계했습니다.",
     contribution: "기여도 100%",
     category: "academy",
-    tags: ["Academy Site", "Responsive Web", "Inquiry Flow", "Brand UI"],
+    tags: ["Next.js", "Supabase", "Vercel", "Academy Site", "Responsive Web", "Inquiry Flow", "Brand UI"],
     highlights: [
       "클래스 소개와 상담 유도 CTA를 한 페이지 흐름 안에서 정리",
       "모바일 환경에서도 위치 확인과 문의 접근성이 자연스럽게 이어지도록 구성",
@@ -61,7 +61,7 @@ export const siteProjects: SiteProject[] = [
       "친환경 보강토·축조·호안 블록 제품과 공법, 시공 사례를 한곳에서 전달하는 기업 홈페이지입니다. 제품 탐색과 회사 신뢰도를 동시에 보여줄 수 있도록 콘텐츠 구조를 재정리했습니다.",
     contribution: "기여도 100%, 사이트 기획부터 제작 및 운영 반영까지 단독 진행",
     category: "corporate",
-    tags: ["Corporate Site", "Product Catalog", "Construction Cases", "Lead CTA"],
+    tags: ["Next.js", "Supabase", "Vercel", "Corporate Site", "Product Catalog", "Construction Cases", "Lead CTA"],
     highlights: [
       "제품 소개, 공법 소개, 시공 사례를 분리해 정보 탐색 흐름을 명확하게 설계",
       "카탈로그 다운로드와 연락 유입 포인트를 메인 동선에 배치",
@@ -81,7 +81,7 @@ export const siteProjects: SiteProject[] = [
       "오프라인 매장의 상담 예약과 빠른 문의 전환을 목표로 제작한 웹사이트입니다. 제품 판매보다도 예약 신청과 상담 흐름이 바로 이어지도록 화면 우선순위를 설계했습니다.",
     contribution: "기여도 100%",
     category: "commerce",
-    tags: ["Reservation Flow", "Store Landing", "Consulting Form", "Map UX"],
+    tags: ["Next.js", "Vercel", "Reservation Flow", "Store Landing", "Consulting Form", "Map UX"],
     highlights: [
       "간편 상담 신청 폼을 중심으로 전환 목적이 바로 보이게 구성",
       "전화 상담과 매장 방문 정보를 한 번에 확인할 수 있도록 정리",
@@ -101,7 +101,7 @@ export const siteProjects: SiteProject[] = [
       "마케팅 전문 회사 글로벌엠아이지의 홈페이지 개발 서비스 전 페이지를 단독으로 설계·개발했습니다. 서비스 소개, 제작 유형, 포트폴리오, 견적 신청까지 전체 흐름을 PHP와 MySQL 기반으로 구현했습니다.",
     contribution: "기여도 100%, 기획·설계·개발·DB 구조 전부 단독 진행",
     category: "service",
-    tags: ["PHP", "MySQL", "Full-Stack", "Service Page", "DB 설계"],
+    tags: ["PHP", "MySQL", "Cloudflare", "Full-Stack", "Service Page", "DB 설계"],
     highlights: [
       "PHP + MySQL 기반으로 서비스 소개·포트폴리오·견적 신청 전 구간 직접 개발",
       "제작 유형별(쇼핑몰·기업·글로벌 등) 페이지 구조 및 콘텐츠 분리 설계",
@@ -121,7 +121,7 @@ export const siteProjects: SiteProject[] = [
       "강연자와 아티스트를 탐색하고 문의까지 연결할 수 있도록 구성한 플랫폼형 웹사이트입니다. 검색, 카테고리, 상담 유입 흐름을 함께 고려해 콘텐츠 탐색성을 높였습니다.",
     contribution: "기여도 100%",
     category: "platform",
-    tags: ["Platform UI", "Search Flow", "Category UX", "Inquiry Conversion"],
+    tags: ["Next.js", "Supabase", "Vercel", "Platform UI", "Search Flow", "Category UX", "Inquiry Conversion"],
     highlights: [
       "키워드, 분야, 섭외비 기준으로 탐색 가능한 구조를 반영",
       "사용자가 탐색 후 바로 문의 액션으로 넘어갈 수 있게 CTA를 연결",
