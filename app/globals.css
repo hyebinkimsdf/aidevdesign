@@ -3,7 +3,7 @@
 :root {
   --background: #0c0c0c;
   --foreground: #e8e8e8;
-  --muted: #6b7280;
+  --muted: #9ca3af;
   --accent: #4ade80;
   --surface: #141414;
   --border: #242424;
@@ -71,6 +71,15 @@ body {
 .animate-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.65s ease forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.65s ease forwards;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(24px); }
+  to   { transform: translateY(0); }
 }
 
 .animate-fade-in {

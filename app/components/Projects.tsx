@@ -347,7 +347,6 @@ function ProjectThumb({ thumb }: { thumb: SiteProjectThumb }) {
                 src={`/thumbs/${thumb}/${current + 1}.jpg`}
                 alt={`${thumb} screenshot ${current + 1}`}
                 fill
-                unoptimized
                 sizes="(max-width: 640px) 100vw, 50vw"
                 className="object-cover object-top"
                 onError={() => {
@@ -573,7 +572,7 @@ export default function Projects() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full sm:max-w-xs">
             <svg
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted/50"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted/70"
               width="13"
               height="13"
               viewBox="0 0 24 24"
@@ -597,7 +596,7 @@ export default function Projects() {
                 });
               }}
               placeholder="프로젝트 검색"
-              className="w-full rounded border border-border bg-surface py-2 pl-8 pr-3 font-mono text-xs text-foreground placeholder:text-muted/40 focus:border-accent focus:outline-none"
+              className="w-full rounded border border-border bg-surface py-2 pl-8 pr-3 font-mono text-xs text-foreground placeholder:text-muted/60 focus:border-accent focus:outline-none"
             />
           </div>
 
@@ -634,7 +633,7 @@ export default function Projects() {
           </div>
         ) : (
           <div className="flex h-40 items-center justify-center rounded-2xl border border-border">
-            <p className="font-mono text-xs text-muted/50">검색 결과가 없습니다.</p>
+            <p className="font-mono text-xs text-muted/70">검색 결과가 없습니다.</p>
           </div>
         )}
       </div>

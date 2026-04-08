@@ -75,6 +75,143 @@ File: [app/layout.tsx](/Users/hyebin/개발/portfoilo/app/layout.tsx)
 
 - `npm run build` completed successfully after the changes.
 
+---
+
+## Lighthouse Performance Audit — 2026-04-09
+
+### 측정 결과
+
+| 지표 | 현재 | 목표 |
+|------|------|------|
+| FCP  | 1.9s | ≤ 1.8s |
+| LCP  | 3.5s | ≤ 2.5s |
+| 색상 대비 | 불합격 | WCAG AA (4.5:1 이상) |
+
+---
+
+### LCP 문제
+
+#### 근본 원인 1 — Hero h1 opacity 애니메이션 (최우선)
+
+파일: [app/components/Hero.tsx](app/components/Hero.tsx)
+
+```tsx
+<h1 className="... animate-fade-in-up delay-100">
+  Hyebin
+</h1>
+```
+
+`animate-fade-in-up`은 `opacity: 0`에서 시작하고, `delay-100`은 120ms 딜레이를 추가한다.
+Lighthouse는 opacity가 0인 동안 해당 요소를 LCP 후보로 인식하지 않는다.
+
+- FCP 1.9s + 딜레이 120ms + 애니메이션 650ms = LCP 측정 기준점 ≈ 2.7s 이후
+- 실제 LCP 3.5s는 이 구조에서 비롯된 것으로 판단됨
+
+**해결 방안:**
+
+```tsx
+// 변경 전
+<h1 className="... animate-fade-in-up delay-100">
+
+// 변경 후 — h1은 opacity:1로 즉시 노출, 내부 span에만 시각 효과
+<h1 className="... text-foreground">
+  <span className="animate-fade-in-up delay-100 inline-block">Hyebin</span>
+</h1>
+```
+
+또는 h1 자체에서 `animate-fade-in-up`을 제거하고 `animate-fade-in`(opacity만)을 매우 짧게 유지하거나 제거.
+
+> LCP 개선 예상: 최대 1.0s 단축 가능
+
+---
+
+#### 근본 원인 2 — Image `unoptimized` prop
+
+파일: [app/components/Projects.tsx](app/components/Projects.tsx) (line 348)
+
+```tsx
+<Image
+  src={`/thumbs/${thumb}/${current + 1}.jpg`}
+  fill
+  unoptimized   // ← WebP 변환, 크기 최적화, 캐시 헤더 모두 비활성화
+  ...
+/>
+```
+
+Next.js Image 최적화를 완전히 우회해 `.jpg` 원본이 그대로 전달된다.
+Projects 섹션이 뷰포트에 일찍 들어오면 LCP 후보가 될 수 있음.
+
+**해결 방안:** `unoptimized` 제거. 이미지가 `public/thumbs/` 경로에 있으면 Next.js가 자동으로 WebP 변환 + 크기 최적화 적용.
+
+```tsx
+// 변경 전
+<Image src={...} fill unoptimized sizes="..." className="..." ... />
+
+// 변경 후
+<Image src={...} fill sizes="(max-width: 640px) 100vw, 50vw" className="..." ... />
+```
+
+> LCP + FCP 개선 기여. 이미지 전송 용량 40-70% 감소 예상
+
+---
+
+### 색상 대비 문제
+
+#### CSS 변수 현황
+
+파일: [app/globals.css](app/globals.css)
+
+```css
+--background: #0c0c0c
+--muted:      #6b7280   ← 문제 원인
+```
+
+#### 실패 케이스
+
+| 사용 클래스 | 추정 대비율 | 기준 | 판정 |
+|------------|------------|------|------|
+| `text-muted` (`#6b7280` on `#0c0c0c`) | ~4.8:1 | 4.5:1 | 소형 텍스트 위험 |
+| `text-muted/80` | ~3.8:1 | 4.5:1 | **실패** |
+| `text-muted/75` | ~3.6:1 | 4.5:1 | **실패** |
+| `text-muted/50` | ~2.4:1 | 4.5:1 | **실패** |
+| `text-foreground/60` | ~3.5:1 | 4.5:1 | **실패** |
+| `text-foreground/65` | ~3.7:1 | 4.5:1 | **실패** |
+
+주요 등장 위치:
+- `text-muted/50` → Hero scroll 인디케이터, footer (app/page.tsx)
+- `text-muted/75` → Projects 설명 텍스트 (Projects.tsx)
+- `text-foreground/60` → Hero 소개 문단 (Hero.tsx)
+- `text-foreground/65` → Contact 설명 (Contact.tsx)
+
+#### 해결 방안
+
+`--muted`를 `#6b7280`(gray-500)에서 `#9ca3af`(gray-400)로 상향 조정.
+
+```css
+/* 변경 전 */
+--muted: #6b7280;
+
+/* 변경 후 */
+--muted: #9ca3af;   /* #0c0c0c 배경 대비 ~5.8:1 → WCAG AA 통과 */
+```
+
+단, `text-muted/50`처럼 50% 이하 투명도 클래스는 변경 후에도 대비 기준 미달이므로:
+- `text-muted/50` → `text-muted/70` 이상으로 올리거나
+- 해당 요소가 장식용이라면 `aria-hidden="true"` 처리
+
+---
+
+### 수정 우선순위
+
+| 우선순위 | 항목 | 예상 효과 |
+|---------|------|----------|
+| 1 | Hero h1 opacity 애니메이션 제거 | LCP -1.0s |
+| 2 | `Image unoptimized` 제거 | LCP/FCP 개선 + 전송량 감소 |
+| 3 | `--muted` CSS 변수 상향 | 접근성 WCAG AA 통과 |
+| 4 | `/50`, `/60`, `/65` opacity 클래스 정리 | 접근성 세부 대응 |
+
+---
+
 ## Additional Context For Future Agents
 
 ### Favicon confusion

@@ -20,10 +20,10 @@ export default function Home() {
       </main>
       <footer className="section-divider px-6 py-8">
         <div className="mx-auto flex max-w-4xl items-center justify-between">
-          <span className="font-mono text-xs text-muted/50">
+          <span className="font-mono text-xs text-muted/70">
             © 2026 Hyebin
           </span>
-          <span className="font-mono text-xs text-muted/50">
+          <span className="font-mono text-xs text-muted/70">
             Built with Next.js &amp; TypeScript
           </span>
         </div>

@@ -46,7 +46,7 @@ export default function Hero() {
           안녕하세요, 저는
         </p>
 
-        <h1 className="mb-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl animate-fade-in-up delay-100">
+        <h1 className="mb-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl animate-slide-up delay-100">
           Hyebin
         </h1>
 
@@ -90,8 +90,8 @@ export default function Hero() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 animate-fade-in delay-400">
-          <span className="font-mono text-xs text-muted/50">scroll</span>
+        <div aria-hidden="true" className="absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 animate-fade-in delay-400">
+          <span className="font-mono text-xs text-muted/70">scroll</span>
           <div className="h-8 w-px bg-gradient-to-b from-border to-transparent" />
         </div>
       </div>
