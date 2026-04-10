@@ -77,6 +77,53 @@ File: [app/layout.tsx](/Users/hyebin/개발/portfoilo/app/layout.tsx)
 
 ---
 
+## SSG 전환 — 2026-04-10
+
+### 원인
+
+Next.js App Router는 기본적으로 SSR 구조라, 요청마다 서버에서 HTML을 생성한다.
+서버 상태가 좋지 않거나 콜드 스타트가 발생하면 TTFB(Time To First Byte)가 늘어나 초기 로딩이 느려진다.
+포트폴리오 사이트는 콘텐츠가 정적이므로 SSR의 이점이 없음에도 불필요한 서버 비용을 지불하고 있었다.
+
+### 수정 사항
+
+파일: [app/page.tsx](app/page.tsx)
+
+```tsx
+// 변경 전 — SSR (요청마다 서버 렌더링)
+import dynamic from "next/dynamic";
+
+const Projects = dynamic(...);
+
+// 변경 후 — SSG (빌드 시 HTML 미리 생성)
+import dynamicImport from "next/dynamic";
+
+export const dynamic = "force-static";   // ← 추가
+
+const Projects = dynamicImport(...);
+```
+
+`next/dynamic` import 이름이 `dynamic`이라 Route Segment Config의 `export const dynamic`과 충돌하므로 import를 `dynamicImport`로 rename 후 적용.
+
+### 언제 이 방법을 써야 하는가
+
+| 조건 | SSG 적합 여부 |
+|------|--------------|
+| 콘텐츠가 자주 바뀌지 않는 정적 페이지 (포트폴리오, 랜딩) | ✅ 적합 |
+| 사용자별 데이터, 인증, 실시간 업데이트가 필요한 페이지 | ❌ SSR 유지 |
+| 콘텐츠가 가끔 바뀌는 경우 | ISR (`export const revalidate = N`) 사용 |
+
+### 예상 개선 효과
+
+| 지표 | 변경 전 | 변경 후 | 개선 |
+|------|--------|--------|------|
+| TTFB | 서버 응답 의존 (가변) | CDN 캐시 서빙 (고정) | ~60–80% 단축 예상 |
+| 초기 HTML 생성 시점 | 요청 시 | 빌드 시 (미리 생성) | 서버 처리 비용 제거 |
+
+> 실측값은 Vercel Speed Insights 또는 Chrome DevTools Network 탭의 TTFB로 확인 필요.
+
+---
+
 ## Lighthouse Performance Audit — 2026-04-09
 
 ### 측정 결과
