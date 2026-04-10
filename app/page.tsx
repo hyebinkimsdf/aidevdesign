@@ -7,6 +7,7 @@ import About from "./components/About";
 import Impact from "./components/Impact";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import PerformanceReport from "./components/PerformanceReport";
 
 // Projects는 대형 클라이언트 컴포넌트 — 별도 청크로 분리해 초기 JS 번들 감소
 const Projects = dynamicImport(() => import("./components/Projects"), {
@@ -32,8 +33,10 @@ export default function Home() {
         <Hero />
         <About />
         <Impact />
+        <PerformanceReport />
         <Projects />
         <Skills />
+     
         <Contact />
       </main>
       <footer className="section-divider px-6 py-8">
