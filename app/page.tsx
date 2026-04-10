@@ -1,5 +1,7 @@
-import dynamic from "next/dynamic";
+import dynamicImport from "next/dynamic";
 import Nav from "./components/Nav";
+
+export const dynamic = "force-static";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Impact from "./components/Impact";
@@ -7,7 +9,7 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 
 // Projects는 대형 클라이언트 컴포넌트 — 별도 청크로 분리해 초기 JS 번들 감소
-const Projects = dynamic(() => import("./components/Projects"), {
+const Projects = dynamicImport(() => import("./components/Projects"), {
   loading: () => (
     <section className="section-divider px-6 py-24">
       <div className="mx-auto max-w-4xl">
