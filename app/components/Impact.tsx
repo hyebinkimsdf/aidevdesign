@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLang } from "../context/LanguageContext";
 import translations from "../i18n/translations";
 import { useReveal } from "../hooks/useReveal";
@@ -34,11 +35,20 @@ function SeoIcon() {
 }
 
 const icons = [ConsultIcon, BuildIcon, SeoIcon];
+const CYCLE_MS = 2000;
 
 export default function Impact() {
   const { lang } = useLang();
   const t = translations[lang].impact;
   const sectionRef = useReveal();
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIdx((prev) => (prev + 1) % icons.length);
+    }, CYCLE_MS);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <section
@@ -62,11 +72,11 @@ export default function Impact() {
         <div className="grid gap-5 md:grid-cols-3">
           {t.strengths.map((item, idx) => {
             const Icon = icons[idx];
+            const isActive = idx === activeIdx;
             return (
               <article
                 key={item.title}
-                className="rounded border border-border bg-surface/30 p-5 ap-scroll"
-                style={{ transitionDelay: `${160 + idx * 100}ms` }}
+                className={`impact-card rounded border p-5 ${isActive ? "impact-card--active" : "impact-card--inactive"}`}
               >
                 <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-accent/90">
                   <Icon />

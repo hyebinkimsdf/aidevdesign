@@ -450,6 +450,30 @@ body {
 }
 .ap-scroll.in-view { opacity: 1; transform: translateY(0); }
 
+/* Impact card — cycling active/inactive */
+.impact-card {
+  transition:
+    opacity      0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform    0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow   0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.5s ease;
+}
+.impact-card--active {
+  opacity: 1;
+  transform: scale(1.02) translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 20%, transparent),
+              0 8px 28px color-mix(in srgb, var(--accent) 10%, transparent);
+  background-color: color-mix(in srgb, var(--accent) 4%, var(--surface));
+}
+.impact-card--inactive {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  border-color: var(--border);
+  box-shadow: none;
+  background-color: color-mix(in srgb, var(--surface) 30%, transparent);
+}
+
 /* Process step — subtle slide from bottom */
 .ap-step {
   opacity: 0;
@@ -556,4 +580,5 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ap-reveal, .ap-scale-reveal, .ap-fade { animation: none; }
   .ap-scroll, .ap-step { opacity: 1; transform: none; }
+  .impact-card--active, .impact-card--inactive { opacity: 1; transform: none; box-shadow: none; transition: none; }
 }
