@@ -1,8 +1,8 @@
-type StrengthItem = {
-  title: string;
-  points: string[];
-  icon: () => React.ReactElement;
-};
+"use client";
+
+import { useLang } from "../context/LanguageContext";
+import translations from "../i18n/translations";
+import { useReveal } from "../hooks/useReveal";
 
 function ConsultIcon() {
   return (
@@ -33,77 +33,58 @@ function SeoIcon() {
   );
 }
 
-const strengths: StrengthItem[] = [
-  {
-    title: "클라이언트 상담 & 요구사항 정리",
-    points: [
-      "요구사항 인터뷰 및 우선순위 정의",
-      "기획 의도와 개발 난이도 균형 조율",
-      "커뮤니케이션 문서화",
-    ],
-    icon: ConsultIcon,
-  },
-  {
-    title: "개발 + 디자인 통합 진행",
-    points: [
-      "UI/UX 설계와 프론트엔드 구현 동시 리드",
-      "컴포넌트 단위 재사용 구조 설계",
-      "반응형 · 접근성 기준 완성도 관리",
-    ],
-    icon: BuildIcon,
-  },
-  {
-    title: "광고 세팅 & SEO",
-    points: [
-      "GA4 · Meta Pixel · Google Ads 전환 추적",
-      "메타데이터 · 구조화 기반 SEO 개선",
-      "Lighthouse · Search Console 성능 개선",
-    ],
-    icon: SeoIcon,
-  },
-];
+const icons = [ConsultIcon, BuildIcon, SeoIcon];
 
 export default function Impact() {
+  const { lang } = useLang();
+  const t = translations[lang].impact;
+  const sectionRef = useReveal();
+
   return (
     <section
       id="impact"
+      ref={sectionRef as React.RefObject<HTMLElement>}
       aria-labelledby="impact-heading"
       className="section-divider px-6 py-24"
     >
       <div className="mx-auto max-w-4xl">
         <p
           id="impact-heading"
-          className="mb-6 font-mono text-xs uppercase tracking-widest text-accent"
+          className="mb-6 font-mono text-xs uppercase tracking-widest text-accent ap-scroll"
         >
           Business Impact
         </p>
 
-        <h2 className="mb-10 text-2xl font-semibold text-foreground">
-          상담부터 실행, 성과까지 연결합니다
+        <h2 className="mb-10 text-2xl font-semibold text-foreground ap-scroll" style={{ transitionDelay: "80ms" }}>
+          {t.h2}
         </h2>
 
         <div className="grid gap-5 md:grid-cols-3">
-          {strengths.map((item) => (
-            <article
-              key={item.title}
-              className="rounded border border-border bg-surface/30 p-5"
-            >
-              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-accent/90">
-                <item.icon />
-              </div>
-              <h3 className="mb-3 text-sm font-semibold text-foreground">
-                {item.title}
-              </h3>
-              <ul className="space-y-2">
-                {item.points.map((point) => (
-                  <li key={point} className="flex items-start gap-2 text-sm text-foreground/60">
-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+          {t.strengths.map((item, idx) => {
+            const Icon = icons[idx];
+            return (
+              <article
+                key={item.title}
+                className="rounded border border-border bg-surface/30 p-5 ap-scroll"
+                style={{ transitionDelay: `${160 + idx * 100}ms` }}
+              >
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-background text-accent/90">
+                  <Icon />
+                </div>
+                <h3 className="mb-3 text-sm font-semibold text-foreground">
+                  {item.title}
+                </h3>
+                <ul className="space-y-2">
+                  {item.points.map((point) => (
+                    <li key={point} className="flex items-start gap-2 text-sm text-foreground/60">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

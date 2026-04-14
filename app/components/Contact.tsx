@@ -1,3 +1,9 @@
+"use client";
+
+import { useLang } from "../context/LanguageContext";
+import translations from "../i18n/translations";
+import { useReveal } from "../hooks/useReveal";
+
 function EmailIcon() {
   return (
     <svg
@@ -32,28 +38,33 @@ function GitHubIcon() {
 }
 
 export default function Contact() {
+  const { lang } = useLang();
+  const t = translations[lang].contact;
+  const sectionRef = useReveal();
+
   return (
     <section
       id="contact"
+      ref={sectionRef as React.RefObject<HTMLElement>}
       aria-labelledby="contact-heading"
       className="section-divider px-6 py-24"
     >
       <div className="mx-auto max-w-4xl">
         <p
           id="contact-heading"
-          className="mb-6 font-mono text-xs uppercase tracking-widest text-accent"
+          className="mb-6 font-mono text-xs uppercase tracking-widest text-accent ap-scroll"
         >
           Contact
         </p>
 
-        <h2 className="mb-3 text-2xl font-semibold text-foreground">
-          함께 만들어요
+        <h2 className="mb-3 text-2xl font-semibold text-foreground ap-scroll" style={{ transitionDelay: "80ms" }}>
+          {t.h2}
         </h2>
-        <p className="mb-10 max-w-md text-sm leading-7 text-foreground/65">
-          협업 제안이나 채용 문의는 편하게 연락 주세요.
+        <p className="mb-10 max-w-md text-sm leading-7 text-foreground/65 ap-scroll" style={{ transitionDelay: "160ms" }}>
+          {t.p}
         </p>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 ap-scroll" style={{ transitionDelay: "240ms" }}>
           <a
             href="mailto:hyebinkimdesign@gmail.com"
             className="inline-flex items-center gap-2.5 rounded border border-accent px-5 py-2.5 text-sm font-medium text-accent transition-all duration-200 hover:bg-accent hover:text-background"
@@ -65,7 +76,7 @@ export default function Contact() {
             href="mailto:hyebinkimdesign@gmail.com?subject=%5BPortfolio%5D%20%EC%9D%B4%EB%A0%A5%EC%84%9C%20%EB%B0%8F%20%EA%B2%BD%EB%A0%A5%EA%B8%B0%EC%88%A0%EC%84%9C%20%EC%9A%94%EC%B2%AD&body=%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94.%0D%0A%EA%B8%B0%EC%97%85%EB%AA%85%3A%20%0D%0A%EC%A7%81%EB%AC%B4%3A%20%0D%0A%EB%85%BC%EC%9D%98%20%ED%9D%AC%EB%A7%9D%20%EB%82%B4%EC%9A%A9%3A%20"
             className="inline-flex items-center gap-2.5 rounded border border-border px-5 py-2.5 text-sm font-medium text-muted transition-all duration-200 hover:border-foreground/50 hover:text-foreground"
           >
-            이력서/경력기술서 요청
+            {t.resumeBtn}
           </a>
           <a
             href="https://github.com/hyebinkimsdf"
