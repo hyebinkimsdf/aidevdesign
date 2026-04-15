@@ -10,7 +10,8 @@ export type SiteProjectThumb =
   | "pwin"
   | "lgshop"
   | "micimpact"
-  | "weasley";
+  | "weasley"
+  | "vividdrone";
 
 export type SiteProject = {
   id: string;
@@ -110,6 +111,26 @@ export const siteProjects: SiteProject[] = [
     demo: "https://www.weasley-market.com/homepage-development/",
     domain: "weasley-market.com",
     thumb: "weasley",
+  },
+  {
+    id: "site-vividdrone",
+    route: "vividdrone",
+    name: "비비드드론",
+    client: "VIVID DRONE",
+    tagline: "드론 촬영·뮤직비디오·CF·방송 제작 전문 스튜디오 웹사이트",
+    description:
+      "드론 촬영과 영상 제작 전문 스튜디오의 포트폴리오·서비스 소개·문의 유입을 한 흐름으로 구성한 웹사이트입니다. 뮤직비디오, CF, 방송 영상 등 제작 분야별 레퍼런스를 효과적으로 보여주고, SMS API 기반 문의 알림으로 빠른 응대가 가능하도록 설계했습니다.",
+    contribution: "기여도 100%, 기획·설계·개발·배포 단독 진행",
+    category: "service",
+    tags: ["Next.js", "SMS API", "Vercel", "Video Production", "Portfolio Site", "Inquiry Flow", "Responsive Web"],
+    highlights: [
+      "드론 촬영·뮤직비디오·CF·방송 제작 분야별로 레퍼런스를 분리해 탐색 흐름 설계",
+      "SMS API 연동으로 문의 접수 즉시 담당자에게 실시간 알림 전송",
+      "영상 스튜디오 특성에 맞는 다크톤 비주얼과 풀스크린 레퍼런스 강조 구성",
+    ],
+    demo: "https://www.vividdrone.kr",
+    domain: "vividdrone.kr",
+    thumb: "vividdrone",
   },
   {
     id: "site-micimpact",

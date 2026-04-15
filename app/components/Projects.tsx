@@ -307,12 +307,58 @@ function WeasleyThumb() {
   );
 }
 
+function VividdroneThumb() {
+  return (
+    <div
+      className="relative h-full w-full overflow-hidden"
+      style={{ background: "linear-gradient(135deg,#060810 0%,#0c0f1a 50%,#08090f 100%)" }}
+    >
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 30%, rgba(99,210,255,0.18), transparent 30%), radial-gradient(circle at 75% 65%, rgba(180,120,255,0.12), transparent 28%)",
+        }}
+      />
+      <BrowserChrome tint="#63d2ff" />
+      <div className="relative px-5 py-4">
+        <div className="mb-3">
+          <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-[#63d2ff]">
+            Drone Studio
+          </p>
+          <h4 className="mt-1.5 text-xl font-semibold text-white">비비드드론</h4>
+        </div>
+        <div className="grid grid-cols-3 gap-2 mb-3">
+          {["드론 촬영", "뮤직비디오", "CF · 방송"].map((label) => (
+            <div key={label} className="rounded-xl border border-white/10 bg-white/5 p-2.5 text-center">
+              <div className="mb-2 h-8 rounded-lg bg-gradient-to-br from-[#63d2ff18] to-[#b478ff12]" />
+              <div className="font-mono text-[9px] text-[#a5d8ff]">{label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="rounded-xl border border-white/10 bg-white/5 p-3">
+          <div className="mb-2 font-mono text-[9px] uppercase tracking-[0.2em] text-[#63d2ff]">Portfolio</div>
+          <div className="grid grid-cols-4 gap-1.5">
+            {[0, 1, 2, 3].map((i) => (
+              <div key={i} className="h-10 rounded-lg" style={{ background: `rgba(99,210,255,${0.06 + i * 0.02})` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="absolute bottom-4 left-5 rounded-full border border-[#63d2ff33] bg-[#63d2ff12] px-3 py-1 font-mono text-[10px] text-[#a5d8ff]">
+        Next.js · SMS API
+      </div>
+    </div>
+  );
+}
+
 const FALLBACK_COMPONENTS: Record<SiteProjectThumb, () => React.ReactElement> = {
   withbill: WithbillThumb,
   pwin: PwinThumb,
   lgshop: LgshopThumb,
   micimpact: MicimpactThumb,
   weasley: WeasleyThumb,
+  vividdrone: VividdroneThumb,
 };
 
 const SLIDE_COUNT = 3;

@@ -17,7 +17,8 @@ const THUMB_PALETTE: Record<SiteProjectThumb, { bg: string; accent: string; soft
   pwin:     { bg: "linear-gradient(135deg,#f7fee7,#ecfccb)", accent: "#65a30d", soft: "rgba(101,163,13,0.10)", label: "B2B" },
   lgshop:   { bg: "linear-gradient(135deg,#fef2f2,#fee2e2)", accent: "#dc2626", soft: "rgba(220,38,38,0.10)", label: "Shop" },
   micimpact:{ bg: "linear-gradient(135deg,#eff6ff,#dbeafe)", accent: "#2563eb", soft: "rgba(37,99,235,0.10)", label: "Media" },
-  weasley:  { bg: "linear-gradient(135deg,#f0f9ff,#e0f2fe)", accent: "#0369a1", soft: "rgba(3,105,161,0.10)", label: "Web" },
+  weasley:    { bg: "linear-gradient(135deg,#f0f9ff,#e0f2fe)", accent: "#0369a1", soft: "rgba(3,105,161,0.10)", label: "Web" },
+  vividdrone: { bg: "linear-gradient(135deg,#060810,#0c0f1a)", accent: "#63d2ff", soft: "rgba(99,210,255,0.10)", label: "Drone" },
 };
 
 const SLIDE_COUNT = 3;
