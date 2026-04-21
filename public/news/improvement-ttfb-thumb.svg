@@ -1,0 +1,38 @@
+<svg width="1080" height="608" viewBox="0 0 1080 608" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="608" rx="48" fill="#10151E"/>
+  <rect x="34" y="34" width="1012" height="540" rx="34" fill="url(#bg)"/>
+  <circle cx="906" cy="502" r="146" fill="#5DAAFF" fill-opacity="0.16"/>
+  <circle cx="178" cy="120" r="104" fill="#FF6F0F" fill-opacity="0.18"/>
+  <rect x="76" y="76" width="168" height="46" rx="23" fill="#162233"/>
+  <text x="160" y="106" text-anchor="middle" fill="#8BC2FF" font-size="20" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">TTFB</text>
+  <text x="76" y="198" fill="white" font-size="74" font-weight="800" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">60~80%</text>
+  <text x="76" y="250" fill="#8BC2FF" font-size="34" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">응답 시간 감소</text>
+  <text x="76" y="296" fill="#C4CAD8" font-size="28" font-weight="500" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Vercel Edge 캐시와 정적 서빙 전략 재설계</text>
+  <rect x="76" y="348" width="366" height="126" rx="28" fill="#FFFFFF" fill-opacity="0.07" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  <text x="112" y="398" fill="#F7F8FA" font-size="22" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">구조 변화</text>
+  <text x="112" y="438" fill="#FFB07A" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">매 요청 서버 렌더링</text>
+  <text x="336" y="438" fill="#B9C0CF" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">→</text>
+  <text x="360" y="438" fill="#8BC2FF" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">CDN 캐시 응답</text>
+  <rect x="520" y="146" width="478" height="338" rx="34" fill="#EFF6FF"/>
+  <rect x="560" y="196" width="150" height="60" rx="20" fill="#DBEAFE"/>
+  <text x="635" y="234" text-anchor="middle" fill="#245089" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Request</text>
+  <rect x="770" y="196" width="180" height="60" rx="20" fill="#BFDBFE"/>
+  <text x="860" y="234" text-anchor="middle" fill="#12345B" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Edge Cache</text>
+  <rect x="770" y="308" width="180" height="60" rx="20" fill="#93C5FD"/>
+  <text x="860" y="346" text-anchor="middle" fill="#0A284A" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Static HTML</text>
+  <path d="M710 226H752" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M858 258V292" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M752 226L738 214" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M752 226L738 238" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M858 292L846 278" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M858 292L870 278" stroke="#245089" stroke-width="10" stroke-linecap="round"/>
+  <path d="M594 420H928" stroke="#DBEAFE" stroke-width="16" stroke-linecap="round"/>
+  <path d="M594 420H826" stroke="#5DAAFF" stroke-width="16" stroke-linecap="round"/>
+  <text x="560" y="536" fill="#245089" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">빌드 시 생성된 결과물을 Edge에서 즉시 전달</text>
+  <defs>
+    <linearGradient id="bg" x1="102" y1="88" x2="992" y2="540" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#172032"/>
+      <stop offset="1" stop-color="#16293E"/>
+    </linearGradient>
+  </defs>
+</svg>

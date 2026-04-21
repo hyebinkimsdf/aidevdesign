@@ -1,0 +1,37 @@
+<svg width="1080" height="608" viewBox="0 0 1080 608" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1080" height="608" rx="48" fill="#131722"/>
+  <rect x="34" y="34" width="1012" height="540" rx="34" fill="url(#bg)"/>
+  <circle cx="908" cy="116" r="132" fill="#FF6F0F" fill-opacity="0.18"/>
+  <circle cx="148" cy="506" r="120" fill="#79D8B1" fill-opacity="0.18"/>
+  <rect x="76" y="76" width="186" height="46" rx="23" fill="#FFF5F0"/>
+  <text x="169" y="106" text-anchor="middle" fill="#FF6F0F" font-size="20" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">개선 기록</text>
+  <text x="76" y="194" fill="white" font-size="70" font-weight="800" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">LCP 3.5s</text>
+  <text x="420" y="194" fill="#FFB07A" font-size="70" font-weight="800" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">→</text>
+  <text x="498" y="194" fill="#79D8B1" font-size="70" font-weight="800" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">~2.5s</text>
+  <text x="76" y="244" fill="#B9C0CF" font-size="28" font-weight="500" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Hero 제목 렌더링과 이미지 최적화를 함께 개선</text>
+  <rect x="76" y="304" width="432" height="198" rx="28" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.08"/>
+  <text x="112" y="352" fill="#F7F8FA" font-size="22" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">핵심 변경</text>
+  <rect x="112" y="380" width="148" height="40" rx="20" fill="#FF6F0F"/>
+  <text x="186" y="406" text-anchor="middle" fill="white" font-size="18" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">SSR → SSG</text>
+  <rect x="272" y="380" width="184" height="40" rx="20" fill="#1E2636"/>
+  <text x="364" y="406" text-anchor="middle" fill="#F7F8FA" font-size="18" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">opacity 제거</text>
+  <rect x="112" y="434" width="166" height="40" rx="20" fill="#1E2636"/>
+  <text x="195" y="460" text-anchor="middle" fill="#F7F8FA" font-size="18" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Image 최적화</text>
+  <rect x="560" y="288" width="438" height="214" rx="32" fill="#FFF8F3"/>
+  <rect x="594" y="326" width="112" height="132" rx="22" fill="#FFE4D0"/>
+  <rect x="730" y="360" width="112" height="98" rx="22" fill="#FFD1AF"/>
+  <rect x="866" y="394" width="98" height="64" rx="22" fill="#FFB07A"/>
+  <path d="M650 300V468" stroke="#FF6F0F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M650 468H958" stroke="#FF6F0F" stroke-width="6" stroke-linecap="round"/>
+  <path d="M612 374L744 336L880 300" stroke="#79D8B1" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="612" cy="374" r="11" fill="#79D8B1"/>
+  <circle cx="744" cy="336" r="11" fill="#79D8B1"/>
+  <circle cx="880" cy="300" r="11" fill="#79D8B1"/>
+  <text x="594" y="548" fill="#D35A00" font-size="24" font-weight="700" font-family="Pretendard, Apple SD Gothic Neo, sans-serif">Largest Contentful Paint 개선</text>
+  <defs>
+    <linearGradient id="bg" x1="115" y1="80" x2="1004" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1A1F2D"/>
+      <stop offset="1" stop-color="#242D42"/>
+    </linearGradient>
+  </defs>
+</svg>
