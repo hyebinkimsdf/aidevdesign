@@ -80,7 +80,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <head>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Script
           id="gtm-script"
           strategy="afterInteractive"
@@ -92,8 +92,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MC9FBZXV');`,
           }}
         />
-      </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MC9FBZXV"

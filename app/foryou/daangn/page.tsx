@@ -7,7 +7,6 @@ import styles from "./daangn.module.css";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
-  navItems,
   stories,
   experts,
   stats,
@@ -34,7 +33,7 @@ function StoryThumb({ thumb }: { thumb: string }) {
   }, []);
 
   return (
-    <div className={styles.storyThumb}>
+    <div className="relative overflow-hidden rounded-[18px] aspect-square bg-[#f2f3f6]">
       {Array.from({ length: SLIDE_COUNT }, (_, i) => (
         <Image
           key={i}
@@ -51,8 +50,7 @@ function StoryThumb({ thumb }: { thumb: string }) {
           }}
         />
       ))}
-      {/* dot indicators */}
-      <div className={styles.storyDots}>
+      <div className="absolute bottom-[10px] right-[10px] flex gap-[5px] z-[2]">
         {Array.from({ length: SLIDE_COUNT }, (_, i) => (
           <button
             key={i}
@@ -62,7 +60,9 @@ function StoryThumb({ thumb }: { thumb: string }) {
               if (timerRef.current) clearInterval(timerRef.current);
               timerRef.current = setInterval(advance, SLIDE_INTERVAL);
             }}
-            className={`${styles.storyDot} ${current === i ? styles.storyDotActive : ''}`}
+            className={`h-[6px] rounded-full border-none cursor-pointer p-0 transition-all duration-300 ${
+              current === i ? 'w-4 bg-white/95' : 'w-[6px] bg-white/45'
+            }`}
           />
         ))}
       </div>
@@ -103,24 +103,44 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
   const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   return (
-    <div className={styles.perfList}>
+    <div className="flex flex-col rounded-[20px] overflow-hidden border border-[#eaebee]">
       {records.map((rec, idx) => {
         const isOpen = openIdx === idx;
         return (
-          <div key={rec.metric} className={`${styles.perfRow} ${isOpen ? styles.perfRowOpen : ''}`}>
+          <div
+            key={rec.metric}
+            className={`border-b border-[#eaebee] last:border-b-0 ${isOpen ? 'bg-[#fff5f0]' : 'bg-white'}`}
+          >
             <button
-              className={styles.perfRowBtn}
+              className="w-full grid items-center gap-3 px-7 py-[18px] bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#fff5f0]"
+              style={{ gridTemplateColumns: '64px 160px 80px 20px 80px 72px 1fr 24px' }}
               onClick={() => setOpenIdx(isOpen ? null : idx)}
               aria-expanded={isOpen}
             >
-              <span className={styles.perfMetric}>{rec.metric}</span>
-              <span className={styles.perfLabel}>{rec.label}</span>
-              <span className={styles.perfBefore}>{rec.before}</span>
-              <span className={styles.perfArrow}>→</span>
-              <span className={styles.perfAfter}>{rec.after}</span>
-              <span className={`${styles.perfDelta} ${rec.delta.startsWith('▲') ? styles.perfDeltaUp : ''}`}>{rec.delta}</span>
-              <span className={styles.perfHow}>{rec.how}</span>
-              <span className={`${styles.perfChevron} ${isOpen ? styles.perfChevronOpen : ''}`}>
+              <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px] text-center">
+                {rec.metric}
+              </span>
+              <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">
+                {rec.label}
+              </span>
+              <span className="text-[13px] text-[#868b94] line-through text-right">
+                {rec.before}
+              </span>
+              <span className="text-[13px] text-[#868b94] text-center">→</span>
+              <span className="text-[13px] font-bold text-[#1a1c20]">
+                {rec.after}
+              </span>
+              <span className={`text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] text-center whitespace-nowrap ${
+                rec.delta.startsWith('▲')
+                  ? 'text-[#16a34a] bg-[#f0fdf4]'
+                  : 'text-[#16a34a] bg-[#f0fdf4]'
+              }`}>
+                {rec.delta}
+              </span>
+              <span className="text-[13px] text-[#4d5159] tracking-[-0.02em] break-keep">
+                {rec.how}
+              </span>
+              <span className={`text-[#868b94] flex items-center justify-center transition-transform duration-[250ms] ${isOpen ? 'rotate-180' : ''}`}>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                   <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -128,25 +148,29 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
             </button>
 
             {isOpen && (
-              <div className={styles.perfDetail}>
-                <div className={styles.perfDetailGrid}>
-                  <div className={styles.perfDetailBlock}>
-                    <p className={styles.perfDetailLabel}>문제</p>
-                    <p className={styles.perfDetailText}>{rec.problem}</p>
+              <div className="px-7 pb-6 flex flex-col gap-5">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white rounded-[14px] p-5 border border-[#eaebee]">
+                    <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">문제</p>
+                    <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.problem}</p>
                   </div>
-                  <div className={styles.perfDetailBlock}>
-                    <p className={styles.perfDetailLabel}>해결 방안</p>
-                    <p className={styles.perfDetailText}>{rec.solution}</p>
+                  <div className="bg-white rounded-[14px] p-5 border border-[#eaebee]">
+                    <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">해결 방안</p>
+                    <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.solution}</p>
                   </div>
                 </div>
-                <div className={styles.perfCodeGrid}>
-                  <div className={styles.perfCodeBlock}>
-                    <p className={styles.perfCodeLabel}>Before</p>
-                    <pre className={styles.perfCode}><code>{rec.codeBefore}</code></pre>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex flex-col gap-[6px]">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#868b94]">Before</p>
+                    <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                      <code>{rec.codeBefore}</code>
+                    </pre>
                   </div>
-                  <div className={styles.perfCodeBlock}>
-                    <p className={`${styles.perfCodeLabel} ${styles.perfCodeLabelAfter}`}>After</p>
-                    <pre className={`${styles.perfCode} ${styles.perfCodeAfter}`}><code>{rec.codeAfter}</code></pre>
+                  <div className="flex flex-col gap-[6px]">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#16a34a]">After</p>
+                    <pre className="m-0 p-4 rounded-[12px] bg-[#0d1f12] text-[#86efac] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                      <code>{rec.codeAfter}</code>
+                    </pre>
                   </div>
                 </div>
               </div>
@@ -160,9 +184,283 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
 
 const STRENGTH_ICONS = [ConsultIcon, BuildIcon, SeoIcon];
 const CYCLE_MS = 2000;
+const PAGE_NAV_ITEMS = [
+  { label: 'ABOUT', href: '#strengths' },
+  { label: '프로젝트', href: '#stories' },
+  { label: '개선 기록', href: '#news' },
+  { label: 'AI효율개선', href: '#claude' },
+];
+
+type ModalType = 'yopil' | 'handi' | null;
+
+function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }) {
+  const [activeSection, setActiveSection] = useState<string>('커뮤니티');
+  const secCommunity = useRef<HTMLDivElement>(null);
+  const secMechaArena = useRef<HTMLDivElement>(null);
+  const secBanner = useRef<HTMLDivElement>(null);
+  const secUiux = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isYopil = type === 'yopil';
+
+  const yopilImages = [
+    '/요필/naver01.png', '/요필/naver02.png', '/요필/naver03.png',
+    '/요필/naver04.png', '/요필/naver05.png', '/요필/naver06.png',
+    '/요필/naver07.png', '/요필/naver08.png', '/요필/naver09.png',
+  ];
+
+  const handiBannerImages = [
+    '/핸디/FI.png', '/핸디/ILB.png', '/핸디/bi.png',
+    '/핸디/banner01.png', '/핸디/05.png', '/핸디/06.png',
+    '/핸디/umi.png', '/핸디/umi02.png', '/핸디/maona02.png',
+    '/핸디/maona03.png', '/핸디/maona04.png',
+  ];
+  const handiGameImages = [
+    '/핸디/이미지.png', '/핸디/이미지 2.png', '/핸디/이미지 3.png',
+  ];
+
+  const handiNav = [
+    { label: '커뮤니티', ref: secCommunity },
+    { label: '메카 아레나', ref: secMechaArena },
+    { label: '배너', ref: secBanner },
+    { label: 'UIUX', ref: secUiux },
+  ];
+
+  function scrollToSection(label: string, ref: React.RefObject<HTMLDivElement | null>) {
+    setActiveSection(label);
+    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  useEffect(() => {
+    if (!type || isYopil || !scrollRef.current) return;
+
+    const sections = handiNav
+      .map(({ label, ref }) => ({ label, element: ref.current }))
+      .filter((section): section is { label: string; element: HTMLDivElement } => Boolean(section.element));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (!visibleEntries.length) return;
+
+        const nextLabel = sections.find(
+          (section) => section.element === visibleEntries[0].target
+        )?.label;
+
+        if (nextLabel) {
+          setActiveSection(nextLabel);
+        }
+      },
+      {
+        root: scrollRef.current,
+        threshold: [0.2, 0.4, 0.6],
+        rootMargin: '-10% 0px -55% 0px',
+      }
+    );
+
+    sections.forEach(({ element }) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, [isYopil, type]);
+
+  useEffect(() => {
+    if (!type) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [type]);
+
+  if (!type) return null;
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white rounded-[24px] w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="shrink-0 px-8 pt-7 pb-5 border-b border-[#eaebee] flex items-start justify-between gap-4">
+          <div>
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0 mb-1">
+              {isYopil ? '요필 디자인 · 2024.06 ~ 2024.09' : '㈜핸디커뮤니케이션즈 · 2022.07 ~ 2024.02'}
+            </p>
+            <h3 className="m-0 text-[20px] font-bold text-[#1a1c20] tracking-[-0.04em]">
+              {isYopil ? 'Naver 디지털 ASR' : '커뮤니티 운영 & UIUX 디자인'}
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[#868b94] hover:bg-[#eaebee] transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 flex overflow-hidden">
+          {/* LNB - 핸디 only */}
+          {!isYopil && (
+            <nav className="shrink-0 w-36 border-r border-[#eaebee] py-6 px-3 flex flex-col gap-1">
+              {handiNav.map(({ label, ref }) => (
+                <button
+                  key={label}
+                  onClick={() => scrollToSection(label, ref)}
+                  className={`text-left w-full px-3 py-2 rounded-xl text-[13px] font-semibold transition-colors ${
+                    activeSection === label
+                      ? 'bg-[#fff3eb] text-[#ff6f0f]'
+                      : 'text-[#868b94] hover:bg-[#f7f8fa] hover:text-[#1a1c20]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </nav>
+          )}
+
+          {/* Scrollable content */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-6 flex flex-col gap-8">
+            {isYopil ? (
+              <>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <Image src="/figma.png" alt="Figma" width={20} height={20} className="w-5 h-5 object-contain" />
+                    <span className="text-[12px] font-semibold text-[#868b94]">Figma</span>
+                  </div>
+                  <p className="text-[14px] leading-[1.8] text-[#4d5159] break-keep">
+                    네이버 디지털 보이는 ARS 서비스의 UI/UX 디자인 개선을 담당했습니다.<br />
+                    기존 음성 ARS 대신 웹 기반 인터페이스로 사용자가 시각적으로 쉽게 안내를 받을 수 있도록 설계하여 접근성과 사용성을 향상시켰습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {['UI/UX 개선', '아이콘 SVG 통일화', 'UX Writing 제안', '접근성 향상'].map((tag) => (
+                      <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  {yopilImages.map((src, i) => (
+                    <div key={i} className="rounded-xl overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                      <Image src={src} alt={`네이버 디지털 ASR ${i + 1}`} width={600} height={400} className="w-full h-auto object-cover" />
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                {/* 커뮤니티 섹션 */}
+                <div ref={secCommunity} className="flex flex-col gap-3 scroll-mt-6">
+                  <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0">커뮤니티</p>
+                  <div className="flex items-center gap-2">
+                    <Image src="/photoshop.png" alt="Photoshop" width={20} height={20} className="w-5 h-5 object-contain" />
+                    <span className="text-[12px] font-semibold text-[#868b94]">Photoshop</span>
+                  </div>
+                  <p className="text-[14px] leading-[1.8] text-[#4d5159] break-keep">
+                    네이버 게임 <a href="https://game.naver.com/lounge/mecharena/board" target="_blank" rel="noopener noreferrer" className="text-[#ff6f0f] underline underline-offset-2">메카 아레나 커뮤니티</a>를 2023~2024년 운영했습니다. 유저 소통, 이벤트 기획을 담당했습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['커뮤니티 운영', '이벤트 기획', '유저 소통'].map((tag) => (
+                      <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* 메카 아레나 섹션 */}
+                <div ref={secMechaArena} className="flex flex-col gap-4 scroll-mt-6">
+                  <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0">메카 아레나</p>
+                  <p className="text-[14px] leading-[1.8] text-[#4d5159] break-keep">
+                    커뮤니티 운영과 함께 메카 아레나 이벤트용 비주얼도 직접 제작했습니다. 공지성 전달이 바로 읽히도록 강한 타이포와 게임 톤을 살린 배너 스타일로 작업했습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['이벤트 배너', '커뮤니티 운영', '프로모션 디자인'].map((tag) => (
+                      <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="rounded-[20px] overflow-hidden bg-[#111318] border border-[#eaebee]">
+                    <Image
+                      src="/핸디/메크아레나.jpeg"
+                      alt="메카 아레나 이벤트 배너"
+                      width={1200}
+                      height={675}
+                      className="w-full h-auto object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* 배너 섹션 */}
+                <div ref={secBanner} className="flex flex-col gap-3 scroll-mt-6">
+                  <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0">배너</p>
+                  <p className="text-[14px] leading-[1.8] text-[#4d5159] break-keep">
+                    마케팅 배너·사전예약 배너 등 다양한 그래픽 디자인 작업을 진행했습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['배너 디자인', '그래픽 디자인'].map((tag) => (
+                      <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 mt-1">
+                    {handiBannerImages.map((src, i) => (
+                      <div key={i} className="rounded-xl overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                        <Image src={src} alt={`배너 작업물 ${i + 1}`} width={600} height={400} className="w-full h-auto object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* UIUX 섹션 */}
+                <div ref={secUiux} className="flex flex-col gap-3 scroll-mt-6">
+                  <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0">UIUX</p>
+                  <p className="text-[14px] leading-[1.8] text-[#4d5159] break-keep">
+                    모바일 게임 &lsquo;마법의 잉크&rsquo; 프로젝트에 참여해 메인 화면 버튼 및 모달 창 등 게임 UI 배치와 디자인을 담당했습니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {['UIUX 디자인', '모바일 게임', 'UI 배치'].map((tag) => (
+                      <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-4 gap-2 mt-1">
+                    {handiGameImages.map((src, i) => (
+                      <div key={i} className="rounded-lg overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                        <Image src={src} alt={`게임 UI 작업물 ${i + 1}`} width={300} height={200} className="w-full h-auto object-cover" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function DaangnPage() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [modal, setModal] = useState<ModalType>(null);
+  const [claudeTitle, setClaudeTitle] = useState('');
+  const [claudeSummaryText, setClaudeSummaryText] = useState('');
+  const [claudeStepTitles, setClaudeStepTitles] = useState<string[]>(() => claudeWorkflow.steps.map(() => ''));
+  const [claudeStepDescs, setClaudeStepDescs] = useState<string[]>(() => claudeWorkflow.steps.map(() => ''));
+  const [claudeGainLabels, setClaudeGainLabels] = useState<string[]>(() => claudeWorkflow.gains.map(() => ''));
+  const [claudeGainValues, setClaudeGainValues] = useState<string[]>(() => claudeWorkflow.gains.map(() => ''));
+  const [claudeGainNotes, setClaudeGainNotes] = useState<string[]>(() => claudeWorkflow.gains.map(() => ''));
+  const [activeClaudeCursor, setActiveClaudeCursor] = useState<string | null>(null);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -179,6 +477,11 @@ export default function DaangnPage() {
   const overlayBodyRef = useRef<HTMLParagraphElement | null>(null);
   const metricSectionRef = useRef<HTMLElement | null>(null);
   const metricHeadingRef = useRef<HTMLDivElement | null>(null);
+  const traitSectionRef = useRef<HTMLDivElement | null>(null);
+  const claudeSectionRef = useRef<HTMLElement | null>(null);
+  const techSectionRef = useRef<HTMLElement | null>(null);
+  const contactSectionRef = useRef<HTMLElement | null>(null);
+  const contactFrameRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -197,33 +500,24 @@ export default function DaangnPage() {
         },
       });
 
-      // 텍스트 페이드아웃
       tl.to(heroCopyRef.current, { opacity: 0, y: -24, ease: "none", duration: 0.35 }, 0);
-
-      // 영상 풀스크린 확대
       tl.to(
         videoRef.current,
         { width: "100vw", height: "100vh", borderRadius: 0, ease: "none", duration: 0.8 },
         0
       );
-
-      // 오버레이 eyebrow 등장
       tl.fromTo(
         overlayEyebrowRef.current,
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, ease: "none", duration: 0.3 },
         0.5
       );
-
-      // 오버레이 메인 타이틀 등장
       tl.fromTo(
         overlayTitleRef.current,
         { opacity: 0, y: 32 },
         { opacity: 1, y: 0, ease: "none", duration: 0.35 },
         0.6
       );
-
-      // 오버레이 바디 텍스트 등장
       tl.fromTo(
         overlayBodyRef.current,
         { opacity: 0, y: 24 },
@@ -239,49 +533,55 @@ export default function DaangnPage() {
     if (!metricSectionRef.current) return;
     gsap.registerPlugin(ScrollTrigger);
 
-    const cards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
-
-    cards.forEach((card) => {
+    const valueCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
+    valueCards.forEach((card) => {
       const raw = card.dataset.metricValue ?? '';
-      // 숫자 추출: "~28%" → 28, "40~70%" → 70, "6개+" → 6, "100%" → 100
       const numbers = raw.match(/\d+/g);
       if (!numbers) return;
 
       const target = parseInt(numbers[numbers.length - 1], 10);
       const prefix = raw.startsWith('~') ? '~' : '';
       const suffix = raw.replace(/[~\d]/g, '');
-
       const obj = { val: 0 };
 
-      gsap.fromTo(
-        obj,
-        { val: 0 },
-        {
-          val: target,
-          duration: 1.6,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: metricHeadingRef.current,
-            start: 'top 80%',
-            once: true,
-          },
-          onUpdate() {
-            const display = numbers.length > 1
-              ? `${raw.split('~')[0]}~${Math.round(obj.val)}${suffix}`
-              : `${prefix}${Math.round(obj.val)}${suffix}`;
-            card.textContent = display;
-          },
-        }
-      );
+      gsap.fromTo(obj, { val: 0 }, {
+        val: target,
+        duration: 1.6,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: metricHeadingRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+        onUpdate() {
+          const display = numbers.length > 1
+            ? `${raw.split('~')[0]}~${Math.round(obj.val)}${suffix}`
+            : `${prefix}${Math.round(obj.val)}${suffix}`;
+          card.textContent = display;
+        },
+      });
     });
 
-    // 카드 페이드+슬라이드업
+    const metricCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-card]');
+    const metricLabels = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-label]');
+    const metricValues = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
+    const metricNotes = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-note]');
+
     gsap.fromTo(
-      metricSectionRef.current.querySelectorAll('[data-metric-card]'),
-      { opacity: 0, y: 30 },
+      metricCards,
+      {
+        opacity: 0,
+        y: 30,
+        backgroundColor: '#fff1e8',
+        borderColor: '#ffb27d',
+        boxShadow: '0 22px 50px rgba(255,111,15,0.22)',
+      },
       {
         opacity: 1,
         y: 0,
+        backgroundColor: '#ffffff',
+        borderColor: '#eaebee',
+        boxShadow: '0 0 0 rgba(255,111,15,0)',
         duration: 0.6,
         stagger: 0.1,
         ease: 'power2.out',
@@ -292,24 +592,352 @@ export default function DaangnPage() {
         },
       }
     );
+
+    gsap.fromTo(
+      metricSectionRef.current.querySelectorAll('[data-metric-accent]'),
+      {
+        width: '0%',
+        opacity: 0,
+        backgroundColor: '#ff6f0f',
+      },
+      {
+        width: '100%',
+        opacity: 1,
+        duration: 0.7,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: metricHeadingRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      metricValues,
+      { color: '#ff6f0f', textShadow: '0 0 18px rgba(255,111,15,0.35)' },
+      {
+        color: '#212124',
+        textShadow: '0 0 0 rgba(255,111,15,0)',
+        duration: 1,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: metricHeadingRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      [...metricLabels, ...metricNotes],
+      { color: '#c26a1a' },
+      {
+        color: (_index, target) =>
+          target.hasAttribute('data-metric-label') ? '#868b94' : '#868b94',
+        duration: 0.9,
+        stagger: 0.06,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: metricHeadingRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      }
+    );
   }, []);
 
-return (
+  useEffect(() => {
+    if (!traitSectionRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
 
-    <main className={styles.page}>
-      <header className={styles.header}>
-        <div className={styles.container}>
-          <div className={styles.headerInner}>
-            <a className={styles.logo} href="#top" aria-label="Hyebin 포트폴리오">
-              <span className={styles.logoBadge}>HB</span>
+    const cards = traitSectionRef.current.querySelectorAll<HTMLElement>('[data-trait-card]');
+
+    gsap.fromTo(
+      cards,
+      { opacity: 0, y: 28, scale: 0.97 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.65,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: traitSectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!techSectionRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const cards = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-card]');
+    const badges = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-badge]');
+    const texts = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-text]');
+
+    gsap.fromTo(
+      cards,
+      {
+        opacity: 0,
+        y: 28,
+        scale: 0.97,
+        backgroundColor: '#fff5f0',
+        boxShadow: '0 18px 42px rgba(255,111,15,0.12)',
+      },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        backgroundColor: '#f7f8fa',
+        boxShadow: '0 0 0 rgba(255,111,15,0)',
+        duration: 0.65,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: techSectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      badges,
+      { opacity: 0, y: 12, filter: 'blur(6px)' },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 0.55,
+        stagger: 0.08,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: techSectionRef.current,
+          start: 'top 78%',
+          once: true,
+        },
+      }
+    );
+
+    gsap.fromTo(
+      texts,
+      { opacity: 0, y: 16 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: techSectionRef.current,
+          start: 'top 76%',
+          once: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!contactSectionRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const items = contactSectionRef.current.querySelectorAll<HTMLElement>('[data-contact-item]');
+
+    gsap.fromTo(
+      items,
+      {
+        opacity: 0,
+        y: 28,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.65,
+        stagger: 0.12,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: contactSectionRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!contactSectionRef.current || !contactFrameRef.current) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: contactSectionRef.current,
+          start: 'top top',
+          end: '+=140%',
+          scrub: 0.8,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+        },
+      }).to(
+        contactFrameRef.current,
+        {
+          width: '100vw',
+          height: '100vh',
+          borderRadius: 0,
+          ease: 'none',
+          duration: 1,
+        },
+        0
+      );
+    }, contactSectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    if (!claudeSectionRef.current) return;
+
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    let cancelled = false;
+
+    const typeText = async (
+      id: string,
+      text: string,
+      setter: React.Dispatch<React.SetStateAction<string>>,
+      speed: number
+    ) => {
+      setActiveClaudeCursor(id);
+      setter('');
+
+      for (let index = 1; index <= text.length; index += 1) {
+        if (cancelled) return;
+        setter(text.slice(0, index));
+        await sleep(speed);
+      }
+    };
+
+    const typeArrayText = async (
+      id: string,
+      text: string,
+      setter: React.Dispatch<React.SetStateAction<string[]>>,
+      itemIndex: number,
+      speed: number
+    ) => {
+      setActiveClaudeCursor(id);
+      setter((prev) => {
+        const next = [...prev];
+        next[itemIndex] = '';
+        return next;
+      });
+
+      for (let index = 1; index <= text.length; index += 1) {
+        if (cancelled) return;
+        setter((prev) => {
+          const next = [...prev];
+          next[itemIndex] = text.slice(0, index);
+          return next;
+        });
+        await sleep(speed);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+
+        setClaudeTitle('');
+        setClaudeSummaryText('');
+        setClaudeStepTitles(claudeWorkflow.steps.map(() => ''));
+        setClaudeStepDescs(claudeWorkflow.steps.map(() => ''));
+        setClaudeGainLabels(claudeWorkflow.gains.map(() => ''));
+        setClaudeGainValues(claudeWorkflow.gains.map(() => ''));
+        setClaudeGainNotes(claudeWorkflow.gains.map(() => ''));
+
+        void (async () => {
+          await typeText('title', 'Claude AI로 개발 효율화', setClaudeTitle, 85);
+          if (cancelled) return;
+          await sleep(140);
+
+          await typeText('summary', claudeWorkflow.summary, setClaudeSummaryText, 16);
+          if (cancelled) return;
+          await sleep(180);
+
+          for (const [index, step] of claudeWorkflow.steps.entries()) {
+            await typeArrayText(`step-title-${index}`, step.title, setClaudeStepTitles, index, 28);
+            if (cancelled) return;
+            await sleep(70);
+            await typeArrayText(`step-desc-${index}`, step.desc, setClaudeStepDescs, index, 11);
+            if (cancelled) return;
+            await sleep(180);
+          }
+
+          for (const [index, gain] of claudeWorkflow.gains.entries()) {
+            await typeArrayText(`gain-value-${index}`, gain.value, setClaudeGainValues, index, 38);
+            if (cancelled) return;
+            await sleep(60);
+            await typeArrayText(`gain-label-${index}`, gain.label, setClaudeGainLabels, index, 18);
+            if (cancelled) return;
+            await sleep(60);
+            await typeArrayText(`gain-note-${index}`, gain.note, setClaudeGainNotes, index, 9);
+            if (cancelled) return;
+            await sleep(140);
+          }
+
+          setActiveClaudeCursor(null);
+        })();
+
+        observer.disconnect();
+      },
+      {
+        threshold: 0.35,
+      }
+    );
+
+    observer.observe(claudeSectionRef.current);
+
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, []);
+
+  return (
+    <main className={`${styles.page} bg-white text-[#212124]`}>
+      {/* 헤더 */}
+      <header className="sticky top-0 z-40 bg-white/88 backdrop-blur-[18px] border-b border-[#eaebee]/90">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="min-h-18 flex items-center justify-between gap-5">
+            <a className="inline-flex items-center gap-3" href="#top" aria-label="당근용 김혜빈 포트폴리오">
+              <span className="inline-flex items-center justify-center min-w-12 h-9 px-4 rounded-full bg-[#ff6f0f] text-white text-[16px] font-bold">
+                HB
+              </span>
+              <span className="flex flex-col leading-none">
+                <strong className="text-[14px] font-bold text-[#212124]">For Karrot</strong>
+                <span className="text-[12px] text-[#868b94] mt-[3px]">김혜빈 포트폴리오</span>
+              </span>
             </a>
-            <nav className={styles.nav}>
-              {navItems.map((item) => (
-                <a key={item.label} href={item.href} className={styles.navLink}>
+            <nav className="flex items-center gap-2 flex-wrap">
+              {PAGE_NAV_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="h-10 inline-flex items-center px-[14px] rounded-full text-[15px] font-semibold text-[#4d5159] transition-colors hover:bg-[#f7f8fa] hover:text-[#212124]"
+                >
                   {item.label}
                 </a>
               ))}
-              <a href="mailto:hyebinkimdesign@gmail.com" className={styles.hireLink}>
+              <a
+                href="mailto:hyebinkimdesign@gmail.com"
+                className="h-10 inline-flex items-center px-[14px] rounded-full text-[15px] font-semibold bg-[#ff6f0f] text-white"
+              >
                 연락하기
               </a>
             </nav>
@@ -317,187 +945,373 @@ return (
         </div>
       </header>
 
-      {/* 히어로 — 텍스트 + 영상 카드 통합 pin 섹션 */}
-      <div ref={heroRef} className={styles.heroStage} id="top">
-        {/* 좌상단 텍스트 — 스크롤 시 페이드아웃 */}
-        <div ref={heroCopyRef} className={styles.heroCopy}>
-          <p className={styles.heroEyebrow}> 풀스택 개발 · 디자인 · SEO · 데이터 분석을 하는</p>
-          <h1 className={styles.heroHeadline}>
-           
+      {/* 히어로 — GSAP pin 섹션 */}
+      <div
+        ref={heroRef}
+        id="top"
+        className="relative w-full h-screen overflow-hidden flex flex-col items-center justify-end pb-0"
+        style={{
+          background: 'radial-gradient(circle at 15% 10%, rgba(255,111,15,0.1), transparent 28%), radial-gradient(circle at 85% 15%, rgba(255,111,15,0.07), transparent 26%), linear-gradient(180deg,#fff7f1 0%,#fff 40%,#fff 100%)',
+        }}
+      >
+        {/* 좌상단 텍스트 */}
+        <div
+          ref={heroCopyRef}
+          className="absolute z-2 text-left"
+          style={{
+            top: 'clamp(72px, 11vh, 120px)',
+            left: 'clamp(24px, 5vw, 80px)',
+            maxWidth: 'min(560px, 46vw)',
+            willChange: 'opacity, transform',
+          }}
+        >
+          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#ff6f0f]/10 text-[#ff6f0f] text-[14px] font-bold tracking-[0.02em] uppercase">
+            풀스택 개발 · 디자인 · SEO · 데이터 분석을 하는
+          </p>
+          <h1
+            className="mt-4.5 mb-20 text-[#17191d] font-bold leading-[1.02] tracking-[-0.06em] break-keep"
+            style={{ fontSize: 'clamp(2.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
+          >
             웹 개발자 김혜빈입니다
           </h1>
-          
         </div>
 
-        {/* 영상 카드 — 확대되며 풀스크린 */}
-        <div className={styles.heroVideoWrapper} ref={videoRef}>
+        {/* 영상 카드 */}
+        <div
+          ref={videoRef}
+          className="relative overflow-hidden bg-black shrink-0"
+          style={{
+            width: '90vw',
+            height: '62vh',
+            borderRadius: '20px',
+            boxShadow: '0 24px 72px rgba(0,0,0,0.22)',
+            transform: 'translateY(24px)',
+            willChange: 'width, height, border-radius',
+          }}
+        >
           <video
-            className={styles.heroVideo}
+            className="w-full h-full object-cover bg-black"
             src="/video/hero_dangn_2.mp4"
             autoPlay
             muted
             loop
             playsInline
           />
-          {/* 확장 후 오버레이 텍스트 */}
-          <div className={styles.heroVideoOverlay}>
-            <p className={styles.overlayEyebrow} ref={overlayEyebrowRef}>
-              디자인 · 개발 · SEO 컨설팅 경험으로            </p>
-            <h2 className={styles.overlayTitle} ref={overlayTitleRef}>
-                당근처럼 생활에 스며드는 경험을 만들고 싶습니다
+          <div
+            className="absolute inset-0 flex flex-col justify-end pointer-events-none"
+            style={{
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.32) 100%)',
+              paddingTop: 'clamp(24px, 3.2vw, 52px)',
+              paddingInline: 'clamp(24px, 3.2vw, 52px)',
+              paddingBottom: 'clamp(64px, 6vw, 112px)',
+            }}
+          >
+            <p
+              ref={overlayEyebrowRef}
+              className="m-0 mb-4 text-white/82 font-bold tracking-[-0.03em] break-keep opacity-0"
+              style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.15rem)', willChange: 'opacity, transform' }}
+            >
+              디자인 · 개발 · SEO 컨설팅 경험으로
+            </p>
+            <h2
+              ref={overlayTitleRef}
+              className="mt-3 mb-0 text-white font-bold leading-[1.12] tracking-[-0.05em] break-keep opacity-0"
+              style={{ fontSize: 'clamp(2rem, 4.2vw, 4.2rem)', willChange: 'opacity, transform' }}
+            >
+              당근처럼 생활에 스며드는 경험을 만들고 싶습니다
             </h2>
-            <p className={styles.overlayBody} ref={overlayBodyRef}>
-             실서비스를 직접 만들며, LCP 28% 단축 · 이미지 최적화 40~70%를 달성했습니다.
+            <p
+              ref={overlayBodyRef}
+              className="mt-4 mb-0 text-white/72 leading-[1.6] tracking-[-0.02em] font-medium break-keep opacity-0"
+              style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)', willChange: 'opacity, transform' }}
+            >
+              실서비스를 직접 만들며, LCP 28% 단축 · 이미지 최적화 40~70%를 달성했습니다.
             </p>
           </div>
         </div>
       </div>
 
-      <section className={`${styles.section} ${styles.expertSection}`}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.kicker}>Core Strengths</p>
-            <h2>상담부터 실행, 성과까지 연결합니다</h2>
+      {/* Core Strengths 섹션 */}
+      <section id="strengths" className="py-22 bg-[#f7f8fa]">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="mb-10">
+            <p className="mb-2.5 text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">Core Strengths</p>
+            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              더 쉽고 편한 경험이 되도록 구현하고, <br/> 데이터를 바탕으로 개선합니다
+            </h2>
           </div>
 
           {/* 프로필 카드 */}
-          <div className={styles.aboutCard}>
-            <div className={styles.aboutTop}>
-              <div className={styles.aboutPhotoWrap}>
-                <Image src={about.photo} alt={about.name} width={120} height={120} className={styles.aboutPhoto} />
+          <div className="bg-white border-[1.5px] border-[#eaebee] rounded-3xl overflow-hidden mb-8">
+            <div className="flex gap-7 items-start p-9 border-b-[1.5px] border-[#eaebee]">
+              <div className="shrink-0 h-64 w-auto rounded-2xl overflow-hidden bg-[#f7f8fa] border-[1.5px] border-[#eaebee]">
+                <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto object-contain" />
               </div>
-              <div className={styles.aboutInfo}>
-                <p className={styles.aboutName}>{about.name} <span>{about.role}</span></p>
-                <p className={styles.aboutIntro}>{about.intro}</p>
-                <div className={styles.aboutTags}>
+              <div className="flex flex-col gap-2.5">
+                <p className="m-0 text-[20px] font-extrabold text-[#212124]">
+                  {about.name}
+                  <span className="text-[14px] font-medium text-[#868b94] ml-2">{about.role}</span>
+                </p>
+                <p className="m-0 text-[15px] leading-[1.7] text-[#212124] max-w-150">{about.intro}</p>
+                <div className="flex flex-wrap gap-1.5">
                   {about.tags.map((tag) => (
-                    <span key={tag} className={styles.aboutTag}>{tag}</span>
+                    <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border-[1.5px] border-[#eaebee] text-[12px] font-semibold text-[#868b94]">
+                      {tag}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* 경력 타임라인 */}
-            <div className={styles.aboutSection}>
-              <p className={styles.aboutSectionLabel}>경력</p>
-              <div className={styles.careerList}>
-                {about.careers.map((c) => (
-                  <div key={c.company} className={styles.careerItem}>
-                    <div className={styles.careerHeader}>
-                      <strong className={styles.careerCompany}>{c.company}</strong>
-                      <span className={styles.careerPeriod}>{c.period}</span>
+            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
+              <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-1">
+                {experts.map((expert, idx) => {
+                  const Icon = STRENGTH_ICONS[idx];
+                  const isActive = idx === activeIdx;
+                  return (
+                    <article
+                      key={expert.title}
+                      className={`rounded-[20px] p-6 flex flex-col border transition-all duration-300 ${
+                        isActive
+                          ? 'border-[#ff6f0f] bg-[#fff5f0] shadow-[0_8px_32px_rgba(255,111,15,0.10)]'
+                          : 'border-[#eaebee] bg-white'
+                      }`}
+                    >
+                      <div className="inline-flex items-center justify-center w-11 h-11 rounded-[14px] border border-[#eaebee] bg-white text-[#ff6f0f] mb-4 flex-shrink-0">
+                        <Icon />
+                      </div>
+                      <h3 className="m-0 mb-3 text-[#1a1c20] text-[15px] font-bold tracking-[-0.03em] break-keep">
+                        {expert.title}
+                      </h3>
+                      <ul className="list-none m-0 p-0 flex flex-col gap-2">
+                        {expert.points.map((point) => (
+                          <li key={point} className="flex items-start gap-2 text-[14px] text-[#4d5159] leading-[1.6] tracking-[-0.02em] break-keep">
+                            <span className="inline-block w-1 h-1 rounded-full bg-[#ff6f0f] shrink-0 mt-2" aria-hidden="true" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 경력 */}
+            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">경력</p>
+              <div className="flex flex-col gap-6">
+                {about.careers.map((c) => {
+                  const isGlobal = c.company.includes('글로벌엠아이지');
+                  const isYopil = c.company.includes('요필');
+                  const isHandi = c.company.includes('핸디');
+                  return (
+                    <div key={c.company} className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <strong className="text-[15px] font-bold text-[#212124]">{c.company}</strong>
+                        <span className="text-[12px] text-[#868b94]">{c.period}</span>
+                        {isGlobal && (
+                          <a href="#stories" className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#ff6f0f] hover:underline">
+                            포트폴리오 보기 →
+                          </a>
+                        )}
+                        {isYopil && (
+                          <button
+                            onClick={() => setModal('yopil')}
+                            className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#ff6f0f] hover:underline bg-none border-none cursor-pointer p-0"
+                          >
+                            포트폴리오 보기 →
+                          </button>
+                        )}
+                        {isHandi && (
+                          <button
+                            onClick={() => setModal('handi')}
+                            className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#ff6f0f] hover:underline bg-none border-none cursor-pointer p-0"
+                          >
+                            포트폴리오 보기 →
+                          </button>
+                        )}
+                      </div>
+                      <p className="m-0 text-[13px] text-[#ff6f0f] font-semibold">{c.role}</p>
+                      <ul className="mt-1.5 m-0 p-0 list-none flex flex-col gap-1">
+                        {c.tasks.map((t) => (
+                          <li key={t} className="text-[14px] text-[#868b94] pl-3.5 relative leading-[1.6] before:content-['–'] before:absolute before:left-0 before:text-[#eaebee]">
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className={styles.careerRole}>{c.role}</p>
-                    <ul className={styles.careerTasks}>
-                      {c.tasks.map((t) => (
-                        <li key={t}>{t}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
             {/* 학력 */}
-            <div className={styles.aboutSection}>
-              <p className={styles.aboutSectionLabel}>학력</p>
-              <div className={styles.careerItem}>
-                <div className={styles.careerHeader}>
-                  <strong className={styles.careerCompany}>{about.education.school}</strong>
-                  <span className={styles.careerPeriod}>{about.education.period}</span>
+            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
+              <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">학력</p>
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-baseline gap-3 flex-wrap">
+                  <strong className="text-[15px] font-bold text-[#212124]">{about.education.school}</strong>
+                  <span className="text-[12px] text-[#868b94]">{about.education.period}</span>
                 </div>
-                <p className={styles.careerRole}>{about.education.major} · GPA {about.education.gpa}</p>
+                <p className="m-0 text-[13px] text-[#ff6f0f] font-semibold">
+                  {about.education.major} · GPA {about.education.gpa}
+                </p>
               </div>
             </div>
 
-            {/* 장단점 */}
-            <div className={styles.aboutSwGrid}>
-              <div className={styles.aboutSwCol}>
-                <p className={styles.aboutSectionLabel}>이런 점이 강점이에요</p>
+            {/* 강점/약점 */}
+            <div ref={traitSectionRef} className="grid grid-cols-2 gap-6 px-9 py-7">
+              <div className="flex flex-col gap-3">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-1">이런 점이 강점이에요</p>
                 {about.strengths.map((s) => (
-                  <div key={s.title} className={styles.swItem}>
-                    <span className={styles.swEmoji}>{s.emoji}</span>
-                    <div>
-                      <strong>{s.title}</strong>
-                      <p>{s.desc}</p>
-                    </div>
+                  <div
+                    key={s.title}
+                    data-trait-card
+                    className="flex flex-col gap-2 bg-[#f7f8fa] border border-[#eaebee] rounded-2xl p-5 transition-all duration-300 hover:-translate-y-[4px] hover:bg-[#fff8f4] hover:border-[#f6d7c0] hover:shadow-[0_14px_30px_rgba(255,111,15,0.08)]"
+                  >
+                    <span className="text-[24px]">{s.emoji}</span>
+                    <strong className="text-[14px] font-bold text-[#212124]">{s.title}</strong>
+                    <p className="m-0 text-[13px] text-[#868b94] leading-[1.6]">{s.desc}</p>
                   </div>
                 ))}
               </div>
-              <div className={styles.aboutSwCol}>
-                <p className={styles.aboutSectionLabel}>솔직히 이런 점은 부족해요</p>
+              <div className="flex flex-col gap-3">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-1">솔직히 이런 점은 부족해요</p>
                 {about.weaknesses.map((w) => (
-                  <div key={w.title} className={styles.swItem}>
-                    <span className={styles.swEmoji}>{w.emoji}</span>
-                    <div>
-                      <strong>{w.title}</strong>
-                      <p>{w.desc}</p>
-                    </div>
+                  <div
+                    key={w.title}
+                    data-trait-card
+                    className="flex flex-col gap-2 bg-[#eef0f3] border border-[#dde1e6] rounded-2xl p-5 transition-all duration-300 hover:-translate-y-[4px] hover:bg-[#fff8f4] hover:border-[#f6d7c0] hover:shadow-[0_14px_30px_rgba(255,111,15,0.08)]"
+                  >
+                    <span className="text-[24px]">{w.emoji}</span>
+                    <strong className="text-[14px] font-bold text-[#212124]">{w.title}</strong>
+                    <p className="m-0 text-[13px] text-[#868b94] leading-[1.6]">{w.desc}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className={styles.strengthGrid}>
-            {experts.map((expert, idx) => {
-              const Icon = STRENGTH_ICONS[idx];
-              const isActive = idx === activeIdx;
-              return (
-                <article
-                  key={expert.title}
-                  className={`${styles.strengthCard} ${isActive ? styles.strengthCardActive : styles.strengthCardInactive}`}
-                >
-                  <div className={styles.strengthIcon}>
-                    <Icon />
-                  </div>
-                  <h3 className={styles.strengthTitle}>{expert.title}</h3>
-                  <ul className={styles.strengthPoints}>
-                    {expert.points.map((point) => (
-                      <li key={point} className={styles.strengthPoint}>
-                        <span className={styles.strengthDot} aria-hidden="true" />
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </article>
-              );
-            })}
+        </div>
+      </section>
+
+      {/* 기술 스택 섹션 */}
+      <section ref={techSectionRef} className="py-[88px] bg-white">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="mb-10">
+            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              사용하는 기술 스택
+            </h2>
+          </div>
+          <div className="grid grid-cols-3 gap-[18px] max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
+            {techStack.map((tech) => (
+              <div key={tech.name} data-tech-card className="rounded-[20px] p-6 bg-[#f7f8fa] flex flex-col items-start gap-[14px]">
+                <div data-tech-badge>
+                  <Image src={tech.image} alt={tech.name} width={160} height={28} unoptimized style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <strong data-tech-text className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">{tech.name}</strong>
+                  <span data-tech-text className="text-[13px] text-[#868b94] leading-[1.55] tracking-[-0.02em] break-keep">{tech.desc}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className={styles.section} id="stories">
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.kicker}>Projects</p>
-            <h2>실제 운영 중인 사이트를 직접 설계·개발했습니다</h2>
+      {/* 실서비스 지표 섹션 */}
+      <section ref={metricSectionRef} className="py-[88px] bg-white">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div ref={metricHeadingRef} className="mb-10">
+            <p className="mb-[10px] text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">실서비스 기준</p>
+            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              직접 설계하고 배포한 서비스들
+            </h2>
           </div>
-          <div className={styles.storyGrid}>
+          <div className="grid grid-cols-4 border-[1.5px] border-[#eaebee] rounded-[20px] overflow-hidden max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
+            {stats.map((item) => (
+              <article
+                key={item.label}
+                data-metric-card
+                className="relative overflow-hidden p-9 flex flex-col gap-2 border-r border-r-[#eaebee] last:border-r-0 bg-white transition-colors hover:bg-[#f7f8fa]"
+              >
+                <span
+                  data-metric-accent
+                  aria-hidden="true"
+                  className="absolute top-0 left-0 h-[4px] rounded-r-full opacity-0"
+                />
+                <p data-metric-label className="m-0 text-[#868b94] text-[13px] font-semibold tracking-[0.02em]">{item.label}</p>
+                <strong
+                  data-metric-value={item.value}
+                  className="font-extrabold leading-[1.1] text-[#212124]"
+                  style={{ fontSize: 'clamp(2rem, 3vw, 3rem)', letterSpacing: '-0.04em' }}
+                >
+                  {item.value}
+                </strong>
+                <span data-metric-note className="text-[13px] text-[#868b94] mt-[2px]">{item.note}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Projects 섹션 */}
+      <section className="py-22" id="stories">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="mb-10">
+            <p className="mb-2.5 text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">Projects</p>
+            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              실제 운영 중인 사이트를 직접 설계·개발했습니다
+            </h2>
+          </div>
+          <div className="grid grid-cols-3 gap-5 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
             {stories.map((story) => (
-              <article key={story.title} className={styles.storyCard}>
+              <article
+                key={story.title}
+                className="flex flex-col rounded-3xl p-5 bg-white border border-[#eaebee] gap-3.5 transition-transform duration-200 hover:-translate-y-[3px] hover:shadow-[0_24px_48px_rgba(33,33,36,0.08)] cursor-pointer"
+                role="link"
+                tabIndex={0}
+                onClick={() => window.open(story.href, '_blank', 'noopener,noreferrer')}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    window.open(story.href, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+              >
                 <StoryThumb thumb={story.thumb} />
-                <div className={styles.storyCardBody}>
-                  <div className={styles.storyMeta}>
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between text-[#ff6f0f] text-[13px] font-bold">
                     <span>{story.category}</span>
-                    <span className={styles.storyContrib}>기여도 {story.contribution}</span>
+                    <span className="text-[#868b94] text-[12px] font-semibold">기여도 {story.contribution}</span>
                   </div>
-                  <h3>{story.title}</h3>
-                  <div className={styles.storyTools}>
+                  <h3 className="m-0 text-[#1a1c20] text-[18px] leading-[1.4] tracking-[-0.04em] font-bold break-keep">
+                    {story.title}
+                  </h3>
+                  <div className="flex flex-wrap gap-[5px]">
                     {story.tools.map((t) => (
-                      <span key={t} className={styles.storyTool}>{t}</span>
+                      <span key={t} className="py-[2px] px-2 rounded-full border border-[#eaebee] text-[11px] font-semibold text-[#4d5159]">
+                        {t}
+                      </span>
                     ))}
                   </div>
-                  <p className='text-[10px] font-bold pt-2 w-full border-t  border-gray-200'>Highlights</p>
-                  <ul className={styles.storyHighlights}>
+                  <p className="text-[10px] font-bold pt-2 w-full border-t border-[#eaebee]">Highlights</p>
+                  <ul className="list-none m-0 p-0 flex flex-col gap-[5px]">
                     {story.highlights.map((h) => (
-                      <li key={h}>
-                        <span className={styles.storyDotInline} aria-hidden="true" />
+                      <li key={h} className="flex items-start gap-[6px] text-[13px] text-[#4d5159] leading-[1.55] tracking-[-0.02em] break-keep">
+                        <span className="inline-block w-1 h-1 rounded-full bg-[#ff6f0f] flex-shrink-0 mt-[7px]" aria-hidden="true" />
                         {h}
                       </li>
                     ))}
                   </ul>
-                  <a href={story.href} target="_blank" rel="noreferrer" className={styles.storyLink}>
+                  <a
+                    href={story.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(event) => event.stopPropagation()}
+                    className="inline-flex items-center gap-1 mt-4 text-[14px] font-bold text-[#4d5159] transition-colors hover:text-[#ff6f0f]"
+                  >
                     자세히 보기 &rarr;
                   </a>
                 </div>
@@ -507,150 +1321,230 @@ return (
         </div>
       </section>
 
-      <section ref={metricSectionRef} className={`${styles.section} ${styles.metricsSection}`}>
-        <div className={styles.container}>
-          <div ref={metricHeadingRef} className={styles.sectionHeading}>
-            <p className={styles.kicker}>실서비스 기준</p>
-            <h2>직접 설계하고 배포한 서비스들</h2>
-          </div>
-          <div className={styles.metricGrid}>
-            {stats.map((item) => (
-              <article key={item.label} className={styles.metricCard} data-metric-card>
-                <p>{item.label}</p>
-                <strong data-metric-value={item.value}>{item.value}</strong>
-                <span>{item.note}</span>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className={styles.section} id="news">
-        <div className={styles.container}>
-          <div className={styles.newsHeader}>
-            <div className={styles.sectionHeading}>
-              <p className={styles.kicker}>개선 기록을 확인해보세요!</p>
-              <h2>개선 기록</h2>
+      {/* 개선 기록 섹션 */}
+      <section className="py-[88px]" id="news">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="flex items-end justify-between gap-5 mb-10">
+            <div>
+              <p className="mb-[10px] text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">개선 기록을 확인해보세요!</p>
+              <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+                개선 기록
+              </h2>
             </div>
-            <Link href="/foryou/daangn/improvements" className={styles.ghostButton}>
+            <Link
+              href="/foryou/daangn/improvements"
+              className="inline-flex items-center h-12 px-5 rounded-full border border-[#eaebee] text-[#212124] bg-white text-[15px] font-bold flex-shrink-0"
+            >
               전체 기록 보러가기
             </Link>
           </div>
-          <div className={styles.newsGrid}>
+          <div className="grid grid-cols-3 gap-[18px] max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
             {news.map((item) => (
-              <a key={item.title} href={item.href} className={styles.newsCard}>
-                <div className={styles.newsThumb}>
+              <a
+                key={item.title}
+                href={item.href}
+                className="flex flex-col gap-[18px] transition-transform duration-200 hover:-translate-y-[3px] hover:shadow-[0_24px_48px_rgba(33,33,36,0.08)]"
+              >
+                <div className="rounded-[22px] overflow-hidden aspect-video bg-[#f2f3f6]">
                   <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
-                <div className={styles.newsMeta}>
-                  <strong>{item.title}</strong>
-                  <span>{item.date}</span>
+                <div className="flex flex-col gap-[6px]">
+                  <strong className="text-[22px] leading-[1.45] break-keep tracking-[-0.04em] text-[#1a1c20]">{item.title}</strong>
+                  <span className="text-[#868b94] text-[14px] leading-[1.5]">{item.date}</span>
                 </div>
               </a>
             ))}
           </div>
-          <div className='mt-20'>
-  <PerfAccordion records={perfRecords} />
-          </div>
-
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.metricsSection}`}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <h2>사용하는 기술 스택</h2>
-          </div>
-          <div className={styles.investorGrid}>
-            {techStack.map((tech) => (
-              <div key={tech.name} className={styles.investorCard}>
-                <Image src={tech.image} alt={tech.name} width={160} height={28} unoptimized />
-                <div className={styles.techInfo}>
-                  <strong>{tech.name}</strong>
-                  <span>{tech.desc}</span>
-                </div>
-              </div>
-            ))}
+          <div className="mt-20">
+            <PerfAccordion records={perfRecords} />
           </div>
         </div>
       </section>
 
-      {/* Claude AI 활용 섹션 */}
-      <section className={`${styles.section} ${styles.claudeSection}`} id="claude">
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.kicker}>AI-Driven Workflow</p>
-            <h2>Claude AI로 개발 효율화</h2>
+      {/* Claude AI 워크플로우 섹션 */}
+      <section
+        id="claude"
+        ref={claudeSectionRef}
+        className="py-[88px]"
+        style={{ background: 'linear-gradient(160deg, #1a1c20 0%, #24262d 100%)' }}
+      >
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="mb-10">
+            <p className="mb-[10px] text-[#ff6f0f]/90 text-[18px] font-bold tracking-[-0.03em]">AI-Driven Workflow</p>
+            <h2
+              className="m-0 text-[#e8e9ec] font-bold leading-[1.2] tracking-[-0.05em] break-keep"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}
+            >
+              <span className="inline-flex items-center">
+                <span>{claudeTitle || '\u00A0'}</span>
+                <span
+                  aria-hidden="true"
+                  className={`ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] ${
+                    activeClaudeCursor === 'title' ? 'animate-pulse' : 'opacity-70'
+                  }`}
+                />
+              </span>
+            </h2>
           </div>
-          <p className={styles.claudeSummary}>{claudeWorkflow.summary}</p>
+          <p className="max-w-[680px] text-[15px] font-medium leading-[1.8] text-[#868b94] tracking-[-0.03em] break-keep m-0 mb-[52px]">
+            {claudeSummaryText || '\u00A0'}
+            {activeClaudeCursor === 'summary' && (
+              <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+            )}
+          </p>
 
-          <div className={styles.claudeSteps}>
-            {claudeWorkflow.steps.map((s) => (
-              <div key={s.step} className={styles.claudeStep}>
-                <div className={styles.claudeStepHeader}>
-                  <span className={styles.claudeStepNum}>{s.step}</span>
-                  <h3 className={styles.claudeStepTitle}>{s.title}</h3>
+          <div className="grid grid-cols-3 gap-[18px] mb-[52px] max-[1100px]:grid-cols-1">
+            {claudeWorkflow.steps.map((s, index) => (
+              <div
+                key={s.step}
+                className="rounded-[20px] p-[26px] flex flex-col gap-[14px]"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <div className="flex items-center gap-[10px]">
+                  <span
+                    className="text-[11px] font-bold text-[#ff6f0f] tracking-[-0.01em] rounded-full py-[2px] px-[10px] flex-shrink-0"
+                    style={{ background: 'rgba(255,111,15,0.12)', border: '1px solid rgba(255,111,15,0.22)' }}
+                  >
+                    {s.step}
+                  </span>
+                  <h3 className="m-0 text-[16px] font-bold text-[#e8e9ec] tracking-[-0.04em] break-keep">
+                    {claudeStepTitles[index] || '\u00A0'}
+                    {activeClaudeCursor === `step-title-${index}` && (
+                      <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+                    )}
+                  </h3>
                 </div>
-                <p className={styles.claudeStepDesc}>{s.desc}</p>
-                <div className={styles.claudeStepTags}>
+                <p className="m-0 text-[13px] text-[#7a8190] leading-[1.7] tracking-[-0.02em] break-keep">
+                  {claudeStepDescs[index] || '\u00A0'}
+                  {activeClaudeCursor === `step-desc-${index}` && (
+                    <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+                  )}
+                </p>
+                <div className="flex flex-wrap gap-[5px]">
                   {s.tags.map((tag) => (
-                    <span key={tag} className={styles.claudeTag}>{tag}</span>
+                    <span
+                      key={tag}
+                      className="py-[2px] px-2 rounded-full text-[11px] font-semibold text-[#a0a6b2] tracking-[-0.01em]"
+                      style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
-                <pre className={styles.claudeCode}><code>{s.code}</code></pre>
+                <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                  <code>{s.code}</code>
+                </pre>
               </div>
             ))}
           </div>
 
-          <div className={styles.claudeGains}>
-            {claudeWorkflow.gains.map((g) => (
-              <div key={g.label} className={styles.claudeGainCard}>
-                <strong className={styles.claudeGainValue}>{g.value}</strong>
-                <p className={styles.claudeGainLabel}>{g.label}</p>
-                <span className={styles.claudeGainNote}>{g.note}</span>
+          <div className="grid grid-cols-4 gap-[18px] max-[1100px]:grid-cols-2">
+            {claudeWorkflow.gains.map((g, index) => (
+              <div
+                key={g.label}
+                className="py-[30px] px-[26px] rounded-[20px] flex flex-col gap-2"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <strong
+                  className="text-[#ff6f0f] font-bold leading-[1.15] tracking-[-0.05em]"
+                  style={{ fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)' }}
+                >
+                  {claudeGainValues[index] || '\u00A0'}
+                  {activeClaudeCursor === `gain-value-${index}` && (
+                    <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+                  )}
+                </strong>
+                <p className="m-0 text-[14px] font-bold text-[#c8cad0] tracking-[-0.03em] break-keep">
+                  {claudeGainLabels[index] || '\u00A0'}
+                  {activeClaudeCursor === `gain-label-${index}` && (
+                    <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+                  )}
+                </p>
+                <span className="text-[12px] text-[#52575f] leading-[1.55] tracking-[-0.01em] break-keep">
+                  {claudeGainNotes[index] || '\u00A0'}
+                  {activeClaudeCursor === `gain-note-${index}` && (
+                    <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
+                  )}
+                </span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.contactSection}`}>
-        <div className={styles.container}>
-          <div className={styles.contactInner}>
-            <p className={styles.contactLabel}>Contact</p>
-            <h2 className={styles.contactHeading}>함께 만들고 싶은 게 있다면<br />언제든 연락 주세요</h2>
-            <div className={styles.contactLinks}>
-              <a href="mailto:hyebinkimdesign@gmail.com" className={styles.contactEmail}>hyebinkimdesign@gmail.com</a>
-              <a href="https://github.com/hyebinkimsdf" target="_blank" rel="noreferrer" className={styles.contactGithub}>GitHub</a>
+      {/* Contact 섹션 */}
+      <section ref={contactSectionRef} className="relative h-screen text-white overflow-hidden flex items-center justify-center bg-[#8f3d00]">
+        <div
+          ref={contactFrameRef}
+          className="relative overflow-hidden"
+          style={{
+            width: '88vw',
+            height: '64vh',
+            borderRadius: '28px',
+            boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
+            willChange: 'width, height, border-radius',
+          }}
+        >
+          <video
+            className="absolute inset-0 w-full h-full object-cover"
+            src="/video/hero_dangn_2.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(180deg, rgba(143,61,0,0.72) 0%, rgba(87,34,0,0.88) 100%)',
+            }}
+          />
+          <div className="relative w-full h-full flex items-center justify-center px-6">
+            <div className="flex flex-col items-center text-center gap-6">
+              <p data-contact-item className="text-[12px] font-bold tracking-[0.1em] uppercase text-[#ff6f0f] m-0">Contact</p>
+              <h2 data-contact-item className="font-bold leading-[1.3] m-0 text-white" style={{ fontSize: 'clamp(28px, 4vw, 48px)' }}>
+                함께 만들고 싶은 게 있다면<br />언제든 연락 주세요
+              </h2>
+              <div data-contact-item className="flex gap-4 flex-wrap mt-2 justify-center">
+                <a
+                  href="mailto:hyebinkimdesign@gmail.com"
+                  className="inline-flex items-center py-[14px] px-7 bg-[#ff6f0f] text-white rounded-full text-[15px] font-semibold transition-opacity hover:opacity-85"
+                >
+                  hyebinkimdesign@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className={styles.footer}>
-        <div className={styles.container}>
-          <div className={styles.footerInner}>
-            <div className={styles.footerLeft}>
-              <p className={styles.footerName}>Hyebin Kim</p>
-              <p className={styles.footerBio}>기획부터 개발, 성능 개선과 배포까지<br />직접 만드는 프론트엔드·풀스택 개발자입니다.</p>
-              <p className={styles.footerCopy}>© 2026 Hyebin Kim</p>
+      {/* 푸터 */}
+      <footer className="py-14 border-t border-[#eaebee] bg-[#f7f8fa]">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="flex justify-between gap-12 max-[820px]:flex-col">
+            <div className="flex flex-col gap-[10px]">
+              <p className="text-[16px] font-bold text-[#212124] m-0">Hyebin Kim</p>
+              <p className="text-[14px] text-[#868b94] leading-[1.6] m-0">기획부터 개발, 성능 개선과 배포까지<br />직접 만드는 프론트엔드·풀스택 개발자입니다.</p>
+              <p className="text-[13px] text-[#868b94] m-0 mt-auto opacity-60">© 2026 Hyebin Kim</p>
             </div>
-            <nav className={styles.footerNav}>
-              <div className={styles.footerNavCol}>
-                <p className={styles.footerNavLabel}>페이지</p>
-                <Link href="/">포트폴리오 메인</Link>
-                <a href="#stories">프로젝트 보기</a>
-                <a href="/foryou/daangn/improvements">개선 기록</a>
+            <nav className="flex gap-12 flex-shrink-0">
+              <div className="flex flex-col gap-[10px]">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">페이지</p>
+                <Link href="/" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">포트폴리오 메인</Link>
+                <a href="#stories" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">프로젝트 보기</a>
+                <a href="/foryou/daangn/improvements" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">개선 기록</a>
               </div>
-              <div className={styles.footerNavCol}>
-                <p className={styles.footerNavLabel}>연락</p>
-                <a href="mailto:hyebinkimdesign@gmail.com">이메일</a>
-                <a href="https://github.com/hyebinkimsdf" target="_blank" rel="noreferrer">GitHub</a>
+              <div className="flex flex-col gap-[10px]">
+                <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">연락</p>
+                <a href="mailto:hyebinkimdesign@gmail.com" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">이메일</a>
               </div>
             </nav>
           </div>
         </div>
       </footer>
+
+      <CareerModal type={modal} onClose={() => setModal(null)} />
     </main>
-  )
+  );
 }

@@ -1,14 +1,6 @@
-"use client";
-
-import { useLang } from "../context/LanguageContext";
-import translations from "../i18n/translations";
-
 const orbitText = " FULLSTACK · DESIGN · API · DATABASE · SERVICE · ";
 
 export default function Hero() {
-  const { lang } = useLang();
-  const t = translations[lang].hero;
-
   return (
     <section
       id="hero"
@@ -51,7 +43,7 @@ export default function Hero() {
 
       <div className="mx-auto w-full max-w-4xl">
         <p className="mb-4 font-mono text-sm text-accent animate-fade-in">
-          {t.greeting}
+          안녕하세요, 저는
         </p>
 
         <h1 className="mb-3 text-5xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl animate-slide-up delay-100">
@@ -59,12 +51,12 @@ export default function Hero() {
         </h1>
 
         <h2 className="mb-6 text-xl font-medium text-foreground/75 sm:text-2xl lg:text-3xl animate-fade-in-up delay-200">
-          {t.h2prefix}{" "}
-          <span className="text-foreground">{t.h2bold}</span>
+          화면·서버·데이터를 함께 설계하는{" "}
+          <span className="text-foreground">풀스택 개발자</span>
         </h2>
 
         <p className="mb-10 max-w-lg text-base leading-7 text-foreground/60 animate-fade-in-up delay-300 whitespace-pre-line">
-          {t.p}
+          프론트, 백엔드, DB 설계까지 직접 담당합니다.{"\n"}기획 이해부터 배포까지 단독 진행 가능합니다.
         </p>
 
         <div className="flex flex-wrap gap-3 animate-fade-in-up delay-400">
@@ -72,7 +64,7 @@ export default function Hero() {
             href="#projects"
             className="inline-flex items-center gap-2 rounded border border-accent px-5 py-2.5 text-sm font-medium text-accent transition-all duration-200 hover:bg-accent hover:text-background"
           >
-            {t.cta1}
+            프로젝트 보기
             <svg
               width="14"
               height="14"
@@ -92,7 +84,7 @@ export default function Hero() {
             href="#contact"
             className="inline-flex items-center gap-2 rounded border border-border px-5 py-2.5 text-sm font-medium text-muted transition-all duration-200 hover:border-foreground hover:text-foreground"
           >
-            {t.cta2}
+            연락하기
           </a>
         </div>
 

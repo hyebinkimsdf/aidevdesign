@@ -42,9 +42,9 @@ export default function ForYouPage() {
           <span className="font-mono text-xs text-muted/70">
             © 2026 Hyebin
           </span>
-          <span className="font-mono text-xs text-muted/70">
+          {/* <span className="font-mono text-xs text-muted/70">
             Built with Next.js &amp; TypeScript
-          </span>
+          </span> */}
         </div>
       </footer>
     </>
