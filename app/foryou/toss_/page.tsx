@@ -1384,7 +1384,7 @@ export default function TossPage() {
               </span>
             </h2>
           </div>
-          <p className="max-w-[680px] text-[15px] font-medium leading-[1.8] text-[#6B7684] tracking-[-0.03em] break-keep m-0 mb-[52px]">
+          <p className="max-w-[680px] text-[15px] font-medium leading-[1.8] text-[#A0A8B4] tracking-[-0.03em] break-keep m-0 mb-[52px]">
             {claudeSummaryText || ' '}
             {activeClaudeCursor === 'summary' && (
               <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#3182F6] animate-pulse align-[-0.05em]" />
@@ -1412,7 +1412,7 @@ export default function TossPage() {
                     )}
                   </h3>
                 </div>
-                <p className="m-0 text-[13px] text-[#6B7684] leading-[1.7] tracking-[-0.02em] break-keep">
+                <p className="m-0 text-[13px] text-[#A0A8B4] leading-[1.7] tracking-[-0.02em] break-keep">
                   {claudeStepDescs[index] || ' '}
                   {activeClaudeCursor === `step-desc-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#3182F6] animate-pulse align-[-0.05em]" />
@@ -1458,7 +1458,7 @@ export default function TossPage() {
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#3182F6] animate-pulse align-[-0.05em]" />
                   )}
                 </p>
-                <span className="text-[12px] text-[#4A5568] leading-[1.55] tracking-[-0.01em] break-keep">
+                <span className="text-[12px] text-[#8B95A1] leading-[1.55] tracking-[-0.01em] break-keep">
                   {claudeGainNotes[index] || ' '}
                   {activeClaudeCursor === `gain-note-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#3182F6] animate-pulse align-[-0.05em]" />
