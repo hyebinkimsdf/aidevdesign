@@ -30,6 +30,130 @@ export type SiteProject = {
   github?: string;
 };
 
+export const siteProjectsEn: SiteProject[] = [
+  {
+    id: "site-withbill",
+    route: "withbill-dance-studio",
+    name: "Withbill Dance Studio",
+    client: "Withbill Dance Academy",
+    tagline: "Academy website focused on class info and consultation conversion",
+    description:
+      "A live website linking dance academy class introductions, brand mood, and consultation flow in one seamless journey. Designed information architecture and inquiry paths to go well beyond a typical academy listing page.",
+    contribution: "100% contribution",
+    category: "academy",
+    tags: ["Next.js", "Supabase", "Vercel", "Academy Site", "Responsive Web", "Inquiry Flow", "Brand UI"],
+    highlights: [
+      "Integrated class introductions and consultation CTAs into a single-page flow",
+      "Ensured mobile users could naturally access location info and contact actions",
+      "Balanced visual tone matching the academy's atmosphere with practical info",
+    ],
+    demo: "https://www.withbilldanceacademy.com",
+    domain: "withbilldanceacademy.com",
+    thumb: "withbill",
+    github: "https://github.com/globalmig/WithbillDanceStudio",
+  },
+  {
+    id: "site-pwin",
+    route: "pwin-industry",
+    name: "Pwin Industry",
+    client: "PYEONGWON INDUSTRY",
+    tagline: "Corporate website systematising product info and construction cases",
+    description:
+      "Corporate homepage presenting eco-friendly reinforced earth, retaining wall, and revetment block products, methods, and construction cases in one place. Restructured content to showcase both product discoverability and company credibility simultaneously.",
+    contribution: "100% contribution — solo from planning through production and ongoing updates",
+    category: "corporate",
+    tags: ["Next.js", "Supabase", "Vercel", "Corporate Site", "Product Catalog", "Construction Cases", "Lead CTA"],
+    highlights: [
+      "Separated product introductions, construction methods, and case studies for a clear exploration flow",
+      "Placed catalogue download and contact entry points on the main navigation path",
+      "Combined a corporate tone for brand trust with on-site, practical content",
+    ],
+    demo: "https://www.pwin.co.kr",
+    domain: "pwin.co.kr",
+    thumb: "pwin",
+  },
+  {
+    id: "site-lgshop",
+    route: "lg-best-shop-yongsan",
+    name: "LG Best Shop Yongsan",
+    client: "LG Best Shop",
+    tagline: "Store promotion website optimised for consultation reservation conversion",
+    description:
+      "A website built to drive offline store consultation reservations and fast inquiry conversion. Prioritised the reservation and consultation flow on screen rather than product listings.",
+    contribution: "100% contribution",
+    category: "commerce",
+    tags: ["Next.js", "Vercel", "Reservation Flow", "Store Landing", "Consulting Form", "Map UX"],
+    highlights: [
+      "Centred on a quick consultation form so the conversion goal is immediately visible",
+      "Consolidated phone consultation and store visit info in one place",
+      "Clearly prioritised promotion banners and reservation CTAs",
+    ],
+    demo: "https://www.lgshop-ys.com",
+    domain: "lgshop-ys.com",
+    thumb: "lgshop",
+  },
+  {
+    id: "site-weasley",
+    route: "weasley-homepage-development",
+    name: "Global MIG — Homepage Dev",
+    client: "GLOBAL MIG",
+    tagline: "Full homepage development service built end-to-end",
+    description:
+      "Solely designed and developed every page of the homepage development service for marketing company Global MIG. Implemented the full flow — service overview, production types, portfolio, and quote requests — using PHP and MySQL.",
+    contribution: "100% contribution — planning, architecture, development, and DB design done solo",
+    category: "service",
+    tags: ["PHP", "MySQL", "Cloudflare", "Full-Stack", "Service Page", "DB Design"],
+    highlights: [
+      "Built every section — service overview, portfolio, and quote requests — in PHP + MySQL",
+      "Designed page structures separated by production type (e-commerce, corporate, global, etc.)",
+      "Architected DB with admin integration in mind and implemented dynamic content rendering",
+    ],
+    demo: "https://www.weasley-market.com/homepage-development/",
+    domain: "weasley-market.com",
+    thumb: "weasley",
+  },
+  {
+    id: "site-vividdrone",
+    route: "vividdrone",
+    name: "Vivid Drone",
+    client: "VIVID DRONE",
+    tagline: "Studio site for drone filming, music videos, CFs, and broadcast production",
+    description:
+      "A website combining portfolio, service introduction, and inquiry flow for a drone filming and video production studio. Designed to showcase references by type — music videos, CFs, broadcast — with SMS API notifications for fast response.",
+    contribution: "100% contribution — planning, design, development, and deployment done solo",
+    category: "service",
+    tags: ["Next.js", "SMS API", "Vercel", "Video Production", "Portfolio Site", "Inquiry Flow", "Responsive Web"],
+    highlights: [
+      "Separated references by type (drone, MV, CF, broadcast) to guide the exploration flow",
+      "Integrated SMS API to send real-time notifications to the team on inquiry submission",
+      "Dark visual tone matching the video studio identity with full-screen reference emphasis",
+    ],
+    demo: "https://www.vividdrone.kr",
+    domain: "vividdrone.kr",
+    thumb: "vividdrone",
+  },
+  {
+    id: "site-micimpact",
+    route: "micimpact",
+    name: "Micimpact",
+    client: "MICIMPACT",
+    tagline: "Platform site for exploring speakers & artists and driving inquiries",
+    description:
+      "A platform-style website for browsing speakers and artists and connecting directly to inquiries. Designed with search, category, and consultation flow to improve content discoverability.",
+    contribution: "100% contribution",
+    category: "platform",
+    tags: ["Next.js", "Supabase", "Vercel", "Platform UI", "Search Flow", "Category UX", "Inquiry Conversion"],
+    highlights: [
+      "Implemented filtering by keyword, field, and booking fee",
+      "Connected CTAs so users can move directly from browsing to inquiry",
+      "Balanced information density and trustworthiness appropriate for a platform",
+    ],
+    demo: "https://www.micimpact.net",
+    domain: "micimpact.net",
+    thumb: "micimpact",
+  },
+];
+
 export const siteProjects: SiteProject[] = [
   {
     id: "site-withbill",

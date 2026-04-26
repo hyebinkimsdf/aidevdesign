@@ -1588,12 +1588,12 @@ export default function DaangnPage() {
               <p className="text-[13px] text-[#868b94] m-0 mt-auto opacity-60">© 2026 Hyebin Kim</p>
             </div>
             <nav className="flex gap-8 max-[480px]:gap-6 flex-shrink-0">
-              <div className="flex flex-col gap-[10px]">
+              {/* <div className="flex flex-col gap-[10px]">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">페이지</p>
                 <Link href="/" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">포트폴리오 메인</Link>
                 <a href="#stories" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">프로젝트 보기</a>
                 <a href="/foryou/dangn/improvements" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">개선 기록</a>
-              </div>
+              </div> */}
               <div className="flex flex-col gap-[10px]">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">연락</p>
                 <a href="mailto:hyebinkimdesign@gmail.com" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">이메일</a>

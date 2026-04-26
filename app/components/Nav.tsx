@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useLang } from "../context/LanguageContext";
 
 const links = [
@@ -15,7 +16,8 @@ const links = [
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { lang, setLang } = useLang();
+  const { lang } = useLang();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,14 +63,14 @@ export default function Nav() {
         {/* Language toggle — desktop */}
         <div className="hidden sm:flex items-center gap-1 font-mono text-xs">
           <button
-            onClick={() => setLang("ko")}
+            onClick={() => router.push("/")}
             className={`transition-colors ${lang === "ko" ? "text-foreground font-semibold" : "text-muted hover:text-foreground"}`}
           >
             KO
           </button>
           <span className="text-muted/40">/</span>
           <button
-            onClick={() => setLang("en")}
+            onClick={() => router.push("/en")}
             className={`transition-colors ${lang === "en" ? "text-foreground font-semibold" : "text-muted hover:text-foreground"}`}
           >
             EN
@@ -125,14 +127,14 @@ export default function Nav() {
           {/* Language toggle — mobile */}
           <div className="flex items-center gap-1 px-2 pb-2 font-mono text-xs">
             <button
-              onClick={() => setLang("ko")}
+              onClick={() => router.push("/")}
               className={`transition-colors ${lang === "ko" ? "text-foreground font-semibold" : "text-muted hover:text-foreground"}`}
             >
               KO
             </button>
             <span className="text-muted/40">/</span>
             <button
-              onClick={() => setLang("en")}
+              onClick={() => router.push("/en")}
               className={`transition-colors ${lang === "en" ? "text-foreground font-semibold" : "text-muted hover:text-foreground"}`}
             >
               EN
