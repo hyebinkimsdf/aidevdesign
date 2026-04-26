@@ -203,7 +203,7 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
 const STRENGTH_ICONS = [ConsultIcon, BuildIcon, SeoIcon];
 const CYCLE_MS = 2000;
 const PAGE_NAV_ITEMS = [
-  { label: 'ABOUT', href: '#strengths' },
+  { label: 'ABOUT', href: '#resume' },
   { label: '프로젝트', href: '#stories' },
   { label: '개선 기록', href: '#news' },
   { label: 'AI효율개선', href: '#claude' },
@@ -1145,7 +1145,7 @@ export default function DaangnPage() {
       </section>
 
       {/* Core Strengths 섹션 */}
-      <section id="strengths" className="py-22 bg-white">
+      <section id="resume" className="py-22 bg-white">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
             <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em]">Core Strengths</p>
