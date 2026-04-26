@@ -33,7 +33,7 @@ function StoryThumb({ thumb }: { thumb: string }) {
   }, []);
 
   return (
-    <div className="relative overflow-hidden rounded-[18px] aspect-square bg-[#f2f3f6]">
+    <div className="relative overflow-hidden rounded-[14px] aspect-square bg-[#F2F4F6]">
       {Array.from({ length: SLIDE_COUNT }, (_, i) => (
         <Image
           key={i}
@@ -50,7 +50,7 @@ function StoryThumb({ thumb }: { thumb: string }) {
           }}
         />
       ))}
-      <div className="absolute bottom-2.5 right-2.5 flex gap-[5px] z-[2]">
+      <div className="absolute bottom-[10px] right-[10px] flex gap-[5px] z-[2]">
         {Array.from({ length: SLIDE_COUNT }, (_, i) => (
           <button
             key={i}
@@ -60,8 +60,8 @@ function StoryThumb({ thumb }: { thumb: string }) {
               if (timerRef.current) clearInterval(timerRef.current);
               timerRef.current = setInterval(advance, SLIDE_INTERVAL);
             }}
-            className={`h-[6px] rounded-full border-none cursor-pointer p-0 transition-all duration-300 ${
-              current === i ? 'w-4 bg-white/95' : 'w-[6px] bg-white/45'
+            className={`h-[5px] rounded-full border-none cursor-pointer p-0 transition-all duration-300 ${
+              current === i ? 'w-4 bg-white/95' : 'w-[5px] bg-white/45'
             }`}
           />
         ))}
@@ -110,7 +110,7 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
   );
 
   return (
-    <div className="flex flex-col rounded-[20px] overflow-hidden border border-[#eaebee]">
+    <div className="flex flex-col rounded-[16px] overflow-hidden border border-[#eaebee]">
       {records.map((rec, idx) => {
         const isOpen = openIdx === idx;
         return (
@@ -128,10 +128,10 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
               <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px] text-center">
                 {rec.metric}
               </span>
-              <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">{rec.label}</span>
+              <span className="text-[14px] font-bold text-[#212124] tracking-[-0.03em]">{rec.label}</span>
               <span className="text-[13px] text-[#868b94] line-through text-right">{rec.before}</span>
               <span className="text-[13px] text-[#868b94] text-center">→</span>
-              <span className="text-[13px] font-bold text-[#1a1c20]">{rec.after}</span>
+              <span className="text-[13px] font-bold text-[#212124]">{rec.after}</span>
               <span className="text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] text-center whitespace-nowrap text-[#16a34a] bg-[#f0fdf4]">
                 {rec.delta}
               </span>
@@ -150,14 +150,14 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
                   <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px] flex-shrink-0">
                     {rec.metric}
                   </span>
-                  <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em] truncate">{rec.label}</span>
+                  <span className="text-[14px] font-bold text-[#212124] tracking-[-0.03em] truncate">{rec.label}</span>
                 </div>
                 {chevron(isOpen)}
               </div>
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[12px] text-[#868b94] line-through">{rec.before}</span>
                 <span className="text-[12px] text-[#868b94]">→</span>
-                <span className="text-[12px] font-bold text-[#1a1c20]">{rec.after}</span>
+                <span className="text-[12px] font-bold text-[#212124]">{rec.after}</span>
                 <span className="text-[11px] font-extrabold py-[2px] px-2 rounded-[5px] whitespace-nowrap text-[#16a34a] bg-[#f0fdf4]">
                   {rec.delta}
                 </span>
@@ -168,11 +168,11 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
             {isOpen && (
               <div className="px-5 md:px-7 pb-6 flex flex-col gap-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-white rounded-[14px] p-5 border border-[#eaebee]">
+                  <div className="bg-white rounded-[12px] p-5 border border-[#eaebee]">
                     <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">문제</p>
                     <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.problem}</p>
                   </div>
-                  <div className="bg-white rounded-[14px] p-5 border border-[#eaebee]">
+                  <div className="bg-white rounded-[12px] p-5 border border-[#eaebee]">
                     <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">해결 방안</p>
                     <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.solution}</p>
                   </div>
@@ -180,13 +180,13 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#868b94]">Before</p>
-                    <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                    <pre className="m-0 p-4 rounded-[10px] bg-[#212124] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeBefore}</code>
                     </pre>
                   </div>
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#16a34a]">After</p>
-                    <pre className="m-0 p-4 rounded-[12px] bg-[#0d1f12] text-[#86efac] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                    <pre className="m-0 p-4 rounded-[10px] bg-[#0d1f12] text-[#86efac] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeAfter}</code>
                     </pre>
                   </div>
@@ -283,6 +283,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
     sections.forEach(({ element }) => observer.observe(element));
 
     return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isYopil, type]);
 
   useEffect(() => {
@@ -304,11 +305,11 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-[24px] w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
+        className="relative bg-white rounded-[20px] w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -317,7 +318,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
             <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0 mb-1">
               {isYopil ? '요필 디자인 · 2024.06 ~ 2024.09' : '㈜핸디커뮤니케이션즈 · 2022.07 ~ 2024.02'}
             </p>
-            <h3 className="m-0 text-[20px] font-bold text-[#1a1c20] tracking-[-0.04em]">
+            <h3 className="m-0 text-[20px] font-bold text-[#212124] tracking-[-0.04em]">
               {isYopil ? 'Naver 디지털 ASR' : '커뮤니티 운영 & UIUX 디자인'}
             </h3>
           </div>
@@ -342,8 +343,8 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
                   onClick={() => scrollToSection(label, ref)}
                   className={`text-left w-full px-3 py-2 rounded-xl text-[13px] font-semibold transition-colors ${
                     activeSection === label
-                      ? 'bg-[#fff3eb] text-[#ff6f0f]'
-                      : 'text-[#868b94] hover:bg-[#f7f8fa] hover:text-[#1a1c20]'
+                      ? 'bg-[#fff5f0] text-[#ff6f0f]'
+                      : 'text-[#868b94] hover:bg-[#f7f8fa] hover:text-[#212124]'
                   }`}
                 >
                   {label}
@@ -373,7 +374,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {yopilImages.map((src, i) => (
-                    <div key={i} className="rounded-xl overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                    <div key={i} className="rounded-xl overflow-hidden bg-[#F2F4F6] border border-[#eaebee]">
                       <Image src={src} alt={`네이버 디지털 ASR ${i + 1}`} width={600} height={400} className="w-full h-auto object-cover" />
                     </div>
                   ))}
@@ -409,7 +410,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
                       <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[12px] font-semibold text-[#868b94]">{tag}</span>
                     ))}
                   </div>
-                  <div className="rounded-[20px] overflow-hidden bg-[#111318] border border-[#eaebee]">
+                  <div className="rounded-[16px] overflow-hidden bg-[#212124] border border-[#eaebee]">
                     <Image
                       src="/핸디/메크아레나.jpeg"
                       alt="메카 아레나 이벤트 배너"
@@ -433,7 +434,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
                   </div>
                   <div className="grid grid-cols-2 gap-3 mt-1">
                     {handiBannerImages.map((src, i) => (
-                      <div key={i} className="rounded-xl overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                      <div key={i} className="rounded-xl overflow-hidden bg-[#F2F4F6] border border-[#eaebee]">
                         <Image src={src} alt={`배너 작업물 ${i + 1}`} width={600} height={400} className="w-full h-auto object-cover" />
                       </div>
                     ))}
@@ -453,7 +454,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
                   </div>
                   <div className="grid grid-cols-4 gap-2 mt-1">
                     {handiGameImages.map((src, i) => (
-                      <div key={i} className="rounded-lg overflow-hidden bg-[#f2f3f6] border border-[#eaebee]">
+                      <div key={i} className="rounded-lg overflow-hidden bg-[#F2F4F6] border border-[#eaebee]">
                         <Image src={src} alt={`게임 UI 작업물 ${i + 1}`} width={300} height={200} className="w-full h-auto object-cover" />
                       </div>
                     ))}
@@ -468,10 +469,117 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
   );
 }
 
+type NewsItem = typeof news[number];
+
+function ImprovementModal({ item, onClose }: { item: NewsItem; onClose: () => void }) {
+  const relatedRecords = perfRecords.filter((r) => item.metrics.includes(r.metric));
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white w-full sm:rounded-[20px] max-w-2xl max-h-[92vh] sm:max-h-[88vh] flex flex-col overflow-hidden rounded-t-[20px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 헤더 */}
+        <div className="shrink-0 px-6 sm:px-8 pt-6 pb-4 border-b border-[#eaebee] flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#ff6f0f] m-0 mb-1">{item.date}</p>
+            <h3 className="m-0 text-[17px] sm:text-[20px] font-bold text-[#212124] tracking-[-0.04em] break-keep leading-[1.3]">
+              {item.title}
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[#f7f8fa] border border-[#eaebee] text-[#868b94] hover:bg-[#eaebee] transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* 바디 */}
+        <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 flex flex-col gap-6">
+          {/* 썸네일 */}
+          <div className="rounded-[14px] overflow-hidden aspect-video bg-[#F2F4F6] border border-[#eaebee]">
+            <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+
+          {/* 요약 */}
+          <p className="m-0 text-[15px] text-[#4d5159] leading-[1.8] tracking-[-0.02em] break-keep">{item.body}</p>
+
+          {/* 관련 개선 지표 */}
+          <div className="flex flex-col gap-5">
+            {relatedRecords.map((rec) => (
+              <div key={rec.metric} className="flex flex-col gap-3 p-5 rounded-[14px] bg-[#f7f8fa] border border-[#eaebee]">
+                {/* 메트릭 헤더 */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px]">
+                    {rec.metric}
+                  </span>
+                  <span className="text-[14px] font-bold text-[#212124] tracking-[-0.03em]">{rec.label}</span>
+                  <span className="ml-auto text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] whitespace-nowrap text-[#16a34a] bg-[#f0fdf4]">
+                    {rec.delta}
+                  </span>
+                </div>
+
+                {/* Before → After */}
+                <div className="flex items-center gap-2 text-[13px]">
+                  <span className="text-[#868b94] line-through">{rec.before}</span>
+                  <span className="text-[#868b94]">→</span>
+                  <span className="font-bold text-[#212124]">{rec.after}</span>
+                </div>
+
+                {/* 문제 / 해결 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="bg-white rounded-[10px] p-4 border border-[#eaebee]">
+                    <p className="m-0 mb-1.5 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">문제</p>
+                    <p className="m-0 text-[13px] text-[#4d5159] leading-[1.65] break-keep">{rec.problem}</p>
+                  </div>
+                  <div className="bg-white rounded-[10px] p-4 border border-[#eaebee]">
+                    <p className="m-0 mb-1.5 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">해결</p>
+                    <p className="m-0 text-[13px] text-[#4d5159] leading-[1.65] break-keep">{rec.solution}</p>
+                  </div>
+                </div>
+
+                {/* 코드 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="flex flex-col gap-1.5">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#868b94]">Before</p>
+                    <pre className="m-0 p-3 rounded-[10px] bg-[#212124] text-[#e2e4e8] text-[11px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                      <code>{rec.codeBefore}</code>
+                    </pre>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#16a34a]">After</p>
+                    <pre className="m-0 p-3 rounded-[10px] bg-[#0d1f12] text-[#86efac] text-[11px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                      <code>{rec.codeAfter}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DaangnPage() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [modal, setModal] = useState<ModalType>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [claudeTitle, setClaudeTitle] = useState('');
   const [claudeSummaryText, setClaudeSummaryText] = useState('');
   const [claudeStepTitles, setClaudeStepTitles] = useState<string[]>(() => claudeWorkflow.steps.map(() => ''));
@@ -550,127 +658,83 @@ export default function DaangnPage() {
 
   useEffect(() => {
     if (!metricSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
-    const valueCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
-    valueCards.forEach((card) => {
-      const raw = card.dataset.metricValue ?? '';
+    // Count-up animation
+    const valueEls = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
+    valueEls.forEach((el) => {
+      const raw = el.dataset.metricValue ?? '';
       const numbers = raw.match(/\d+/g);
       if (!numbers) return;
-
       const target = parseInt(numbers[numbers.length - 1], 10);
       const prefix = raw.startsWith('~') ? '~' : '';
       const suffix = raw.replace(/[~\d]/g, '');
       const obj = { val: 0 };
-
       gsap.fromTo(obj, { val: 0 }, {
         val: target,
         duration: 1.6,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
+        scrollTrigger: { trigger: metricSectionRef.current, start: 'top 70%', once: true },
         onUpdate() {
-          const display = numbers.length > 1
+          el.textContent = numbers.length > 1
             ? `${raw.split('~')[0]}~${Math.round(obj.val)}${suffix}`
             : `${prefix}${Math.round(obj.val)}${suffix}`;
-          card.textContent = display;
         },
       });
     });
 
-    const metricCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-card]');
-    const metricLabels = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-label]');
-    const metricValues = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
-    const metricNotes = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-note]');
+    const slots = Array.from(metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-slot]'));
+    const allCards = Array.from(metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-card]'));
 
-    gsap.fromTo(
-      metricCards,
-      {
-        opacity: 0,
-        y: 30,
-        backgroundColor: '#fff1e8',
-        borderColor: '#ffb27d',
-        boxShadow: '0 22px 50px rgba(255,111,15,0.22)',
-      },
-      {
-        opacity: 1,
-        y: 0,
-        backgroundColor: '#ffffff',
-        borderColor: '#eaebee',
-        boxShadow: '0 0 0 rgba(255,111,15,0)',
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      }
-    );
+    // 초기 상태 설정
+    gsap.set(allCards, { backgroundColor: '#ffffff', boxShadow: '0 0 0 0px transparent', rotateX: 0, transformPerspective: 900 });
 
-    gsap.fromTo(
-      metricSectionRef.current.querySelectorAll('[data-metric-accent]'),
-      {
-        width: '0%',
-        opacity: 0,
-        backgroundColor: '#ff6f0f',
-      },
-      {
-        width: '100%',
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      }
-    );
+    slots.forEach((slot, i) => {
+      const card = slot.querySelector<HTMLElement>('[data-metric-card]');
+      if (!card) return;
 
-    gsap.fromTo(
-      metricValues,
-      { color: '#ff6f0f', textShadow: '0 0 18px rgba(255,111,15,0.35)' },
-      {
-        color: '#212124',
-        textShadow: '0 0 0 rgba(255,111,15,0)',
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power2.out',
+      // 중앙 통과 시 활성화 → 비활성화 + 기울기 (단일 scrub으로 통합)
+      gsap.to(card, {
+        keyframes: [
+          {
+            rotateX: 0,
+            backgroundColor: '#fff5f0',
+            boxShadow: '0 0 0 2px #ff6f0f, 0 8px 32px rgba(255,111,15,0.22)',
+            ease: 'power1.inOut',
+          },
+          {
+            rotateX: 5,
+            backgroundColor: '#ffffff',
+            boxShadow: '0 0 0 0px transparent',
+            ease: 'power1.in',
+          },
+        ],
         scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
+          trigger: slot,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
         },
-      }
-    );
+      });
 
-    gsap.fromTo(
-      [...metricLabels, ...metricNotes],
-      { color: '#c26a1a' },
-      {
-        color: (_index, target) =>
-          target.hasAttribute('data-metric-label') ? '#868b94' : '#868b94',
-        duration: 0.9,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
+      // 다음 카드 진입 시 뒤로 축소
+      if (i < slots.length - 1) {
+        const nextSlot = slots[i + 1];
+        gsap.to(card, {
+          scale: 0.88,
+          transformOrigin: 'top center',
+          scrollTrigger: {
+            trigger: nextSlot,
+            start: 'top 90%',
+            end: 'top top',
+            scrub: 1.5,
+          },
+        });
       }
-    );
+    });
   }, []);
 
   useEffect(() => {
     if (!traitSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const cards = traitSectionRef.current.querySelectorAll<HTMLElement>('[data-trait-card]');
 
@@ -695,77 +759,36 @@ export default function DaangnPage() {
 
   useEffect(() => {
     if (!techSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
-    const cards = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-card]');
-    const badges = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-badge]');
-    const texts = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-text]');
+    const cards = Array.from(techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-card]'));
+    const allBadges = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-badge]');
+    const allTexts = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-text]');
 
-    gsap.fromTo(
-      cards,
-      {
-        opacity: 0,
-        y: 28,
-        scale: 0.97,
-        backgroundColor: '#fff5f0',
-        boxShadow: '0 18px 42px rgba(255,111,15,0.12)',
+    gsap.set(allBadges, { opacity: 0, y: 10, filter: 'blur(5px)' });
+    gsap.set(allTexts, { opacity: 0, y: 8 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: techSectionRef.current,
+        start: 'top 70%',
+        once: true,
       },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        backgroundColor: '#f7f8fa',
-        boxShadow: '0 0 0 rgba(255,111,15,0)',
-        duration: 0.65,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 78%',
-          once: true,
-        },
-      }
-    );
+    });
 
-    gsap.fromTo(
-      badges,
-      { opacity: 0, y: 12, filter: 'blur(6px)' },
-      {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 0.55,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 78%',
-          once: true,
-        },
-      }
-    );
+    cards.forEach((card, i) => {
+      const badge = card.querySelector<HTMLElement>('[data-tech-badge]');
+      const texts = card.querySelectorAll<HTMLElement>('[data-tech-text]');
+      const t = i * 0.3;
 
-    gsap.fromTo(
-      texts,
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 76%',
-          once: true,
-        },
-      }
-    );
+      tl.to(card, { boxShadow: '0 0 0 2px #ff6f0f, 0 8px 28px rgba(255,111,15,0.16)', backgroundColor: '#fff5f0', duration: 0.22, ease: 'power2.out' }, t);
+      if (badge) tl.to(badge, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.28, ease: 'power2.out' }, t + 0.06);
+      tl.to(texts, { opacity: 1, y: 0, duration: 0.26, ease: 'power2.out', stagger: 0.04 }, t + 0.1);
+      tl.to(card, { boxShadow: 'none', backgroundColor: '#f7f8fa', duration: 0.38, ease: 'power2.inOut' }, t + 0.22);
+    });
   }, []);
 
   useEffect(() => {
     if (!contactSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const items = contactSectionRef.current.querySelectorAll<HTMLElement>('[data-contact-item]');
 
@@ -792,7 +815,6 @@ export default function DaangnPage() {
 
   useEffect(() => {
     if (!contactSectionRef.current || !contactFrameRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
       gsap.timeline({
@@ -916,7 +938,8 @@ export default function DaangnPage() {
         observer.disconnect();
       },
       {
-        threshold: 0.35,
+        threshold: 0,
+        rootMargin: '0px 0px -15% 0px',
       }
     );
 
@@ -931,7 +954,7 @@ export default function DaangnPage() {
   return (
     <main className={`${styles.page} bg-white text-[#212124]`}>
       {/* 헤더 */}
-      <header className="sticky top-0 z-40 bg-white/88 backdrop-blur-[18px] border-b border-[#eaebee]/90">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-[20px] border-b border-[#eaebee]">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="min-h-[64px] flex items-center justify-between gap-5">
             <a className="inline-flex items-center gap-3" href="#top" aria-label="당근용 김혜빈 포트폴리오">
@@ -945,19 +968,19 @@ export default function DaangnPage() {
             </a>
 
             {/* 데스크탑 nav */}
-            <nav className="hidden md:flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-1">
               {PAGE_NAV_ITEMS.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="h-10 inline-flex items-center px-[14px] rounded-full text-[14px] font-semibold text-[#4d5159] transition-colors hover:bg-[#f7f8fa] hover:text-[#212124]"
+                  className="h-9 inline-flex items-center px-[14px] rounded-full text-[14px] font-semibold text-[#4d5159] transition-colors hover:bg-[#F2F4F6] hover:text-[#212124]"
                 >
                   {item.label}
                 </a>
               ))}
               <a
                 href="mailto:hyebinkimdesign@gmail.com"
-                className="h-10 inline-flex items-center px-[16px] rounded-full text-[14px] font-bold bg-[#ff6f0f] text-white hover:opacity-90 transition-opacity ml-1"
+                className="h-9 inline-flex items-center px-[16px] rounded-full text-[14px] font-bold bg-[#ff6f0f] text-white hover:opacity-90 transition-colors ml-2"
               >
                 연락하기
               </a>
@@ -975,7 +998,7 @@ export default function DaangnPage() {
                 aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((v) => !v)}
-                className="w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-[#f7f8fa] transition-colors"
+                className="w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-[#F2F4F6] transition-colors"
               >
                 <span className={`block h-[1.5px] w-5 bg-[#212124] transition-transform duration-200 origin-center ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
                 <span className={`block h-[1.5px] w-5 bg-[#212124] transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
@@ -987,7 +1010,7 @@ export default function DaangnPage() {
 
         {/* 모바일 드롭다운 메뉴 */}
         {menuOpen && (
-          <div className="md:hidden border-t border-[#eaebee] bg-white/95 backdrop-blur-[18px]">
+          <div className="md:hidden border-t border-[#eaebee] bg-white/95 backdrop-blur-[20px]">
             <nav className="w-[min(1152px,calc(100vw-48px))] mx-auto py-3 flex flex-col">
               {PAGE_NAV_ITEMS.map((item) => (
                 <a
@@ -1024,11 +1047,11 @@ export default function DaangnPage() {
             willChange: 'opacity, transform',
           }}
         >
-          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#ff6f0f]/10 text-[#ff6f0f] text-[13px] font-bold tracking-[0.02em] uppercase break-keep">
+          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#ff6f0f]/10 text-[#ff6f0f] text-[13px] font-bold tracking-[0.02em] break-keep">
             풀스택 개발 · 디자인 · SEO · 데이터 분석을 하는
           </p>
           <h1
-            className="mt-4.5 mb-20 text-[#17191d] font-bold leading-[1.02] tracking-[-0.06em] break-keep"
+            className="mt-5 mb-20 text-[#212124] font-bold leading-[1.02] tracking-[-0.06em] break-keep"
             style={{ fontSize: 'clamp(1.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
           >
             웹 개발자 김혜빈입니다
@@ -1038,18 +1061,17 @@ export default function DaangnPage() {
         {/* 영상 카드 */}
         <div
           ref={videoRef}
-          className="relative overflow-hidden bg-black shrink-0"
+          className="relative overflow-hidden bg-[#212124] shrink-0 h-[72vh] sm:h-[68vh] md:h-[62vh]"
           style={{
             width: '90vw',
-            height: '62vh',
             borderRadius: '20px',
-            boxShadow: '0 24px 72px rgba(0,0,0,0.22)',
+            boxShadow: '0 24px 72px rgba(255,111,15,0.10)',
             transform: 'translateY(24px)',
             willChange: 'width, height, border-radius',
           }}
         >
           <video
-            className="w-full h-full object-cover bg-black"
+            className="w-full h-full object-cover bg-[#212124]"
             src="/video/hero_dangn_2.mp4"
             autoPlay
             muted
@@ -1059,7 +1081,7 @@ export default function DaangnPage() {
           <div
             className="absolute inset-0 flex flex-col justify-end pointer-events-none"
             style={{
-              background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.32) 100%)',
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.42) 100%)',
               paddingTop: 'clamp(24px, 3.2vw, 52px)',
               paddingInline: 'clamp(24px, 3.2vw, 52px)',
               paddingBottom: 'clamp(64px, 6vw, 112px)',
@@ -1067,8 +1089,8 @@ export default function DaangnPage() {
           >
             <p
               ref={overlayEyebrowRef}
-              className="m-0 mb-4 text-white/82 font-bold tracking-[-0.03em] break-keep opacity-0"
-              style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.15rem)', willChange: 'opacity, transform' }}
+              className="m-0 mb-4 text-white/75 font-semibold tracking-[-0.02em] break-keep opacity-0"
+              style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)', willChange: 'opacity, transform' }}
             >
               디자인 · 개발 · SEO 컨설팅 경험으로
             </p>
@@ -1081,8 +1103,8 @@ export default function DaangnPage() {
             </h2>
             <p
               ref={overlayBodyRef}
-              className="mt-4 mb-0 text-white/72 leading-[1.6] tracking-[-0.02em] font-medium break-keep opacity-0"
-              style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.1rem)', willChange: 'opacity, transform' }}
+              className="mt-4 mb-0 text-white/65 leading-[1.6] tracking-[-0.02em] font-medium break-keep opacity-0"
+              style={{ fontSize: 'clamp(0.9rem, 1.5vw, 1.05rem)', willChange: 'opacity, transform' }}
             >
               실서비스를 직접 만들며, LCP 28% 단축 · 이미지 최적화 40~70%를 달성했습니다.
             </p>
@@ -1090,20 +1112,52 @@ export default function DaangnPage() {
         </div>
       </div>
 
-      {/* Core Strengths 섹션 */}
-      <section id="strengths" className="py-22 bg-[#f7f8fa]">
+      {/* 개선 기록 섹션 */}
+      <section className="py-22 bg-[#f7f8fa]" id="news">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
-            <p className="mb-2.5 text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">Core Strengths</p>
-            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+            <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em]">개선 기록을 확인해보세요!</p>
+            <h2 className="m-0 text-[#212124] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              개선 기록
+            </h2>
+          </div>
+          <div className="grid grid-cols-3 gap-5 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
+            {news.map((item) => (
+              <button
+                key={item.title}
+                onClick={() => setSelectedNews(item)}
+                className="flex flex-col gap-[16px] text-left transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(33,33,36,0.08)] cursor-pointer bg-transparent border-none p-0 mb-6"
+              >
+                <div className="rounded-[16px] overflow-hidden aspect-video bg-[#F2F4F6] w-full">
+                  <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div className="flex flex-col gap-[6px]">
+                  <strong className="text-[20px] leading-[1.45] break-keep tracking-[-0.04em] text-[#212124]">{item.title}</strong>
+                  <span className="text-[#868b94] text-[13px] leading-[1.5]">{item.date}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+          <div className="mt-20">
+            <PerfAccordion records={perfRecords} />
+          </div>
+        </div>
+      </section>
+
+      {/* Core Strengths 섹션 */}
+      <section id="strengths" className="py-22 bg-white">
+        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
+          <div className="mb-10">
+            <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em]">Core Strengths</p>
+            <h2 className="m-0 text-[#212124] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
               더 쉽고 편한 경험이 되도록 구현하고, <br/> 데이터를 바탕으로 개선합니다
             </h2>
           </div>
 
           {/* 프로필 카드 */}
-          <div className="bg-white border-[1.5px] border-[#eaebee] rounded-3xl overflow-hidden mb-8">
-            <div className="flex max-[768px]:flex-col gap-7 items-start p-9 max-[768px]:p-6 border-b-[1.5px] border-[#eaebee]">
-              <div className="shrink-0 h-64 max-[768px]:h-48 w-auto max-[768px]:w-full rounded-2xl overflow-hidden bg-[#f7f8fa] border-[1.5px] border-[#eaebee]">
+          <div className="bg-white border border-[#eaebee] rounded-[24px] overflow-hidden">
+            <div className="flex max-[768px]:flex-col gap-7 items-start p-9 max-[768px]:p-6 border-b border-[#eaebee]">
+              <div className="shrink-0 h-64 max-[768px]:h-48 w-auto max-[768px]:w-full rounded-[16px] overflow-hidden bg-[#f7f8fa] border border-[#eaebee]">
                 <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto max-[768px]:w-full max-[768px]:h-full object-contain" />
               </div>
               <div className="flex flex-col gap-2.5">
@@ -1111,10 +1165,10 @@ export default function DaangnPage() {
                   {about.name}
                   <span className="text-[14px] font-medium text-[#868b94] ml-2">{about.role}</span>
                 </p>
-                <p className="m-0 text-[15px] leading-[1.7] text-[#212124]">{about.intro}</p>
+                <p className="m-0 text-[15px] leading-[1.75] text-[#212124]">{about.intro}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {about.tags.map((tag) => (
-                    <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border-[1.5px] border-[#eaebee] text-[12px] font-semibold text-[#868b94]">
+                    <span key={tag} className="py-1 px-3 rounded-full bg-[#F2F4F6] border border-[#eaebee] text-[12px] font-semibold text-[#4d5159]">
                       {tag}
                     </span>
                   ))}
@@ -1122,7 +1176,7 @@ export default function DaangnPage() {
               </div>
             </div>
 
-            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#eaebee]">
               <div className="grid grid-cols-3 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1 gap-5">
                 {experts.map((expert, idx) => {
                   const Icon = STRENGTH_ICONS[idx];
@@ -1130,16 +1184,18 @@ export default function DaangnPage() {
                   return (
                     <article
                       key={expert.title}
-                      className={`rounded-[20px] p-6 flex flex-col border transition-all duration-300 ${
+                      className={`rounded-[16px] p-6 flex flex-col border transition-all duration-300 ${
                         isActive
-                          ? 'border-[#ff6f0f] bg-[#fff5f0] shadow-[0_8px_32px_rgba(255,111,15,0.10)]'
-                          : 'border-[#eaebee] bg-white'
+                          ? 'border-[#ff6f0f] bg-[#fff5f0] shadow-[0_8px_24px_rgba(255,111,15,0.09)]'
+                          : 'border-[#eaebee] bg-[#f7f8fa]'
                       }`}
                     >
-                      <div className="inline-flex items-center justify-center w-11 h-11 rounded-[14px] border border-[#eaebee] bg-white text-[#ff6f0f] mb-4 flex-shrink-0">
+                      <div className={`inline-flex items-center justify-center w-10 h-10 rounded-[12px] border mb-4 flex-shrink-0 transition-colors duration-300 ${
+                        isActive ? 'border-[#ff6f0f]/20 bg-white text-[#ff6f0f]' : 'border-[#eaebee] bg-white text-[#ff6f0f]'
+                      }`}>
                         <Icon />
                       </div>
-                      <h3 className="m-0 mb-3 text-[#1a1c20] text-[15px] font-bold tracking-[-0.03em] break-keep">
+                      <h3 className="m-0 mb-3 text-[#212124] text-[15px] font-bold tracking-[-0.03em] break-keep">
                         {expert.title}
                       </h3>
                       <ul className="list-none m-0 p-0 flex flex-col gap-2">
@@ -1157,9 +1213,9 @@ export default function DaangnPage() {
             </div>
 
             {/* 경력 */}
-            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#eaebee]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">경력</p>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-10">
                 {about.careers.map((c) => {
                   const isGlobal = c.company.includes('글로벌엠아이지');
                   const isYopil = c.company.includes('요필');
@@ -1194,7 +1250,7 @@ export default function DaangnPage() {
                       <p className="m-0 text-[13px] text-[#ff6f0f] font-semibold">{c.role}</p>
                       <ul className="mt-1.5 m-0 p-0 list-none flex flex-col gap-1">
                         {c.tasks.map((t) => (
-                          <li key={t} className="text-[14px] text-[#868b94] pl-3.5 relative leading-[1.6] before:content-['–'] before:absolute before:left-0 before:text-[#eaebee]">
+                          <li key={t} className="text-[14px] text-[#868b94] pl-3.5 relative leading-[1.6] before:content-['–'] before:absolute before:left-0 before:text-[#D1D6DB]">
                             {t}
                           </li>
                         ))}
@@ -1206,7 +1262,7 @@ export default function DaangnPage() {
             </div>
 
             {/* 학력 */}
-            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#eaebee]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">학력</p>
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-baseline gap-3 flex-wrap">
@@ -1227,9 +1283,9 @@ export default function DaangnPage() {
                   <div
                     key={s.title}
                     data-trait-card
-                    className="flex flex-col gap-2 bg-[#f7f8fa] border border-[#eaebee] rounded-2xl p-5 transition-all duration-300 hover:-translate-y-[4px] hover:bg-[#fff8f4] hover:border-[#f6d7c0] hover:shadow-[0_14px_30px_rgba(255,111,15,0.08)]"
+                    className="flex flex-col gap-2 bg-[#f7f8fa] border border-[#eaebee] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#fff5f0] hover:border-[#f6d7c0] hover:shadow-[0_12px_28px_rgba(255,111,15,0.08)]"
                   >
-                    <span className="text-[24px]">{s.emoji}</span>
+                    <span className="text-[22px]">{s.emoji}</span>
                     <strong className="text-[14px] font-bold text-[#212124]">{s.title}</strong>
                     <p className="m-0 text-[13px] text-[#868b94] leading-[1.6]">{s.desc}</p>
                   </div>
@@ -1241,9 +1297,9 @@ export default function DaangnPage() {
                   <div
                     key={w.title}
                     data-trait-card
-                    className="flex flex-col gap-2 bg-[#eef0f3] border border-[#dde1e6] rounded-2xl p-5 transition-all duration-300 hover:-translate-y-[4px] hover:bg-[#fff8f4] hover:border-[#f6d7c0] hover:shadow-[0_14px_30px_rgba(255,111,15,0.08)]"
+                    className="flex flex-col gap-2 bg-[#F2F4F6] border border-[#dde1e6] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#fff5f0] hover:border-[#f6d7c0] hover:shadow-[0_12px_28px_rgba(255,111,15,0.08)]"
                   >
-                    <span className="text-[24px]">{w.emoji}</span>
+                    <span className="text-[22px]">{w.emoji}</span>
                     <strong className="text-[14px] font-bold text-[#212124]">{w.title}</strong>
                     <p className="m-0 text-[13px] text-[#868b94] leading-[1.6]">{w.desc}</p>
                   </div>
@@ -1256,21 +1312,22 @@ export default function DaangnPage() {
       </section>
 
       {/* 기술 스택 섹션 */}
-      <section ref={techSectionRef} className="py-[88px] bg-white">
+      <section ref={techSectionRef} className="py-22 bg-white">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
-            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+            <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em]">Tech Stack</p>
+            <h2 className="m-0 text-[#212124] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
               사용하는 기술 스택
             </h2>
           </div>
-          <div className="grid grid-cols-3 gap-[18px] max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
+          <div className="grid grid-cols-3 gap-4 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
             {techStack.map((tech) => (
-              <div key={tech.name} data-tech-card className="rounded-[20px] p-6 bg-[#f7f8fa] flex flex-col items-start gap-[14px]">
+              <div key={tech.name} data-tech-card className="rounded-[16px] p-6 bg-[#f7f8fa] flex flex-col items-start gap-[12px] border border-[#eaebee]">
                 <div data-tech-badge>
-                  <Image src={tech.image} alt={tech.name} width={160} height={28} unoptimized style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
+                  <Image src={tech.image} alt={tech.name} width={160} height={28} unoptimized style={{ height: '26px', width: 'auto', objectFit: 'contain' }} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <strong data-tech-text className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">{tech.name}</strong>
+                  <strong data-tech-text className="text-[14px] font-bold text-[#212124] tracking-[-0.03em]">{tech.name}</strong>
                   <span data-tech-text className="text-[13px] text-[#868b94] leading-[1.55] tracking-[-0.02em] break-keep">{tech.desc}</span>
                 </div>
               </div>
@@ -1280,37 +1337,58 @@ export default function DaangnPage() {
       </section>
 
       {/* 실서비스 지표 섹션 */}
-      <section ref={metricSectionRef} className="py-[88px] bg-white">
+      <section ref={metricSectionRef} className="bg-[#f7f8fa]">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
-          <div ref={metricHeadingRef} className="mb-10">
-            <p className="mb-[10px] text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">실서비스 기준</p>
-            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
-              직접 설계하고 배포한 서비스들
-            </h2>
-          </div>
-          <div className="grid grid-cols-4 border-[1.5px] border-[#eaebee] rounded-[20px] overflow-hidden max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
-            {stats.map((item) => (
-              <article
-                key={item.label}
-                data-metric-card
-                className="relative overflow-hidden p-9 max-[768px]:p-6 flex flex-col gap-2 border-r border-r-[#eaebee] last:border-r-0 bg-white transition-colors hover:bg-[#f7f8fa]"
-              >
-                <span
-                  data-metric-accent
-                  aria-hidden="true"
-                  className="absolute top-0 left-0 h-[4px] rounded-r-full opacity-0"
-                />
-                <p data-metric-label className="m-0 text-[#868b94] text-[13px] font-semibold tracking-[0.02em]">{item.label}</p>
-                <strong
-                  data-metric-value={item.value}
-                  className="font-extrabold leading-[1.1] text-[#212124]"
-                  style={{ fontSize: 'clamp(2rem, 3vw, 3rem)', letterSpacing: '-0.04em' }}
+          <div className="flex flex-col md:flex-row md:gap-16 items-start">
+
+            {/* Left: sticky title */}
+            <div
+              ref={metricHeadingRef}
+              className="w-full md:w-[40%] shrink-0 pt-22 pb-6 md:pb-22 md:sticky md:top-[20vh] md:self-start md:pr-16"
+            >
+              <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em] m-0">실서비스 기준</p>
+              <h2 className="m-0 text-[#212124] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+                직접 설계하고<br />배포한 서비스들
+              </h2>
+              <p className="mt-5 m-0 text-[#868b94] text-[15px] leading-[1.7] break-keep">
+                기획부터 배포까지 단독으로<br className="hidden md:block" />진행한 실서비스의 주요 지표입니다.
+              </p>
+            </div>
+
+            {/* Right: stacked cards */}
+            <div className="w-full md:flex-1 min-w-0 pt-0 pb-22 flex flex-col gap-4 md:pt-22 md:block md:gap-0">
+              {stats.map((item, i) => (
+                <div
+                  key={item.label}
+                  data-metric-slot
+                  className="md:h-[90vh]"
                 >
-                  {item.value}
-                </strong>
-                <span data-metric-note className="text-[13px] text-[#868b94] mt-[2px]">{item.note}</span>
-              </article>
-            ))}
+                  <article
+                    data-metric-card
+                    className="bg-white rounded-3xl border border-[#eaebee] overflow-hidden md:sticky md:top-[20vh]"
+                    style={{ zIndex: i + 1 }}
+                  >
+                    <div className="p-8 md:p-12 flex flex-col items-center text-center justify-center gap-6 min-h-100 md:min-h-140">
+                      <div className="flex flex-col items-center gap-5">
+                        <p data-metric-label className="m-0 text-[#868b94] text-[11px] font-bold tracking-[0.09em] uppercase">{item.label}</p>
+                        <div className="flex flex-col items-center gap-2">
+                          <strong
+                            data-metric-value={item.value}
+                            className="font-extrabold leading-none text-[#212124]"
+                            style={{ fontSize: 'clamp(3.5rem, 6vw, 5.5rem)', letterSpacing: '-0.04em' }}
+                          >
+                            {item.value}
+                          </strong>
+                          <span data-metric-note className="text-[15px] text-[#4d5159] font-medium leading-normal">{item.note}</span>
+                        </div>
+                      </div>
+                      <p className="m-0 text-[#B0B8C1] text-[13px] leading-[1.7] break-keep border-t border-[#F2F4F6] pt-5 w-full">{item.detail}</p>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
@@ -1319,8 +1397,8 @@ export default function DaangnPage() {
       <section className="py-22" id="stories">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
-            <p className="mb-2.5 text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">Projects</p>
-            <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+            <p className="mb-2.5 text-[#ff6f0f] text-[16px] font-bold tracking-[-0.02em]">Projects</p>
+            <h2 className="m-0 text-[#212124] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
               실제 운영 중인 사이트를 직접 설계·개발했습니다
             </h2>
           </div>
@@ -1328,7 +1406,7 @@ export default function DaangnPage() {
             {stories.map((story) => (
               <article
                 key={story.title}
-                className="flex flex-col rounded-3xl p-5 bg-white border border-[#eaebee] gap-3.5 transition-transform duration-200 hover:-translate-y-[3px] hover:shadow-[0_24px_48px_rgba(33,33,36,0.08)] cursor-pointer"
+                className="flex flex-col rounded-[20px] p-5 bg-white border border-[#eaebee] gap-3.5 transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(33,33,36,0.08)] cursor-pointer"
                 role="link"
                 tabIndex={0}
                 onClick={() => window.open(story.href, '_blank', 'noopener,noreferrer')}
@@ -1345,7 +1423,7 @@ export default function DaangnPage() {
                     <span>{story.category}</span>
                     <span className="text-[#868b94] text-[12px] font-semibold">기여도 {story.contribution}</span>
                   </div>
-                  <h3 className="m-0 text-[#1a1c20] text-[18px] leading-[1.4] tracking-[-0.04em] font-bold break-keep">
+                  <h3 className="m-0 text-[#212124] text-[17px] leading-[1.4] tracking-[-0.04em] font-bold break-keep">
                     {story.title}
                   </h3>
                   <div className="flex flex-wrap gap-[5px]">
@@ -1355,7 +1433,7 @@ export default function DaangnPage() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-[10px] font-bold pt-2 w-full border-t border-[#eaebee]">Highlights</p>
+                  <p className="text-[10px] font-bold pt-2 w-full border-t border-[#eaebee] text-[#868b94]">Highlights</p>
                   <ul className="list-none m-0 p-0 flex flex-col gap-[5px]">
                     {story.highlights.map((h) => (
                       <li key={h} className="flex items-start gap-[6px] text-[13px] text-[#4d5159] leading-[1.55] tracking-[-0.02em] break-keep">
@@ -1380,62 +1458,22 @@ export default function DaangnPage() {
         </div>
       </section>
 
-      {/* 개선 기록 섹션 */}
-      <section className="py-[88px]" id="news">
-        <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
-          <div className="flex items-end justify-between gap-5 mb-10">
-            <div>
-              <p className="mb-[10px] text-[#ff6f0f] text-[18px] font-bold tracking-[-0.03em]">개선 기록을 확인해보세요!</p>
-              <h2 className="m-0 text-[#1a1c20] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
-                개선 기록
-              </h2>
-            </div>
-            <Link
-              href="/foryou/dangn/improvements"
-              className="inline-flex items-center h-12 px-5 rounded-full border border-[#eaebee] text-[#212124] bg-white text-[15px] font-bold flex-shrink-0"
-            >
-              전체 기록 보러가기
-            </Link>
-          </div>
-          <div className="grid grid-cols-3 gap-[18px] max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
-            {news.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                className="flex flex-col gap-[18px] transition-transform duration-200 hover:-translate-y-[3px] hover:shadow-[0_24px_48px_rgba(33,33,36,0.08)]"
-              >
-                <div className="rounded-[22px] overflow-hidden aspect-video bg-[#f2f3f6]">
-                  <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div className="flex flex-col gap-[6px]">
-                  <strong className="text-[22px] leading-[1.45] break-keep tracking-[-0.04em] text-[#1a1c20]">{item.title}</strong>
-                  <span className="text-[#868b94] text-[14px] leading-[1.5]">{item.date}</span>
-                </div>
-              </a>
-            ))}
-          </div>
-          <div className="mt-20">
-            <PerfAccordion records={perfRecords} />
-          </div>
-        </div>
-      </section>
-
       {/* Claude AI 워크플로우 섹션 */}
       <section
         id="claude"
         ref={claudeSectionRef}
-        className="py-[88px]"
-        style={{ background: 'linear-gradient(160deg, #1a1c20 0%, #24262d 100%)' }}
+        className="py-22"
+        style={{ background: 'linear-gradient(160deg, #2c1200 0%, #1a0a00 100%)' }}
       >
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
-            <p className="mb-[10px] text-[#ff6f0f]/90 text-[18px] font-bold tracking-[-0.03em]">AI-Driven Workflow</p>
+            <p className="mb-2.5 text-[#ff6f0f]/90 text-[16px] font-bold tracking-[-0.02em]">AI-Driven Workflow</p>
             <h2
-              className="m-0 text-[#e8e9ec] font-bold leading-[1.2] tracking-[-0.05em] break-keep"
+              className="m-0 text-[#E8EAED] font-bold leading-[1.2] tracking-[-0.05em] break-keep"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}
             >
               <span className="inline-flex items-center">
-                <span>{claudeTitle || '\u00A0'}</span>
+                <span>{claudeTitle || ' '}</span>
                 <span
                   aria-hidden="true"
                   className={`ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] ${
@@ -1445,36 +1483,36 @@ export default function DaangnPage() {
               </span>
             </h2>
           </div>
-          <p className="max-w-[680px] text-[15px] font-medium leading-[1.8] text-[#868b94] tracking-[-0.03em] break-keep m-0 mb-[52px]">
-            {claudeSummaryText || '\u00A0'}
+          <p className="max-w-[680px] text-[15px] font-medium leading-[1.8] text-[#A0A8B4] tracking-[-0.03em] break-keep m-0 mb-[52px]">
+            {claudeSummaryText || ' '}
             {activeClaudeCursor === 'summary' && (
               <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
             )}
           </p>
 
-          <div className="grid grid-cols-3 gap-[18px] mb-[52px] max-[1100px]:grid-cols-1">
+          <div className="grid grid-cols-3 gap-4 mb-[52px] max-[1100px]:grid-cols-1">
             {claudeWorkflow.steps.map((s, index) => (
               <div
                 key={s.step}
-                className="rounded-[20px] p-[26px] flex flex-col gap-[14px]"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                className="rounded-[16px] p-[24px] flex flex-col gap-[14px]"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
               >
                 <div className="flex items-center gap-[10px]">
                   <span
                     className="text-[11px] font-bold text-[#ff6f0f] tracking-[-0.01em] rounded-full py-[2px] px-[10px] flex-shrink-0"
-                    style={{ background: 'rgba(255,111,15,0.12)', border: '1px solid rgba(255,111,15,0.22)' }}
+                    style={{ background: 'rgba(255,111,15,0.22)', border: '1px solid rgba(255,111,15,0.22)' }}
                   >
                     {s.step}
                   </span>
-                  <h3 className="m-0 text-[16px] font-bold text-[#e8e9ec] tracking-[-0.04em] break-keep">
-                    {claudeStepTitles[index] || '\u00A0'}
+                  <h3 className="m-0 text-[15px] font-bold text-[#E8EAED] tracking-[-0.04em] break-keep">
+                    {claudeStepTitles[index] || ' '}
                     {activeClaudeCursor === `step-title-${index}` && (
                       <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
                     )}
                   </h3>
                 </div>
-                <p className="m-0 text-[13px] text-[#7a8190] leading-[1.7] tracking-[-0.02em] break-keep">
-                  {claudeStepDescs[index] || '\u00A0'}
+                <p className="m-0 text-[13px] text-[#A0A8B4] leading-[1.7] tracking-[-0.02em] break-keep">
+                  {claudeStepDescs[index] || ' '}
                   {activeClaudeCursor === `step-desc-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.95em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
                   )}
@@ -1483,44 +1521,44 @@ export default function DaangnPage() {
                   {s.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="py-[2px] px-2 rounded-full text-[11px] font-semibold text-[#a0a6b2] tracking-[-0.01em]"
-                      style={{ border: '1px solid rgba(255,255,255,0.1)' }}
+                      className="py-[2px] px-2 rounded-full text-[11px] font-semibold text-[#868b94] tracking-[-0.01em]"
+                      style={{ border: '1px solid rgba(255,255,255,0.08)' }}
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                <pre className="m-0 p-4 rounded-[10px] bg-[#8f3d00] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
                   <code>{s.code}</code>
                 </pre>
               </div>
             ))}
           </div>
 
-          <div className="grid grid-cols-4 gap-[18px] max-[1100px]:grid-cols-2">
+          <div className="grid grid-cols-4 gap-4 max-[1100px]:grid-cols-2">
             {claudeWorkflow.gains.map((g, index) => (
               <div
                 key={g.label}
-                className="py-[30px] px-[26px] rounded-[20px] flex flex-col gap-2"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+                className="py-[28px] px-[24px] rounded-[16px] flex flex-col gap-2"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
               >
                 <strong
                   className="text-[#ff6f0f] font-bold leading-[1.15] tracking-[-0.05em]"
                   style={{ fontSize: 'clamp(1.8rem, 2.5vw, 2.4rem)' }}
                 >
-                  {claudeGainValues[index] || '\u00A0'}
+                  {claudeGainValues[index] || ' '}
                   {activeClaudeCursor === `gain-value-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
                   )}
                 </strong>
-                <p className="m-0 text-[14px] font-bold text-[#c8cad0] tracking-[-0.03em] break-keep">
-                  {claudeGainLabels[index] || '\u00A0'}
+                <p className="m-0 text-[14px] font-bold text-[#B8BFC8] tracking-[-0.03em] break-keep">
+                  {claudeGainLabels[index] || ' '}
                   {activeClaudeCursor === `gain-label-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
                   )}
                 </p>
-                <span className="text-[12px] text-[#52575f] leading-[1.55] tracking-[-0.01em] break-keep">
-                  {claudeGainNotes[index] || '\u00A0'}
+                <span className="text-[12px] text-[#868b94] leading-[1.55] tracking-[-0.01em] break-keep">
+                  {claudeGainNotes[index] || ' '}
                   {activeClaudeCursor === `gain-note-${index}` && (
                     <span aria-hidden="true" className="ml-1 inline-block h-[0.9em] w-[2px] rounded-full bg-[#ff6f0f] animate-pulse align-[-0.05em]" />
                   )}
@@ -1539,8 +1577,8 @@ export default function DaangnPage() {
           style={{
             width: '88vw',
             height: '64vh',
-            borderRadius: '28px',
-            boxShadow: '0 24px 72px rgba(0,0,0,0.28)',
+            borderRadius: '24px',
+            boxShadow: '0 24px 72px rgba(0,0,0,0.32)',
             willChange: 'width, height, border-radius',
           }}
         >
@@ -1592,7 +1630,7 @@ export default function DaangnPage() {
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">페이지</p>
                 <Link href="/" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">포트폴리오 메인</Link>
                 <a href="#stories" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">프로젝트 보기</a>
-                <a href="/foryou/dangn/improvements" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">개선 기록</a>
+                <a href="/foryou/daangn/improvements" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">개선 기록</a>
               </div>
               <div className="flex flex-col gap-[10px]">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">연락</p>
@@ -1604,6 +1642,7 @@ export default function DaangnPage() {
       </footer>
 
       <CareerModal type={modal} onClose={() => setModal(null)} />
+      {selectedNews && <ImprovementModal item={selectedNews} onClose={() => setSelectedNews(null)} />}
     </main>
   );
 }
