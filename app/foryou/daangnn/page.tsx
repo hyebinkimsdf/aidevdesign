@@ -101,6 +101,13 @@ function SeoIcon() {
 
 function PerfAccordion({ records }: { records: typeof import('./data').perfRecords }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const chevron = (isOpen: boolean) => (
+    <span className={`text-[#868b94] flex items-center justify-center transition-transform duration-[250ms] flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
 
   return (
     <div className="flex flex-col rounded-[20px] overflow-hidden border border-[#eaebee]">
@@ -111,8 +118,9 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
             key={rec.metric}
             className={`border-b border-[#eaebee] last:border-b-0 ${isOpen ? 'bg-[#fff5f0]' : 'bg-white'}`}
           >
+            {/* 데스크탑 버튼 */}
             <button
-              className="w-full grid items-center gap-3 px-7 py-[18px] bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#fff5f0]"
+              className="hidden md:grid w-full items-center gap-3 px-7 py-[18px] bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#fff5f0]"
               style={{ gridTemplateColumns: '64px 160px 80px 20px 80px 72px 1fr 24px' }}
               onClick={() => setOpenIdx(isOpen ? null : idx)}
               aria-expanded={isOpen}
@@ -120,36 +128,46 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
               <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px] text-center">
                 {rec.metric}
               </span>
-              <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">
-                {rec.label}
-              </span>
-              <span className="text-[13px] text-[#868b94] line-through text-right">
-                {rec.before}
-              </span>
+              <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em]">{rec.label}</span>
+              <span className="text-[13px] text-[#868b94] line-through text-right">{rec.before}</span>
               <span className="text-[13px] text-[#868b94] text-center">→</span>
-              <span className="text-[13px] font-bold text-[#1a1c20]">
-                {rec.after}
-              </span>
-              <span className={`text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] text-center whitespace-nowrap ${
-                rec.delta.startsWith('▲')
-                  ? 'text-[#16a34a] bg-[#f0fdf4]'
-                  : 'text-[#16a34a] bg-[#f0fdf4]'
-              }`}>
+              <span className="text-[13px] font-bold text-[#1a1c20]">{rec.after}</span>
+              <span className="text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] text-center whitespace-nowrap text-[#16a34a] bg-[#f0fdf4]">
                 {rec.delta}
               </span>
-              <span className="text-[13px] text-[#4d5159] tracking-[-0.02em] break-keep">
-                {rec.how}
-              </span>
-              <span className={`text-[#868b94] flex items-center justify-center transition-transform duration-[250ms] ${isOpen ? 'rotate-180' : ''}`}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
+              <span className="text-[13px] text-[#4d5159] tracking-[-0.02em] break-keep">{rec.how}</span>
+              {chevron(isOpen)}
+            </button>
+
+            {/* 모바일 버튼 */}
+            <button
+              className="md:hidden w-full flex flex-col gap-2 px-5 py-4 bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#fff5f0]"
+              onClick={() => setOpenIdx(isOpen ? null : idx)}
+              aria-expanded={isOpen}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-[11px] font-extrabold text-[#ff6f0f] tracking-[0.06em] uppercase bg-[#ff6f0f]/10 py-[3px] px-2 rounded-[6px] flex-shrink-0">
+                    {rec.metric}
+                  </span>
+                  <span className="text-[14px] font-bold text-[#1a1c20] tracking-[-0.03em] truncate">{rec.label}</span>
+                </div>
+                {chevron(isOpen)}
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[12px] text-[#868b94] line-through">{rec.before}</span>
+                <span className="text-[12px] text-[#868b94]">→</span>
+                <span className="text-[12px] font-bold text-[#1a1c20]">{rec.after}</span>
+                <span className="text-[11px] font-extrabold py-[2px] px-2 rounded-[5px] whitespace-nowrap text-[#16a34a] bg-[#f0fdf4]">
+                  {rec.delta}
+                </span>
+              </div>
+              <span className="text-[12px] text-[#4d5159] tracking-[-0.02em] break-keep leading-[1.6]">{rec.how}</span>
             </button>
 
             {isOpen && (
-              <div className="px-7 pb-6 flex flex-col gap-5">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="px-5 md:px-7 pb-6 flex flex-col gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-white rounded-[14px] p-5 border border-[#eaebee]">
                     <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#ff6f0f]">문제</p>
                     <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.problem}</p>
@@ -159,16 +177,16 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
                     <p className="m-0 text-[13px] text-[#4d5159] leading-[1.7] tracking-[-0.02em] break-keep">{rec.solution}</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#868b94]">Before</p>
-                    <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                    <pre className="m-0 p-4 rounded-[12px] bg-[#1a1c20] text-[#e2e4e8] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeBefore}</code>
                     </pre>
                   </div>
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#16a34a]">After</p>
-                    <pre className="m-0 p-4 rounded-[12px] bg-[#0d1f12] text-[#86efac] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                    <pre className="m-0 p-4 rounded-[12px] bg-[#0d1f12] text-[#86efac] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeAfter}</code>
                     </pre>
                   </div>
@@ -453,6 +471,7 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
 export default function DaangnPage() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [modal, setModal] = useState<ModalType>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [claudeTitle, setClaudeTitle] = useState('');
   const [claudeSummaryText, setClaudeSummaryText] = useState('');
   const [claudeStepTitles, setClaudeStepTitles] = useState<string[]>(() => claudeWorkflow.steps.map(() => ''));
@@ -914,35 +933,75 @@ export default function DaangnPage() {
       {/* 헤더 */}
       <header className="sticky top-0 z-40 bg-white/88 backdrop-blur-[18px] border-b border-[#eaebee]/90">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
-          <div className="min-h-18 flex items-center justify-between gap-5">
+          <div className="min-h-[64px] flex items-center justify-between gap-5">
             <a className="inline-flex items-center gap-3" href="#top" aria-label="당근용 김혜빈 포트폴리오">
-              <span className="inline-flex items-center justify-center min-w-12 h-9 px-4 rounded-full bg-[#ff6f0f] text-white text-[16px] font-bold">
+              <span className="inline-flex items-center justify-center min-w-[40px] h-[40px] rounded-full bg-[#ff6f0f] text-white text-[15px] font-bold">
                 HB
               </span>
               <span className="flex flex-col leading-none">
                 <strong className="text-[14px] font-bold text-[#212124]">For Karrot</strong>
-                <span className="text-[12px] text-[#868b94] mt-[3px]">김혜빈 포트폴리오</span>
+                <span className="text-[12px] text-[#868b94] mt-[2px]">김혜빈 포트폴리오</span>
               </span>
             </a>
-            <nav className="flex items-center gap-2 flex-wrap">
+
+            {/* 데스크탑 nav */}
+            <nav className="hidden md:flex items-center gap-2">
               {PAGE_NAV_ITEMS.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="h-10 inline-flex items-center px-[14px] rounded-full text-[15px] font-semibold text-[#4d5159] transition-colors hover:bg-[#f7f8fa] hover:text-[#212124]"
+                  className="h-10 inline-flex items-center px-[14px] rounded-full text-[14px] font-semibold text-[#4d5159] transition-colors hover:bg-[#f7f8fa] hover:text-[#212124]"
                 >
                   {item.label}
                 </a>
               ))}
               <a
                 href="mailto:hyebinkimdesign@gmail.com"
-                className="h-10 inline-flex items-center px-[14px] rounded-full text-[15px] font-semibold bg-[#ff6f0f] text-white"
+                className="h-10 inline-flex items-center px-[16px] rounded-full text-[14px] font-bold bg-[#ff6f0f] text-white hover:opacity-90 transition-opacity ml-1"
               >
                 연락하기
               </a>
             </nav>
+
+            {/* 모바일 오른쪽 버튼 */}
+            <div className="flex md:hidden items-center gap-2">
+              <a
+                href="mailto:hyebinkimdesign@gmail.com"
+                className="h-9 inline-flex items-center px-4 rounded-full text-[13px] font-bold bg-[#ff6f0f] text-white"
+              >
+                연락하기
+              </a>
+              <button
+                aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((v) => !v)}
+                className="w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-[#f7f8fa] transition-colors"
+              >
+                <span className={`block h-[1.5px] w-5 bg-[#212124] transition-transform duration-200 origin-center ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
+                <span className={`block h-[1.5px] w-5 bg-[#212124] transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+                <span className={`block h-[1.5px] w-5 bg-[#212124] transition-transform duration-200 origin-center ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* 모바일 드롭다운 메뉴 */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-[#eaebee] bg-white/95 backdrop-blur-[18px]">
+            <nav className="w-[min(1152px,calc(100vw-48px))] mx-auto py-3 flex flex-col">
+              {PAGE_NAV_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 inline-flex items-center px-2 text-[15px] font-semibold text-[#4d5159] transition-colors hover:text-[#212124]"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* 히어로 — GSAP pin 섹션 */}
@@ -961,16 +1020,16 @@ export default function DaangnPage() {
           style={{
             top: 'clamp(72px, 11vh, 120px)',
             left: 'clamp(24px, 5vw, 80px)',
-            maxWidth: 'min(560px, 46vw)',
+            maxWidth: 'min(560px, calc(100vw - 48px))',
             willChange: 'opacity, transform',
           }}
         >
-          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#ff6f0f]/10 text-[#ff6f0f] text-[14px] font-bold tracking-[0.02em] uppercase">
+          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#ff6f0f]/10 text-[#ff6f0f] text-[13px] font-bold tracking-[0.02em] uppercase break-keep">
             풀스택 개발 · 디자인 · SEO · 데이터 분석을 하는
           </p>
           <h1
             className="mt-4.5 mb-20 text-[#17191d] font-bold leading-[1.02] tracking-[-0.06em] break-keep"
-            style={{ fontSize: 'clamp(2.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
+            style={{ fontSize: 'clamp(1.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
           >
             웹 개발자 김혜빈입니다
           </h1>
@@ -1043,16 +1102,16 @@ export default function DaangnPage() {
 
           {/* 프로필 카드 */}
           <div className="bg-white border-[1.5px] border-[#eaebee] rounded-3xl overflow-hidden mb-8">
-            <div className="flex gap-7 items-start p-9 border-b-[1.5px] border-[#eaebee]">
-              <div className="shrink-0 h-64 w-auto rounded-2xl overflow-hidden bg-[#f7f8fa] border-[1.5px] border-[#eaebee]">
-                <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto object-contain" />
+            <div className="flex max-[768px]:flex-col gap-7 items-start p-9 max-[768px]:p-6 border-b-[1.5px] border-[#eaebee]">
+              <div className="shrink-0 h-64 max-[768px]:h-48 w-auto max-[768px]:w-full rounded-2xl overflow-hidden bg-[#f7f8fa] border-[1.5px] border-[#eaebee]">
+                <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto max-[768px]:w-full max-[768px]:h-full object-contain" />
               </div>
               <div className="flex flex-col gap-2.5">
                 <p className="m-0 text-[20px] font-extrabold text-[#212124]">
                   {about.name}
                   <span className="text-[14px] font-medium text-[#868b94] ml-2">{about.role}</span>
                 </p>
-                <p className="m-0 text-[15px] leading-[1.7] text-[#212124] max-w-150">{about.intro}</p>
+                <p className="m-0 text-[15px] leading-[1.7] text-[#212124]">{about.intro}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {about.tags.map((tag) => (
                     <span key={tag} className="py-1 px-3 rounded-full bg-[#f7f8fa] border-[1.5px] border-[#eaebee] text-[12px] font-semibold text-[#868b94]">
@@ -1063,8 +1122,8 @@ export default function DaangnPage() {
               </div>
             </div>
 
-            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
-              <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-1">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
+              <div className="grid grid-cols-3 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1 gap-5">
                 {experts.map((expert, idx) => {
                   const Icon = STRENGTH_ICONS[idx];
                   const isActive = idx === activeIdx;
@@ -1098,7 +1157,7 @@ export default function DaangnPage() {
             </div>
 
             {/* 경력 */}
-            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">경력</p>
               <div className="flex flex-col gap-6">
                 {about.careers.map((c) => {
@@ -1147,7 +1206,7 @@ export default function DaangnPage() {
             </div>
 
             {/* 학력 */}
-            <div className="px-9 py-7 border-b-[1.5px] border-[#eaebee]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b-[1.5px] border-[#eaebee]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-4">학력</p>
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-baseline gap-3 flex-wrap">
@@ -1161,7 +1220,7 @@ export default function DaangnPage() {
             </div>
 
             {/* 강점/약점 */}
-            <div ref={traitSectionRef} className="grid grid-cols-2 gap-6 px-9 py-7">
+            <div ref={traitSectionRef} className="grid grid-cols-2 max-[768px]:grid-cols-1 gap-6 px-9 max-[768px]:px-5 py-7">
               <div className="flex flex-col gap-3">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#868b94] m-0 mb-1">이런 점이 강점이에요</p>
                 {about.strengths.map((s) => (
@@ -1234,7 +1293,7 @@ export default function DaangnPage() {
               <article
                 key={item.label}
                 data-metric-card
-                className="relative overflow-hidden p-9 flex flex-col gap-2 border-r border-r-[#eaebee] last:border-r-0 bg-white transition-colors hover:bg-[#f7f8fa]"
+                className="relative overflow-hidden p-9 max-[768px]:p-6 flex flex-col gap-2 border-r border-r-[#eaebee] last:border-r-0 bg-white transition-colors hover:bg-[#f7f8fa]"
               >
                 <span
                   data-metric-accent
@@ -1528,7 +1587,7 @@ export default function DaangnPage() {
               <p className="text-[14px] text-[#868b94] leading-[1.6] m-0">기획부터 개발, 성능 개선과 배포까지<br />직접 만드는 프론트엔드·풀스택 개발자입니다.</p>
               <p className="text-[13px] text-[#868b94] m-0 mt-auto opacity-60">© 2026 Hyebin Kim</p>
             </div>
-            <nav className="flex gap-12 flex-shrink-0">
+            <nav className="flex gap-8 max-[480px]:gap-6 flex-shrink-0">
               <div className="flex flex-col gap-[10px]">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#212124] m-0 mb-1">페이지</p>
                 <Link href="/" className="text-[14px] text-[#868b94] transition-colors hover:text-[#212124]">포트폴리오 메인</Link>

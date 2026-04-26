@@ -101,6 +101,13 @@ function SeoIcon() {
 
 function PerfAccordion({ records }: { records: typeof import('./data').perfRecords }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const chevron = (isOpen: boolean) => (
+    <span className={`text-[#8B95A1] flex items-center justify-center transition-transform duration-[250ms] flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
 
   return (
     <div className="flex flex-col rounded-[16px] overflow-hidden border border-[#E5E8EB]">
@@ -111,8 +118,9 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
             key={rec.metric}
             className={`border-b border-[#E5E8EB] last:border-b-0 ${isOpen ? 'bg-[#EBF3FF]' : 'bg-white'}`}
           >
+            {/* 데스크탑 버튼 */}
             <button
-              className="w-full grid items-center gap-3 px-7 py-[18px] bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#EBF3FF]"
+              className="hidden md:grid w-full items-center gap-3 px-7 py-[18px] bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#EBF3FF]"
               style={{ gridTemplateColumns: '64px 160px 80px 20px 80px 72px 1fr 24px' }}
               onClick={() => setOpenIdx(isOpen ? null : idx)}
               aria-expanded={isOpen}
@@ -120,32 +128,46 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
               <span className="text-[11px] font-extrabold text-[#3182F6] tracking-[0.06em] uppercase bg-[#3182F6]/10 py-[3px] px-2 rounded-[6px] text-center">
                 {rec.metric}
               </span>
-              <span className="text-[14px] font-bold text-[#191F28] tracking-[-0.03em]">
-                {rec.label}
-              </span>
-              <span className="text-[13px] text-[#8B95A1] line-through text-right">
-                {rec.before}
-              </span>
+              <span className="text-[14px] font-bold text-[#191F28] tracking-[-0.03em]">{rec.label}</span>
+              <span className="text-[13px] text-[#8B95A1] line-through text-right">{rec.before}</span>
               <span className="text-[13px] text-[#8B95A1] text-center">→</span>
-              <span className="text-[13px] font-bold text-[#191F28]">
-                {rec.after}
-              </span>
+              <span className="text-[13px] font-bold text-[#191F28]">{rec.after}</span>
               <span className="text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] text-center whitespace-nowrap text-[#00C471] bg-[#E9FAF3]">
                 {rec.delta}
               </span>
-              <span className="text-[13px] text-[#4E5968] tracking-[-0.02em] break-keep">
-                {rec.how}
-              </span>
-              <span className={`text-[#8B95A1] flex items-center justify-center transition-transform duration-[250ms] ${isOpen ? 'rotate-180' : ''}`}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                  <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
+              <span className="text-[13px] text-[#4E5968] tracking-[-0.02em] break-keep">{rec.how}</span>
+              {chevron(isOpen)}
+            </button>
+
+            {/* 모바일 버튼 */}
+            <button
+              className="md:hidden w-full flex flex-col gap-2 px-5 py-4 bg-transparent border-none cursor-pointer text-left transition-colors hover:bg-[#EBF3FF]"
+              onClick={() => setOpenIdx(isOpen ? null : idx)}
+              aria-expanded={isOpen}
+            >
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="text-[11px] font-extrabold text-[#3182F6] tracking-[0.06em] uppercase bg-[#3182F6]/10 py-[3px] px-2 rounded-[6px] flex-shrink-0">
+                    {rec.metric}
+                  </span>
+                  <span className="text-[14px] font-bold text-[#191F28] tracking-[-0.03em] truncate">{rec.label}</span>
+                </div>
+                {chevron(isOpen)}
+              </div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[12px] text-[#8B95A1] line-through">{rec.before}</span>
+                <span className="text-[12px] text-[#8B95A1]">→</span>
+                <span className="text-[12px] font-bold text-[#191F28]">{rec.after}</span>
+                <span className="text-[11px] font-extrabold py-[2px] px-2 rounded-[5px] whitespace-nowrap text-[#00C471] bg-[#E9FAF3]">
+                  {rec.delta}
+                </span>
+              </div>
+              <span className="text-[12px] text-[#4E5968] tracking-[-0.02em] break-keep leading-[1.6]">{rec.how}</span>
             </button>
 
             {isOpen && (
-              <div className="px-7 pb-6 flex flex-col gap-5">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="px-5 md:px-7 pb-6 flex flex-col gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="bg-white rounded-[12px] p-5 border border-[#E5E8EB]">
                     <p className="m-0 mb-2 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#3182F6]">문제</p>
                     <p className="m-0 text-[13px] text-[#4E5968] leading-[1.7] tracking-[-0.02em] break-keep">{rec.problem}</p>
@@ -155,16 +177,16 @@ function PerfAccordion({ records }: { records: typeof import('./data').perfRecor
                     <p className="m-0 text-[13px] text-[#4E5968] leading-[1.7] tracking-[-0.02em] break-keep">{rec.solution}</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#8B95A1]">Before</p>
-                    <pre className="m-0 p-4 rounded-[10px] bg-[#191F28] text-[#D8DCE2] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                    <pre className="m-0 p-4 rounded-[10px] bg-[#191F28] text-[#D8DCE2] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeBefore}</code>
                     </pre>
                   </div>
                   <div className="flex flex-col gap-[6px]">
                     <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#00C471]">After</p>
-                    <pre className="m-0 p-4 rounded-[10px] bg-[#0A2218] text-[#6EE7B7] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono flex-1">
+                    <pre className="m-0 p-4 rounded-[10px] bg-[#0A2218] text-[#6EE7B7] text-[12px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
                       <code>{rec.codeAfter}</code>
                     </pre>
                   </div>
@@ -447,9 +469,117 @@ function CareerModal({ type, onClose }: { type: ModalType; onClose: () => void }
   );
 }
 
+type NewsItem = typeof news[number];
+
+function ImprovementModal({ item, onClose }: { item: NewsItem; onClose: () => void }) {
+  const relatedRecords = perfRecords.filter((r) => item.metrics.includes(r.metric));
+
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/50 backdrop-blur-sm"
+      onClick={onClose}
+    >
+      <div
+        className="relative bg-white w-full sm:rounded-[20px] max-w-2xl max-h-[92vh] sm:max-h-[88vh] flex flex-col overflow-hidden rounded-t-[20px]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 헤더 */}
+        <div className="shrink-0 px-6 sm:px-8 pt-6 pb-4 border-b border-[#E5E8EB] flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#3182F6] m-0 mb-1">{item.date}</p>
+            <h3 className="m-0 text-[17px] sm:text-[20px] font-bold text-[#191F28] tracking-[-0.04em] break-keep leading-[1.3]">
+              {item.title}
+            </h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-full bg-[#F9FAFB] border border-[#E5E8EB] text-[#8B95A1] hover:bg-[#E5E8EB] transition-colors"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4l8 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        {/* 바디 */}
+        <div className="flex-1 overflow-y-auto px-6 sm:px-8 py-6 flex flex-col gap-6">
+          {/* 썸네일 */}
+          <div className="rounded-[14px] overflow-hidden aspect-video bg-[#F2F4F6] border border-[#E5E8EB]">
+            <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+
+          {/* 요약 */}
+          <p className="m-0 text-[15px] text-[#4E5968] leading-[1.8] tracking-[-0.02em] break-keep">{item.body}</p>
+
+          {/* 관련 개선 지표 */}
+          <div className="flex flex-col gap-5">
+            {relatedRecords.map((rec) => (
+              <div key={rec.metric} className="flex flex-col gap-3 p-5 rounded-[14px] bg-[#F9FAFB] border border-[#E5E8EB]">
+                {/* 메트릭 헤더 */}
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[11px] font-extrabold text-[#3182F6] tracking-[0.06em] uppercase bg-[#3182F6]/10 py-[3px] px-2 rounded-[6px]">
+                    {rec.metric}
+                  </span>
+                  <span className="text-[14px] font-bold text-[#191F28] tracking-[-0.03em]">{rec.label}</span>
+                  <span className="ml-auto text-[12px] font-extrabold py-[3px] px-2 rounded-[6px] whitespace-nowrap text-[#00C471] bg-[#E9FAF3]">
+                    {rec.delta}
+                  </span>
+                </div>
+
+                {/* Before → After */}
+                <div className="flex items-center gap-2 text-[13px]">
+                  <span className="text-[#8B95A1] line-through">{rec.before}</span>
+                  <span className="text-[#8B95A1]">→</span>
+                  <span className="font-bold text-[#191F28]">{rec.after}</span>
+                </div>
+
+                {/* 문제 / 해결 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="bg-white rounded-[10px] p-4 border border-[#E5E8EB]">
+                    <p className="m-0 mb-1.5 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#3182F6]">문제</p>
+                    <p className="m-0 text-[13px] text-[#4E5968] leading-[1.65] break-keep">{rec.problem}</p>
+                  </div>
+                  <div className="bg-white rounded-[10px] p-4 border border-[#E5E8EB]">
+                    <p className="m-0 mb-1.5 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#3182F6]">해결</p>
+                    <p className="m-0 text-[13px] text-[#4E5968] leading-[1.65] break-keep">{rec.solution}</p>
+                  </div>
+                </div>
+
+                {/* 코드 */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="flex flex-col gap-1.5">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#8B95A1]">Before</p>
+                    <pre className="m-0 p-3 rounded-[10px] bg-[#191F28] text-[#D8DCE2] text-[11px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                      <code>{rec.codeBefore}</code>
+                    </pre>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <p className="m-0 text-[11px] font-extrabold tracking-[0.06em] uppercase text-[#00C471]">After</p>
+                    <pre className="m-0 p-3 rounded-[10px] bg-[#0A2218] text-[#6EE7B7] text-[11px] leading-[1.7] overflow-x-auto whitespace-pre font-mono">
+                      <code>{rec.codeAfter}</code>
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function TossPage() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [modal, setModal] = useState<ModalType>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedNews, setSelectedNews] = useState<NewsItem | null>(null);
   const [claudeTitle, setClaudeTitle] = useState('');
   const [claudeSummaryText, setClaudeSummaryText] = useState('');
   const [claudeStepTitles, setClaudeStepTitles] = useState<string[]>(() => claudeWorkflow.steps.map(() => ''));
@@ -528,126 +658,83 @@ export default function TossPage() {
 
   useEffect(() => {
     if (!metricSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
-    const valueCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
-    valueCards.forEach((card) => {
-      const raw = card.dataset.metricValue ?? '';
+    // Count-up animation
+    const valueEls = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
+    valueEls.forEach((el) => {
+      const raw = el.dataset.metricValue ?? '';
       const numbers = raw.match(/\d+/g);
       if (!numbers) return;
-
       const target = parseInt(numbers[numbers.length - 1], 10);
       const prefix = raw.startsWith('~') ? '~' : '';
       const suffix = raw.replace(/[~\d]/g, '');
       const obj = { val: 0 };
-
       gsap.fromTo(obj, { val: 0 }, {
         val: target,
         duration: 1.6,
         ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
+        scrollTrigger: { trigger: metricSectionRef.current, start: 'top 70%', once: true },
         onUpdate() {
-          const display = numbers.length > 1
+          el.textContent = numbers.length > 1
             ? `${raw.split('~')[0]}~${Math.round(obj.val)}${suffix}`
             : `${prefix}${Math.round(obj.val)}${suffix}`;
-          card.textContent = display;
         },
       });
     });
 
-    const metricCards = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-card]');
-    const metricLabels = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-label]');
-    const metricValues = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-value]');
-    const metricNotes = metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-note]');
+    const slots = Array.from(metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-slot]'));
+    const allCards = Array.from(metricSectionRef.current.querySelectorAll<HTMLElement>('[data-metric-card]'));
 
-    gsap.fromTo(
-      metricCards,
-      {
-        opacity: 0,
-        y: 30,
-        backgroundColor: '#EBF3FF',
-        borderColor: '#93C5FD',
-        boxShadow: '0 22px 50px rgba(49,130,246,0.20)',
-      },
-      {
-        opacity: 1,
-        y: 0,
-        backgroundColor: '#ffffff',
-        borderColor: '#E5E8EB',
-        boxShadow: '0 0 0 rgba(49,130,246,0)',
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      }
-    );
+    // 초기 상태 설정
+    gsap.set(allCards, { backgroundColor: '#ffffff', boxShadow: '0 0 0 0px transparent', rotateX: 0, transformPerspective: 900 });
 
-    gsap.fromTo(
-      metricSectionRef.current.querySelectorAll('[data-metric-accent]'),
-      {
-        width: '0%',
-        opacity: 0,
-        backgroundColor: '#3182F6',
-      },
-      {
-        width: '100%',
-        opacity: 1,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
-      }
-    );
+    slots.forEach((slot, i) => {
+      const card = slot.querySelector<HTMLElement>('[data-metric-card]');
+      if (!card) return;
 
-    gsap.fromTo(
-      metricValues,
-      { color: '#3182F6', textShadow: '0 0 18px rgba(49,130,246,0.30)' },
-      {
-        color: '#191F28',
-        textShadow: '0 0 0 rgba(49,130,246,0)',
-        duration: 1,
-        stagger: 0.1,
-        ease: 'power2.out',
+      // 중앙 통과 시 활성화 → 비활성화 + 기울기 (단일 scrub으로 통합)
+      gsap.to(card, {
+        keyframes: [
+          {
+            rotateX: 0,
+            backgroundColor: '#EBF3FF',
+            boxShadow: '0 0 0 2px #3182F6, 0 8px 32px rgba(49,130,246,0.12)',
+            ease: 'power1.inOut',
+          },
+          {
+            rotateX: 5,
+            backgroundColor: '#ffffff',
+            boxShadow: '0 0 0 0px transparent',
+            ease: 'power1.in',
+          },
+        ],
         scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
+          trigger: slot,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
         },
-      }
-    );
+      });
 
-    gsap.fromTo(
-      [...metricLabels, ...metricNotes],
-      { color: '#1B64DA' },
-      {
-        color: '#8B95A1',
-        duration: 0.9,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: metricHeadingRef.current,
-          start: 'top 80%',
-          once: true,
-        },
+      // 다음 카드 진입 시 뒤로 축소
+      if (i < slots.length - 1) {
+        const nextSlot = slots[i + 1];
+        gsap.to(card, {
+          scale: 0.88,
+          transformOrigin: 'top center',
+          scrollTrigger: {
+            trigger: nextSlot,
+            start: 'top 90%',
+            end: 'top top',
+            scrub: 1.5,
+          },
+        });
       }
-    );
+    });
   }, []);
 
   useEffect(() => {
     if (!traitSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const cards = traitSectionRef.current.querySelectorAll<HTMLElement>('[data-trait-card]');
 
@@ -672,77 +759,36 @@ export default function TossPage() {
 
   useEffect(() => {
     if (!techSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
-    const cards = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-card]');
-    const badges = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-badge]');
-    const texts = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-text]');
+    const cards = Array.from(techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-card]'));
+    const allBadges = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-badge]');
+    const allTexts = techSectionRef.current.querySelectorAll<HTMLElement>('[data-tech-text]');
 
-    gsap.fromTo(
-      cards,
-      {
-        opacity: 0,
-        y: 28,
-        scale: 0.97,
-        backgroundColor: '#EBF3FF',
-        boxShadow: '0 18px 42px rgba(49,130,246,0.10)',
+    gsap.set(allBadges, { opacity: 0, y: 10, filter: 'blur(5px)' });
+    gsap.set(allTexts, { opacity: 0, y: 8 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: techSectionRef.current,
+        start: 'top 70%',
+        once: true,
       },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        backgroundColor: '#F9FAFB',
-        boxShadow: '0 0 0 rgba(49,130,246,0)',
-        duration: 0.65,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 78%',
-          once: true,
-        },
-      }
-    );
+    });
 
-    gsap.fromTo(
-      badges,
-      { opacity: 0, y: 12, filter: 'blur(6px)' },
-      {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 0.55,
-        stagger: 0.08,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 78%',
-          once: true,
-        },
-      }
-    );
+    cards.forEach((card, i) => {
+      const badge = card.querySelector<HTMLElement>('[data-tech-badge]');
+      const texts = card.querySelectorAll<HTMLElement>('[data-tech-text]');
+      const t = i * 0.3;
 
-    gsap.fromTo(
-      texts,
-      { opacity: 0, y: 16 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        stagger: 0.06,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: techSectionRef.current,
-          start: 'top 76%',
-          once: true,
-        },
-      }
-    );
+      tl.to(card, { boxShadow: '0 0 0 2px #3182F6, 0 8px 28px rgba(49,130,246,0.16)', backgroundColor: '#EBF3FF', duration: 0.22, ease: 'power2.out' }, t);
+      if (badge) tl.to(badge, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.28, ease: 'power2.out' }, t + 0.06);
+      tl.to(texts, { opacity: 1, y: 0, duration: 0.26, ease: 'power2.out', stagger: 0.04 }, t + 0.1);
+      tl.to(card, { boxShadow: 'none', backgroundColor: '#F9FAFB', duration: 0.38, ease: 'power2.inOut' }, t + 0.22);
+    });
   }, []);
 
   useEffect(() => {
     if (!contactSectionRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const items = contactSectionRef.current.querySelectorAll<HTMLElement>('[data-contact-item]');
 
@@ -769,7 +815,6 @@ export default function TossPage() {
 
   useEffect(() => {
     if (!contactSectionRef.current || !contactFrameRef.current) return;
-    gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
       gsap.timeline({
@@ -893,7 +938,8 @@ export default function TossPage() {
         observer.disconnect();
       },
       {
-        threshold: 0.35,
+        threshold: 0,
+        rootMargin: '0px 0px -15% 0px',
       }
     );
 
@@ -920,7 +966,9 @@ export default function TossPage() {
                 <span className="text-[12px] text-[#8B95A1] mt-[2px]">김혜빈 포트폴리오</span>
               </span>
             </a>
-            <nav className="flex items-center gap-1 flex-wrap">
+
+            {/* 데스크탑 nav */}
+            <nav className="hidden md:flex items-center gap-1">
               {PAGE_NAV_ITEMS.map((item) => (
                 <a
                   key={item.label}
@@ -937,8 +985,46 @@ export default function TossPage() {
                 연락하기
               </a>
             </nav>
+
+            {/* 모바일 오른쪽 버튼 */}
+            <div className="flex md:hidden items-center gap-2">
+              <a
+                href="mailto:hyebinkimdesign@gmail.com"
+                className="h-9 inline-flex items-center px-4 rounded-full text-[13px] font-bold bg-[#3182F6] text-white"
+              >
+                연락하기
+              </a>
+              <button
+                aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((v) => !v)}
+                className="w-10 h-10 flex flex-col items-center justify-center gap-[5px] rounded-full hover:bg-[#F2F4F6] transition-colors"
+              >
+                <span className={`block h-[1.5px] w-5 bg-[#191F28] transition-transform duration-200 origin-center ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`} />
+                <span className={`block h-[1.5px] w-5 bg-[#191F28] transition-opacity duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
+                <span className={`block h-[1.5px] w-5 bg-[#191F28] transition-transform duration-200 origin-center ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`} />
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* 모바일 드롭다운 메뉴 */}
+        {menuOpen && (
+          <div className="md:hidden border-t border-[#E5E8EB] bg-white/95 backdrop-blur-[20px]">
+            <nav className="w-[min(1152px,calc(100vw-48px))] mx-auto py-3 flex flex-col">
+              {PAGE_NAV_ITEMS.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="h-12 inline-flex items-center px-2 text-[15px] font-semibold text-[#4E5968] transition-colors hover:text-[#191F28]"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* 히어로 — GSAP pin 섹션 */}
@@ -957,16 +1043,16 @@ export default function TossPage() {
           style={{
             top: 'clamp(72px, 11vh, 120px)',
             left: 'clamp(24px, 5vw, 80px)',
-            maxWidth: 'min(560px, 46vw)',
+            maxWidth: 'min(560px, calc(100vw - 48px))',
             willChange: 'opacity, transform',
           }}
         >
-          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#3182F6]/10 text-[#3182F6] text-[13px] font-bold tracking-[0.02em]">
+          <p className="inline-flex items-center min-h-9 m-0 px-3.5 rounded-full bg-[#3182F6]/10 text-[#3182F6] text-[13px] font-bold tracking-[0.02em] break-keep">
             풀스택 개발 · 디자인 · SEO · 데이터 분석을 하는
           </p>
           <h1
             className="mt-5 mb-20 text-[#191F28] font-bold leading-[1.02] tracking-[-0.06em] break-keep"
-            style={{ fontSize: 'clamp(2.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
+            style={{ fontSize: 'clamp(1.8rem, 5vw, 5.1rem)', textWrap: 'balance' }}
           >
             웹 개발자 김혜빈입니다
           </h1>
@@ -975,12 +1061,11 @@ export default function TossPage() {
         {/* 영상 카드 */}
         <div
           ref={videoRef}
-          className="relative overflow-hidden bg-[#191F28] shrink-0"
+          className="relative overflow-hidden bg-[#191F28] shrink-0 h-[72vh] sm:h-[68vh] md:h-[62vh]"
           style={{
             width: '90vw',
-            height: '62vh',
             borderRadius: '20px',
-            boxShadow: '0 24px 72px rgba(0,0,0,0.18)',
+            boxShadow: '0 24px 72px rgba(49,130,246,0.10)',
             transform: 'translateY(24px)',
             willChange: 'width, height, border-radius',
           }}
@@ -1028,37 +1113,29 @@ export default function TossPage() {
       </div>
 
       {/* 개선 기록 섹션 */}
-      <section className="py-[88px] bg-[#F9FAFB]" id="news">
+      <section className="py-22 bg-[#F9FAFB]" id="news">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
-          <div className="flex items-end justify-between gap-5 mb-10">
-            <div>
-              <p className="mb-[10px] text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">개선 기록을 확인해보세요!</p>
-              <h2 className="m-0 text-[#191F28] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
-                개선 기록
-              </h2>
-            </div>
-            <Link
-              href="/foryou/daangn/improvements"
-              className="inline-flex items-center h-11 px-5 rounded-full border border-[#E5E8EB] text-[#191F28] bg-white text-[14px] font-bold flex-shrink-0 hover:bg-[#F2F4F6] transition-colors"
-            >
-              전체 기록 보러가기
-            </Link>
+          <div className="mb-10">
+            <p className="mb-2.5 text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">개선 기록을 확인해보세요!</p>
+            <h2 className="m-0 text-[#191F28] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+              개선 기록
+            </h2>
           </div>
           <div className="grid grid-cols-3 gap-5 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
             {news.map((item) => (
-              <a
+              <button
                 key={item.title}
-                href={item.href}
-                className="flex flex-col gap-[16px] transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(25,31,40,0.08)]"
+                onClick={() => setSelectedNews(item)}
+                className="flex flex-col gap-[16px] text-left transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(49,130,246,0.07)] cursor-pointer bg-transparent border-none p-0 mb-6"
               >
-                <div className="rounded-[16px] overflow-hidden aspect-video bg-[#F2F4F6]">
+                <div className="rounded-[16px] overflow-hidden aspect-video bg-[#F2F4F6] w-full">
                   <Image src={item.image} alt={item.title} width={600} height={338} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <div className="flex flex-col gap-[6px]">
                   <strong className="text-[20px] leading-[1.45] break-keep tracking-[-0.04em] text-[#191F28]">{item.title}</strong>
                   <span className="text-[#8B95A1] text-[13px] leading-[1.5]">{item.date}</span>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
           <div className="mt-20">
@@ -1068,7 +1145,7 @@ export default function TossPage() {
       </section>
 
       {/* Core Strengths 섹션 */}
-      <section id="strengths" className="py-[88px] bg-white">
+      <section id="strengths" className="py-22 bg-white">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
             <p className="mb-2.5 text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">Core Strengths</p>
@@ -1078,17 +1155,17 @@ export default function TossPage() {
           </div>
 
           {/* 프로필 카드 */}
-          <div className="bg-white border border-[#E5E8EB] rounded-[24px] overflow-hidden mb-8">
-            <div className="flex gap-7 items-start p-9 border-b border-[#E5E8EB]">
-              <div className="shrink-0 h-64 w-auto rounded-[16px] overflow-hidden bg-[#F9FAFB] border border-[#E5E8EB]">
-                <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto object-contain" />
+          <div className="bg-white border border-[#E5E8EB] rounded-[24px] overflow-hidden">
+            <div className="flex max-[768px]:flex-col gap-7 items-start p-9 max-[768px]:p-6 border-b border-[#E5E8EB]">
+              <div className="shrink-0 h-64 max-[768px]:h-48 w-auto max-[768px]:w-full rounded-[16px] overflow-hidden bg-[#F9FAFB] border border-[#E5E8EB]">
+                <Image src={about.photo} alt={about.name} width={256} height={256} className="h-full w-auto max-[768px]:w-full max-[768px]:h-full object-contain" />
               </div>
               <div className="flex flex-col gap-2.5">
                 <p className="m-0 text-[20px] font-extrabold text-[#191F28]">
                   {about.name}
                   <span className="text-[14px] font-medium text-[#8B95A1] ml-2">{about.role}</span>
                 </p>
-                <p className="m-0 text-[15px] leading-[1.75] text-[#191F28] max-w-150">{about.intro}</p>
+                <p className="m-0 text-[15px] leading-[1.75] text-[#191F28]">{about.intro}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {about.tags.map((tag) => (
                     <span key={tag} className="py-1 px-3 rounded-full bg-[#F2F4F6] border border-[#E5E8EB] text-[12px] font-semibold text-[#4E5968]">
@@ -1099,8 +1176,8 @@ export default function TossPage() {
               </div>
             </div>
 
-            <div className="px-9 py-7 border-b border-[#E5E8EB]">
-              <div className="grid grid-cols-3 gap-5 max-[820px]:grid-cols-1">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#E5E8EB]">
+              <div className="grid grid-cols-3 max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1 gap-5">
                 {experts.map((expert, idx) => {
                   const Icon = STRENGTH_ICONS[idx];
                   const isActive = idx === activeIdx;
@@ -1109,7 +1186,7 @@ export default function TossPage() {
                       key={expert.title}
                       className={`rounded-[16px] p-6 flex flex-col border transition-all duration-300 ${
                         isActive
-                          ? 'border-[#3182F6] bg-[#EBF3FF] shadow-[0_8px_24px_rgba(49,130,246,0.12)]'
+                          ? 'border-[#3182F6] bg-[#EBF3FF] shadow-[0_8px_24px_rgba(49,130,246,0.09)]'
                           : 'border-[#E5E8EB] bg-[#F9FAFB]'
                       }`}
                     >
@@ -1136,9 +1213,9 @@ export default function TossPage() {
             </div>
 
             {/* 경력 */}
-            <div className="px-9 py-7 border-b border-[#E5E8EB]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#E5E8EB]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#8B95A1] m-0 mb-4">경력</p>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-10">
                 {about.careers.map((c) => {
                   const isGlobal = c.company.includes('글로벌엠아이지');
                   const isYopil = c.company.includes('요필');
@@ -1185,7 +1262,7 @@ export default function TossPage() {
             </div>
 
             {/* 학력 */}
-            <div className="px-9 py-7 border-b border-[#E5E8EB]">
+            <div className="px-9 max-[768px]:px-5 py-7 border-b border-[#E5E8EB]">
               <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#8B95A1] m-0 mb-4">학력</p>
               <div className="flex flex-col gap-1.5">
                 <div className="flex items-baseline gap-3 flex-wrap">
@@ -1199,14 +1276,14 @@ export default function TossPage() {
             </div>
 
             {/* 강점/약점 */}
-            <div ref={traitSectionRef} className="grid grid-cols-2 gap-6 px-9 py-7">
+            <div ref={traitSectionRef} className="grid grid-cols-2 max-[768px]:grid-cols-1 gap-6 px-9 max-[768px]:px-5 py-7">
               <div className="flex flex-col gap-3">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#8B95A1] m-0 mb-1">이런 점이 강점이에요</p>
                 {about.strengths.map((s) => (
                   <div
                     key={s.title}
                     data-trait-card
-                    className="flex flex-col gap-2 bg-[#F9FAFB] border border-[#E5E8EB] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#EBF3FF] hover:border-[#93C5FD] hover:shadow-[0_12px_28px_rgba(49,130,246,0.08)]"
+                    className="flex flex-col gap-2 bg-[#F9FAFB] border border-[#E5E8EB] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#EBF3FF] hover:border-[#93C5FD] hover:shadow-[0_12px_28px_rgba(49,130,246,0.06)]"
                   >
                     <span className="text-[22px]">{s.emoji}</span>
                     <strong className="text-[14px] font-bold text-[#191F28]">{s.title}</strong>
@@ -1220,7 +1297,7 @@ export default function TossPage() {
                   <div
                     key={w.title}
                     data-trait-card
-                    className="flex flex-col gap-2 bg-[#F2F4F6] border border-[#DDE0E4] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#EBF3FF] hover:border-[#93C5FD] hover:shadow-[0_12px_28px_rgba(49,130,246,0.08)]"
+                    className="flex flex-col gap-2 bg-[#F2F4F6] border border-[#DDE0E4] rounded-[16px] p-5 transition-all duration-300 hover:-translate-y-[3px] hover:bg-[#EBF3FF] hover:border-[#93C5FD] hover:shadow-[0_12px_28px_rgba(49,130,246,0.06)]"
                   >
                     <span className="text-[22px]">{w.emoji}</span>
                     <strong className="text-[14px] font-bold text-[#191F28]">{w.title}</strong>
@@ -1235,9 +1312,10 @@ export default function TossPage() {
       </section>
 
       {/* 기술 스택 섹션 */}
-      <section ref={techSectionRef} className="py-[88px] bg-white">
+      <section ref={techSectionRef} className="py-22 bg-white">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
+            <p className="mb-2.5 text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">Tech Stack</p>
             <h2 className="m-0 text-[#191F28] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
               사용하는 기술 스택
             </h2>
@@ -1259,43 +1337,64 @@ export default function TossPage() {
       </section>
 
       {/* 실서비스 지표 섹션 */}
-      <section ref={metricSectionRef} className="py-[88px] bg-[#F9FAFB]">
+      <section ref={metricSectionRef} className="bg-[#F9FAFB]">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
-          <div ref={metricHeadingRef} className="mb-10">
-            <p className="mb-[10px] text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">실서비스 기준</p>
-            <h2 className="m-0 text-[#191F28] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
-              직접 설계하고 배포한 서비스들
-            </h2>
-          </div>
-          <div className="grid grid-cols-4 border border-[#E5E8EB] rounded-[20px] overflow-hidden max-[1100px]:grid-cols-2 max-[820px]:grid-cols-1">
-            {stats.map((item) => (
-              <article
-                key={item.label}
-                data-metric-card
-                className="relative overflow-hidden p-9 flex flex-col gap-2 border-r border-r-[#E5E8EB] last:border-r-0 bg-white transition-colors hover:bg-[#F9FAFB]"
-              >
-                <span
-                  data-metric-accent
-                  aria-hidden="true"
-                  className="absolute top-0 left-0 h-[3px] rounded-r-full opacity-0"
-                />
-                <p data-metric-label className="m-0 text-[#8B95A1] text-[13px] font-semibold">{item.label}</p>
-                <strong
-                  data-metric-value={item.value}
-                  className="font-extrabold leading-[1.1] text-[#191F28]"
-                  style={{ fontSize: 'clamp(2rem, 3vw, 3rem)', letterSpacing: '-0.04em' }}
+          <div className="flex flex-col md:flex-row md:gap-16 items-start">
+
+            {/* Left: sticky title */}
+            <div
+              ref={metricHeadingRef}
+              className="w-full md:w-[40%] shrink-0 pt-22 pb-6 md:pb-22 md:sticky md:top-[20vh] md:self-start md:pr-16"
+            >
+              <p className="mb-2.5 text-[#3182F6] text-[16px] font-bold tracking-[-0.02em] m-0">실서비스 기준</p>
+              <h2 className="m-0 text-[#191F28] font-bold leading-[1.2] tracking-[-0.05em] break-keep" style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}>
+                직접 설계하고<br />배포한 서비스들
+              </h2>
+              <p className="mt-5 m-0 text-[#8B95A1] text-[15px] leading-[1.7] break-keep">
+                기획부터 배포까지 단독으로<br className="hidden md:block" />진행한 실서비스의 주요 지표입니다.
+              </p>
+            </div>
+
+            {/* Right: stacked cards */}
+            <div className="w-full md:flex-1 min-w-0 pt-0 pb-22 flex flex-col gap-4 md:pt-22 md:block md:gap-0">
+              {stats.map((item, i) => (
+                <div
+                  key={item.label}
+                  data-metric-slot
+                  className="md:h-[90vh]"
                 >
-                  {item.value}
-                </strong>
-                <span data-metric-note className="text-[13px] text-[#8B95A1] mt-[2px]">{item.note}</span>
-              </article>
-            ))}
+                  <article
+                    data-metric-card
+                    className="bg-white rounded-3xl border border-[#E5E8EB] overflow-hidden md:sticky md:top-[20vh]"
+                    style={{ zIndex: i + 1 }}
+                  >
+                    <div className="p-8 md:p-12 flex flex-col items-center text-center justify-center gap-6 min-h-100 md:min-h-140">
+                      <div className="flex flex-col items-center gap-5">
+                        <p data-metric-label className="m-0 text-[#8B95A1] text-[11px] font-bold tracking-[0.09em] uppercase">{item.label}</p>
+                        <div className="flex flex-col items-center gap-2">
+                          <strong
+                            data-metric-value={item.value}
+                            className="font-extrabold leading-none text-[#191F28]"
+                            style={{ fontSize: 'clamp(3.5rem, 6vw, 5.5rem)', letterSpacing: '-0.04em' }}
+                          >
+                            {item.value}
+                          </strong>
+                          <span data-metric-note className="text-[15px] text-[#4E5968] font-medium leading-normal">{item.note}</span>
+                        </div>
+                      </div>
+                      <p className="m-0 text-[#B0B8C1] text-[13px] leading-[1.7] break-keep border-t border-[#F2F4F6] pt-5 w-full">{item.detail}</p>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+
           </div>
         </div>
       </section>
 
       {/* Projects 섹션 */}
-      <section className="py-[88px]" id="stories">
+      <section className="py-22" id="stories">
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
             <p className="mb-2.5 text-[#3182F6] text-[16px] font-bold tracking-[-0.02em]">Projects</p>
@@ -1307,7 +1406,7 @@ export default function TossPage() {
             {stories.map((story) => (
               <article
                 key={story.title}
-                className="flex flex-col rounded-[20px] p-5 bg-white border border-[#E5E8EB] gap-3.5 transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(25,31,40,0.08)] cursor-pointer"
+                className="flex flex-col rounded-[20px] p-5 bg-white border border-[#E5E8EB] gap-3.5 transition-all duration-200 hover:-translate-y-[3px] hover:shadow-[0_20px_40px_rgba(49,130,246,0.07)] cursor-pointer"
                 role="link"
                 tabIndex={0}
                 onClick={() => window.open(story.href, '_blank', 'noopener,noreferrer')}
@@ -1363,12 +1462,12 @@ export default function TossPage() {
       <section
         id="claude"
         ref={claudeSectionRef}
-        className="py-[88px]"
+        className="py-22"
         style={{ background: 'linear-gradient(160deg, #0D1B2E 0%, #141F32 100%)' }}
       >
         <div className="w-[min(1152px,calc(100vw-48px))] mx-auto">
           <div className="mb-10">
-            <p className="mb-[10px] text-[#3182F6]/90 text-[16px] font-bold tracking-[-0.02em]">AI-Driven Workflow</p>
+            <p className="mb-2.5 text-[#3182F6]/90 text-[16px] font-bold tracking-[-0.02em]">AI-Driven Workflow</p>
             <h2
               className="m-0 text-[#E8EAED] font-bold leading-[1.2] tracking-[-0.05em] break-keep"
               style={{ fontSize: 'clamp(2rem, 3.5vw, 2.7rem)' }}
@@ -1526,7 +1625,7 @@ export default function TossPage() {
               <p className="text-[14px] text-[#8B95A1] leading-[1.6] m-0">기획부터 개발, 성능 개선과 배포까지<br />직접 만드는 프론트엔드·풀스택 개발자입니다.</p>
               <p className="text-[13px] text-[#8B95A1] m-0 mt-auto opacity-60">© 2026 Hyebin Kim</p>
             </div>
-            <nav className="flex gap-12 flex-shrink-0">
+            <nav className="flex gap-8 max-[480px]:gap-6 flex-shrink-0">
               <div className="flex flex-col gap-[10px]">
                 <p className="text-[11px] font-bold tracking-[0.08em] uppercase text-[#191F28] m-0 mb-1">페이지</p>
                 <Link href="/" className="text-[14px] text-[#8B95A1] transition-colors hover:text-[#191F28]">포트폴리오 메인</Link>
@@ -1543,6 +1642,7 @@ export default function TossPage() {
       </footer>
 
       <CareerModal type={modal} onClose={() => setModal(null)} />
+      {selectedNews && <ImprovementModal item={selectedNews} onClose={() => setSelectedNews(null)} />}
     </main>
   );
 }

@@ -106,8 +106,8 @@ export const about = {
       tasks: [
         "클라이언트 상담부터 기획·디자인·개발·SEO·배포까지 단독 수행",
         "Figma UI/UX 설계 → 퍼블리싱 → 프론트·백엔드 개발 일괄 진행",
-        "네이버 프리미엄 로그 분석 및 부정 클릭 방지 운영",
-        "네이버·메타 광고 운영, 서치어드바이저 관리",
+        "네이버 프리미엄 로그 분석 및 부정 클릭 방지 설치",
+        "네이버·메타 광고 운영, GTM, GA4, 서치어드바이저 관리",
         "내부 프로그램 UI/UX 설계 및 광고 배너 디자인",
       ],
     },
@@ -117,7 +117,6 @@ export const about = {
       role: "UI/UX 디자인 인턴",
       tasks: [
         "네이버 고객센터 UI/UX 개선 작업 참여",
-       
         "UX 라이팅 제안 및 SVG 아이콘 통일 작업",
       ],
     },
@@ -128,6 +127,7 @@ export const about = {
       tasks: [
         "게임 이벤트 배너·마케팅 배너·사전예약 배너 제작",
         "아이 러브 버거, 마스터 오브 나이츠 등 모바일 게임 광고 배너 제작",
+        "마법의 잉크 프로젝트 UI/UX 디자인 및 배치",
         "운영 업무 및 그래픽 디자인 병행",
       ],
     },
@@ -197,10 +197,30 @@ export const experts = [
 ];
 
 export const stats = [
-  { label: "실서비스 프로젝트", value: "6개+", note: "기획·설계·개발·배포 단독" },
-  { label: "단독 기여도", value: "100%", note: "전 프로젝트 기준" },
-  { label: "LCP 개선", value: "~28%", note: "3.5s → ~2.5s 단축" },
-  { label: "이미지 최적화", value: "40~70%", note: "WebP 전환 기준 번들 감소" },
+  {
+    label: "실서비스 납품 이력",
+    value: "6개+",
+    note: "포트폴리오 공개 기준",
+    detail: "비공개로 진행한 프로젝트가 다수 포함되어 있어, 실제 납품 수는 이보다 많습니다.",
+  },
+  {
+    label: "단독 기여도",
+    value: "100%",
+    note: "전 프로젝트 공통",
+    detail: "기획·UI 설계·프론트엔드·백엔드·SEO·배포까지 전 과정을 혼자 수행한 프로젝트만 집계했습니다.",
+  },
+  {
+    label: "LCP 개선율",
+    value: "~28%",
+    note: "3.5s → 약 2.5s 단축",
+    detail: "next/image priority 설정 · Critical CSS 인라인 처리 · 웹폰트 font-display 최적화 적용.",
+  },
+  {
+    label: "이미지 번들 감소율",
+    value: "40~70%",
+    note: "PNG·JPG → WebP 전환 기준",
+    detail: "squoosh CLI 일괄 변환 후 next/image sizes 속성으로 뷰포트별 최적 해상도를 제공합니다.",
+  },
 ];
 
 export const techStack = [
@@ -602,19 +622,22 @@ export const news = [
   {
     title: "늦게 보이던 첫 화면, LCP 개선으로 앞당기기",
     date: "2026-04-15",
-    href: "/foryou/daangn/improvements",
     image: "/news/improvement-lcp-thumb.svg",
+    body: "히어로 이미지가 lazy load로 처리되어 LCP 대상 요소가 뷰포트에 늦게 렌더링되던 문제를 발견했습니다. next/image priority 속성과 폰트 최적화를 함께 적용해 체감 로딩을 크게 단축했습니다.",
+    metrics: ["LCP", "FCP"],
   },
   {
     title: "느린 첫 응답, 캐싱 전략으로 더 빠르게",
     date: "2026-04-10",
-    href: "/foryou/daangn/improvements",
     image: "/news/improvement-ttfb-thumb.svg",
+    body: "매 요청마다 서버에서 데이터를 fetch하고 렌더링해 응답이 느렸습니다. ISR과 Vercel Edge 캐싱, 정적 자산 Cache-Control 설정을 통해 TTFB를 70% 단축했습니다.",
+    metrics: ["TTFB", "Cache"],
   },
   {
     title: "무거운 이미지와 낮은 대비, 함께 정리한 최적화",
     date: "2026-04-08",
-    href: "/foryou/daangn/improvements",
     image: "/news/improvement-image-a11y-thumb.svg",
+    body: "PNG/JPG 원본 파일이 그대로 서빙되어 모바일에서 불필요하게 큰 이미지를 내려받고 있었습니다. WebP 전환과 함께 색상 대비·alt 속성 등 접근성 항목도 함께 개선했습니다.",
+    metrics: ["Image", "A11y"],
   },
 ];

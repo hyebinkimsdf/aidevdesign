@@ -34,6 +34,26 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Next.js 번들 — 파일명에 해시 포함, immutable
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        // 동영상 파일
+        source: "/:path*.mp4",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=604800, stale-while-revalidate=2592000",
+          },
+        ],
+      },
     ];
   },
 };

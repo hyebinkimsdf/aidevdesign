@@ -80,6 +80,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <noscript>
           <iframe
